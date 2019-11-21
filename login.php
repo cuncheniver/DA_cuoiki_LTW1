@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="../DA_cuoiki/image/logo.PNG">
-    <link rel="stylesheet" href="../DA_cuoiki/css/st1.css">
+    <link rel="shortcut icon" href="./image/logo.PNG">
+    <link rel="stylesheet" href="./css/st1.css">
+    <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script type="text/javascript"  src="js/st1.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -31,16 +33,17 @@
                         <h1>Register Account</h1>
                     </div>
                     <div class="form-content">
-                        <form>
+                        <form action="function.php" method="POST">
                             <div class="form-group"><label for="username">Username</label><input type="text" id="username" name="username" required="required" /></div>
                             <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" required="required" /></div>
                             <div class="form-group"><label for="cpassword">Confirm Password</label><input type="password" id="cpassword" name="cpassword" required="required" /></div>
                             <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required="required" /></div>
-                            <div class="form-group"><button type="submit">Register</button></div>
+                            <div class="form-group"><button name="register" type="submit">Register</button></div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
-            <script src="../DA_cuoiki/js/st1.js"></script>
+      
 </body>
 </html>
