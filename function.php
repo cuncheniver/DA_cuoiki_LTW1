@@ -74,6 +74,47 @@ function createUser($name,$pass)
     return $db->lastInsertId();
 }
 
+if (isset($_POST["login"])) 
+{
+    $username = $_POST["username"];
+    $pass = $_POST["password"];
+    $username = strip_tags($username);
+    $username = addslashes($username);
+    $pass = strip_tags($pass);
+    $pass = addslashes($pass);
+    $password = md5($pass);
+    $sql = "select * from login where user_name = '$username' and password = '$password' ";
+    $query = mysqli_query($connect,$sql);
+    $num_rows = mysqli_num_rows($query);
+    if ($num_rows==0) {
+        $_SESSION['loginfail']=1 ;
+        header('Location: login.php');
+    }else{
+       
+    $sql = "select id from login where user_name = '$username'";
+    $result = mysqli_query($connect, $sql);
+
+
+if ($result) {
+   
+    while ($row=mysqli_fetch_row($result)) {
+        $userId= $row[0];
+    }
+
+ 
+    mysqli_free_result($result);
+    $_SESSION['userId']=$userId ;
+   
+    }
+    $_SESSION['username'] = $username;
+ 
+  
+ 
+    setcookie('$username','$password');
+      header('Location: homeuser.php');
+}
+}
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
