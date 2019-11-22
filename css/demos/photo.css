@@ -10066,7 +10066,13 @@ a.navbar-brand:hover {
 .sidebar .list a {
     color: #546e7a;
     position: relative;
-    padding: 5px 10px;
+    padding: 20px 10px;
+}
+.h4, .h5, .h6, h4, h5, h6 {
+
+    margin-top: 10px!important ;
+    margin-bottom: 20px !important;
+
 }
 
 .sidebar .user-info {
