@@ -1,4 +1,8 @@
-
+<?php
+ob_start();
+session_start();
+error_reporting(0);
+?>
 <!-- Form-->
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +17,37 @@
     <title>Login</title>
 </head>
 <body>
+  
         <div class="form">
+       
+               
+          
                 <div class="form-toggle"></div>
                 <div class="form-panel one">
+                <?php
+
+
+
+if($_SESSION['used'])
+{echo "Mail kích hoat đã gửi vào email của bạn";
+    echo $_SESSION['used'];
+    unset($_SESSION['used']);}
+
+    if($_SESSION['ok'])
+{echo "đăng ký thành công";
+    unset($_SESSION['ok']);
+   }
+   if($_SESSION['fail'])
+   {echo "tài khoản đã tồn tại";
+       unset($_SESSION['fail']);
+      }
+
+?>
+
+ 
+                    
+           
+
                     <div class="form-header">
                         <h1>Account Login</h1>
                     </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -9,38 +10,45 @@ $host = "localhost";
 $username = "root";
 $password = "";
 $dbName = "social";
+$db = new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
 $connect = mysqli_connect($host,$username,'',$dbName);
 if (isset($_POST["register"])) 
 {
-    $ten=mysqli_real_escape_string($connect,$_POST['name']);
-    $_SESSION['ten']=$ten;
-    $name=mysqli_real_escape_string($connect,$_POST['mail']);
-    $_SESSION['mail']=$name;
-    $pass=mysqli_real_escape_string($connect,$_POST['pass']);
+    $name=mysqli_real_escape_string($connect,$_POST['username']);
+    $_SESSION['ten']=$name;
+    $mail=mysqli_real_escape_string($connect,$_POST['email']);
+    $_SESSION['mail']=$mail;
+    $pass=mysqli_real_escape_string($connect,$_POST['password']);
     $_SESSION['pass']=$pass;
-    
-    
-    if (  $pass == "" || $name == "" || $ten="") {
+
+  
+    if (  $pass == "" || $mail == "" || $name="") {
         echo "bạn vui lòng nhập đầy đủ thông tin";
     }
     else 
     {
-        
-          $sq="select * from login where mail='$name'";
+      $name= $_SESSION['ten'];
+          $sq="select * from login where email='$mail' or user_name='$name'";
             $kt=mysqli_query($connect, $sq);
-    
+            
             if(mysqli_num_rows($kt)  > 0){
-                echo "Tài khoản đã tồn tại, vui lòng dùng tài khoản khác";
+                $_SESSION['fail'] = true;
+               echo "k";
+               header('location: login.php');
             }else{
-        $success = false;
-if (isset($name)) {
-    $email = $name;
-    
+                $_SESSION['used']=$mail;
+               
+                
+       
+if (isset($mail)) {
+    $email = $mail;
+  
     if($email)
     {
+        
         $secret =generateRandomString();
-        sendEmail($email,'Kick hoat tai khoan','click <a href="http://localhost:8080/dd.php
-        "> vao day</a>');
+        sendEmail($email,'Kick hoat tai khoan','click <a href="http://localhost:8080/DA_cuoiki_LTW1/dd.php"> vao day</a>');
+        header('location: login.php');
        
       
     }
@@ -48,14 +56,32 @@ if (isset($name)) {
     {
         echo "email khong ton tai";
     }
-
-    header('location: thongbao.php');
+ 
+  
 }
 
-    
+
     
 }
 }
+}
+function createUser($name,$pass)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO login (name,pass) VALUES(?,?)");
+    $stmt -> execute(array($name,$pass));
+    
+    return $db->lastInsertId();
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
 
 function sendEmail($email,$subject,$content)
@@ -82,7 +108,7 @@ $mail->isHTML(true);                                  // Set email format to HTM
 $mail->Subject = $subject;
 $mail->Body    = $content;
 
-
+$_SESSION['used'] = $email  ;
 $mail->send();
 return true;
 } catch (Exception $e) {
