@@ -111,10 +111,25 @@ if ($result) {
   
  
     setcookie('$username','$password');
-      header('Location: homeuser.php');
+      header('Location: home.php');
 }
 }
 
+function findUserById($id){
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM login WHERE id=? LIMIT 1");
+    $stmt -> execute(array($id));
+    $user = $stmt ->fetch(PDO::FETCH_ASSOC);
+    return $user;   
+}   
+function findProfile($userName)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM infor WHERE name=? LIMIT 1");
+    $stmt -> execute(array($userName));
+    $user = $stmt ->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
