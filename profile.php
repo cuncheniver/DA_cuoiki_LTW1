@@ -39,13 +39,78 @@ News Feed Section
       <li>
        <div class="user-info">
         <div class="image">
-         <a href="photo_profile_two.html">
-          <img src="upload/admin.jpg" class="img-responsive img-circle" alt="User">
+       
+         <a   href="">
+          <img id="map"  src="upload/admin.jpg" class="img-responsive img-circle" alt="User">
           <span class="online-status online"></span>
          </a>
         </div>
-        
+        <h2>Edit Profile</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Edit</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Edit Profile</h2>
+    </div>
+    <div class="modal-body">
+    <div class="row" style="padding-left:30%;">
+    <div class="col-lg-3">
+    <img id="map" style="height=50%" src="upload/admin.jpg" class="img-responsive img-circle" alt="User">
+    </div>
+    <div class="col-lg-1" >
+    <div class="form-content">
+                 <form action="function.php" method="POST">
+                            <div class="form-group"><label for="username">Full Name</label><input type="text" id="name" name="name" required="required"               /> </div>
+                            <div class="form-group"><label for="password">Phone</label><input type="tel" id="phone" name="Phone number" required="required" /></div>
+             
+                            <div class="form-group"><button name="Save" type="submit">Save</button></div>
+                        </form>
+                    </div>
+    </div>
+    </div>
+   
+    </div>
+  
+  </div>
+
+</div>
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
         <div class="detail">
+       
+
          <h4><?php print_r($profile['user_fullName']); ?></h4>
         <small> Contact: <?php print_r($profile['user_contact']); ?> </small>                        
         </div>

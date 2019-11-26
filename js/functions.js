@@ -2054,7 +2054,7 @@ $(document).ready(function() {
 	reload();
 });
 function reload() {
-	jQuery(".timeago").timeago('updateFromDOM');
+	
 	autosize();
 	// Reset menu, search
 	manageResults(0);
@@ -2170,7 +2170,7 @@ function gallery(id, uid, type, target) {
 	}
 	
 	// Put the content
-	$('.image-content').html('<img src="'+baseUrl+'/thumb.php?src='+id+'&t='+type.charAt(0)+'&zc=3" class="ri">').fadeIn(300);
+
 	$('.gallery-footer-container').html('<div class="message-avatar">'+($('#avatar'+prefix+uid).html() ? $('#avatar'+prefix+uid).html() : '')+'</div><div class="message-top"><a onclick="gallery(\'close\')" title="'+lng_close+'"><div class="delete_btn"></div></a><a href="'+baseUrl+'/uploads/'+type+'/'+id+'" title="'+lng_download+'" target="_blank" download><div class="download_btn"></div></a><div class="message-author">'+($('#author'+prefix+uid).html() ? $('#author'+prefix+uid).html() : '')+'</div><div class="message-time">'+($('#time'+prefix+uid).html() ? $('#time'+prefix+uid).html() : '')+'</div></div>');
 	jQuery('.timeago').timeago();
 	
