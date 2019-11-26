@@ -72,7 +72,49 @@ News Feed Section
    </div><!--/ col-lg-3-->
    
    <div class="col-lg-6" style="background: #fff;">
-    
+   <div class="message-form-content">
+    <div class="message-form-header">
+        <div class="message-form-user"><img src="http://localhost:8080/phpsocial//thumb.php?src=default.png&amp;t=a"></div>
+        Update your status
+        <div class="message-form-private"></div>
+        <div class="message-loader" id="post-loader9999999999" style="visibility: hidden">
+            <div class="preloader"></div>
+        </div>
+    </div>
+
+    <div class="message-form-inner">
+        <textarea id="post9999999999" class="message-form" placeholder="What's on your mind?" name="message" style="height: 28px;"></textarea>
+    </div>
+    <div id="plugins-forms" style="display: none;"></div>
+
+    <input type="hidden" name="privacy" id="message-privacy" value="1">
+    <input type="hidden" name="group" id="message-group" value="">
+    <input type="hidden" name="page" id="message-page" value="">
+
+    <div class="selected-files" id="queued-files"></div>
+    <div class="message-form-input" style="display: none;"><input type="text" name="value" id="form-value"></div>
+    <div id="values">
+        <label id="open_images" title="Upload images"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/camera.svg"></label>
+        <input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/video.svg"></label>
+        <input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" title="Add a place"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/map.svg"></label>
+        <input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title="Add a visited location"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/visited.svg"></label>
+        <input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title="Share a song or a link from SoundCloud"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/music.svg"></label>
+        <input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title="Add a played game"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/game.svg"></label>
+        <input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="Add a place where you ate at"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/food.svg"></label>
+
+        <input name="images[]" id="images" size="27" type="file" class="inputImage" title="Upload images" multiple="multiple" accept="image/*">
+    </div>
+
+    <div type="button" name="action" class="message-btn button-active" value="Post"><a onclick="startUpload()">Post</a></div>
+    <div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="Who should see the message" id="privacy-button"><a>
+            <div id="privacy-btn" class="privacy-icons public-icon"></div>
+        </a></div>
+    <div id="message-menu9999999999" class="message-menu-container message-menu-privacy">
+        <div class="message-menu-row" onclick="postPrivacy(1)">Public</div>
+        <div class="message-menu-row" onclick="postPrivacy(2)">Friends</div>
+        <div class="message-menu-row" onclick="postPrivacy(0)">Private</div>
+    </div>
+</div>
     <div class="row">
     
      <div class="col-lg-6">
@@ -416,19 +458,7 @@ Modal Section
 <!-- ==============================================
 Scripts
 =============================================== -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/base.js"></script>
-<script src="assets/plugins/slimscroll/jquery.slimscroll.js"></script>
-<script>
-$('#Slim,#Slim2').slimScroll({
-       height:"auto",
-       position: 'right',
-       railVisible: true,
-       alwaysVisible: true,
-       size:"8px",
-   });		
-</script>
+
 
 
 

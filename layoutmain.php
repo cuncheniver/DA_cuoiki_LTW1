@@ -28,6 +28,7 @@
 		=============================================== -->
    
     <link type="text/css" href="css/demos/photo.css" rel="stylesheet">
+    <link type="text/css" href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
     
 
@@ -35,8 +36,11 @@
 		Feauture Detection
 		=============================================== -->
     <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
-    <script type="text/javascript"  src="js/st1.js"></script>
-    <script src="js/modernizr-custom.js"></script>
+   
+    <script type="text/javascript"  src="js/functions.js"></script>
+    <script type="text/javascript"  src="js/jquery.js"></script>
+   
+   
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -178,4 +182,20 @@
         </div>
     </section>
 
+
+<footer>
+<script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="plugins/slimscroll/jquery.slimscroll.js"></script>
+<script>
+$('#Slim,#Slim2').slimScroll({
+       height:"auto",
+       position: 'right',
+       railVisible: true,
+       alwaysVisible: true,
+       size:"8px",
+   });		
+</script>
+</footer>
 </body>

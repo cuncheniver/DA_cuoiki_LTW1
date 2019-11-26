@@ -122,10 +122,11 @@ function findUserById($id){
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;   
 }   
+
 function findProfile($userName)
 {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM infor WHERE name=? LIMIT 1");
+    $stmt = $db->prepare("SELECT * FROM infor WHERE user_ID=? LIMIT 1");
     $stmt -> execute(array($userName));
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;

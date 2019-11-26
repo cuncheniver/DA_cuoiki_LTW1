@@ -1,7 +1,23 @@
 <?php
+require_once 'function.php';
 ob_start();
-session_start();
 error_reporting(0);
+if (!isset($_SESSION))
+  {
+    session_start();
+  }
+  $userId =$_SESSION['userId'];
+   $currentUser= findUserById($userId); 
+  
+
+   if($currentUser)
+   {
+    
+     header('location: home.php');
+     exit(0);
+   }
+
+
 ?>
 <!-- Form-->
 <!DOCTYPE html>
@@ -14,6 +30,29 @@ error_reporting(0);
     <link rel="stylesheet" href="./css/st1.css">
     <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
     <script type="text/javascript"  src="js/st1.js"></script>
+    <script> $(document).ready(function() {
+    var panelOne = $('.form-panel.two').height(),
+      panelTwo = $('.form-panel.two')[0].scrollHeight;
+  
+    $('.form-panel.two').not('.form-panel.two.active').on('click', function(e) {
+     
+  
+      $('.form-toggle').addClass('visible');
+  
+      $('.form-panel.two').addClass('active');
+     
+    });
+  
+    $('.form-toggle').on('click', function(e) {
+     
+      $(this).removeClass('visible');
+     
+      $('.form-panel.two').removeClass('active');
+   
+    });
+    
+  });
+</script>
     <title>Login</title>
 </head>
 <body>
