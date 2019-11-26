@@ -10,8 +10,10 @@ $host = "localhost";
 $username = "root";
 $password = "";
 $dbName = "social";
-$db = new PDO("mysql:host=$host;dbname=$dbName", $username, $password);
+$db = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8mb4", $username, $password);
+$db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $connect = mysqli_connect($host,$username,'',$dbName);
+mysqli_set_charset($connect, 'UTF8');
 if (isset($_POST["register"])) 
 {
     $name=mysqli_real_escape_string($connect,$_POST['username']);
@@ -123,13 +125,19 @@ function findUserById($id){
     return $user;   
 }   
 
-function findProfile($userName)
+function findProfile($userId)
 {
     global $db;
-    $stmt = $db->prepare("SELECT * FROM infor WHERE user_ID=? LIMIT 1");
-    $stmt -> execute(array($userName));
+    $stmt = $db->prepare("SELECT * FROM `profile` WHERE user_ID=? LIMIT 1");
+  
+    $stmt -> execute(array($userId));
+    
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;
+
+
+
+		return $result->fetch_assoc();
 }
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

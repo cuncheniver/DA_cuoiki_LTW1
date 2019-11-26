@@ -7,9 +7,11 @@ if (!isset($_SESSION))
     session_start();
   }
   $userId =$_SESSION['userId'];
+  $profile = findProfile($userId);
    $currentUser= findUserById($userId); 
-  
-
+   
+    
+    
    if(!$currentUser)
    {
     
@@ -42,9 +44,10 @@ News Feed Section
           <span class="online-status online"></span>
          </a>
         </div>
+        
         <div class="detail">
-         <h4>Vanessa Wells</h4>
-         <small>@vanessa</small>                        
+         <h4><?php print_r($profile['user_fullName']); ?></h4>
+        <small> Contact: <?php print_r($profile['user_contact']); ?> </small>                        
         </div>
         <div class="row">
          <div class="col-12">
@@ -81,7 +84,7 @@ News Feed Section
             <div class="preloader"></div>
         </div>
     </div>
-
+            
     <div class="message-form-inner">
         <textarea id="post9999999999" class="message-form" placeholder="What's on your mind?" name="message" style="height: 28px;"></textarea>
     </div>

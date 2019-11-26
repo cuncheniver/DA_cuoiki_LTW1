@@ -63,7 +63,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><i class="fa fa-instagram"></i> Fluffs</a>
+                    <a class="navbar-brand" href="home.php"><i class="fa fa-instagram"></i> Fluffs</a>
                 </div><!-- /.navbar-header -->
                 <div class="navbar-left">
                     <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -139,9 +139,9 @@
                             <div class="dropdown-menu w dropdown-menu-scale pull-right">
                                 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"><span>Profile</span></a>
+                                <a class="dropdown-item" href="profile.php"><span>Profile</span></a>
                                 
-                                <a class="dropdown-item" href="#">Need help?</a>
+                                <a class="dropdown-item" href="setting.php">Setting</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="out.php">Sign out</a>
                             </div>
