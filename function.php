@@ -196,6 +196,9 @@ function findUserById($id){
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;   
 }   
+if(isset($_POST["action"])) {
+    echo"ok";
+}
 
 function findProfile($userId)
 {

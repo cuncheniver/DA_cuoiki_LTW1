@@ -2293,3 +2293,9 @@ function doMention(id, find, replace) {
 	$('#mentions-container').remove();
 	$('#'+id).focus();
 }
+function startUpload() {
+	document.getElementById("postForm").target = "frameForm";
+	document.getElementById("postForm").submit();
+	document.getElementById("post-loader9999999999").style.visibility = "visible";
+	$('#mentions-container').remove();
+}
