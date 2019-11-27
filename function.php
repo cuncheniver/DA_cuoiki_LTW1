@@ -116,7 +116,79 @@ if ($result) {
       header('Location: home.php');
 }
 }
+if (isset($_POST["Save"])) {
 
+    $user_id = $_SESSION['userId'];
+  
+    $ten = $_POST["name"];
+   
+    
+    $sdt = $_POST["phone"];
+    $tenanh=$_FILES['image']['name'];
+    $fileExt = explode('.',$tenanh);
+    $fileActualExt = strtolower(end($fileExt));
+    if(!empty($tenanh))
+    {
+      $tmp = $_FILES['image']['tmp_name'];
+      $tenanh =$user_id.".".$fileActualExt ; // goi so cho anh de khong trung
+      $newp='upload/'.$tenanh;
+      $_SESSION['anh']=$tenanh;
+      if(!move_uploaded_file($tmp,$newp))
+      {
+        $error ='upload anh that bai';
+      }
+      else{
+        
+        move_uploaded_file($tmp,$newp);
+        
+    $sq = "select * from profile where user_ID = '$user_id' ";
+    $query = mysqli_query($connect,$sq);
+    $num_rows = mysqli_num_rows($query);
+    if ($num_rows==0) {
+      $sql1 = "INSERT INTO profile(user_ID,user_fullName,user_contact,user_image) VALUES ( '$user_id','$ten', '$sdt','$tenanh')";
+      mysqli_query($connect,$sql1);
+    }
+    else{
+        
+        
+        $sql = " UPDATE profile SET user_fullName ='".$ten."',user_contact='".$sdt."', user_image ='".$tenanh."' where user_ID='".$user_id."' ";
+        mysqli_query($connect,$sql);
+    } 
+       
+      
+        
+        
+        $_SESSION['link'] =$newp;
+      
+      }
+    }else{
+             
+    $sq = "select * from profile where user_ID = '$user_id' ";
+    $query = mysqli_query($connect,$sq);
+    $num_rows = mysqli_num_rows($query);
+    if ($num_rows==0) {
+      $sql1 = "INSERT INTO profile(user_ID,user_fullName,user_contact,user_image) VALUES ( '$user_id','$ten', '$sdt','')";
+      mysqli_query($connect,$sql1);
+    }
+    else{
+        
+        
+        $sql = " UPDATE profile SET user_fullName ='".$ten."',user_contact='".$sdt."' where user_ID='".$user_id."' ";
+        mysqli_query($connect,$sql);
+    } 
+       
+    }
+    $_SESSION['link'] =$newp;
+
+    header('location: profile.php');
+
+
+
+
+
+
+
+  }
 function findUserById($id){
     global $db;
     $stmt = $db->prepare("SELECT * FROM login WHERE id=? LIMIT 1");

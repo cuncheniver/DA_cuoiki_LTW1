@@ -1,3 +1,24 @@
+<?php 
+ob_start();
+require_once 'function.php';
+
+if (!isset($_SESSION))
+  {
+    session_start();
+  }
+  $userId =$_SESSION['userId'];
+  $profile = findProfile($userId);
+   $currentUser= findUserById($userId); 
+   
+    
+    
+   if(!$currentUser)
+   {
+    
+     header('location: Login.php');
+     exit(0);
+   }
+?>
 <html lang="en">
 
 <head>
@@ -212,7 +233,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
                         <li class="dropdown mega-avatar">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <span class="avatar w-32"><img src="upload" class="img-resonsive img-circle" alt="..." width="25" height="25"></span>
+                                <span class="avatar w-32"><img src="upload/<?php print_r($profile['user_image']); ?>" class="img-resonsive img-circle" alt="..." width="25" height="25"></span>
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">
                                 <?php print_r($_SESSION['username']) ?>

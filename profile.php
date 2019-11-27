@@ -41,7 +41,7 @@ News Feed Section
         <div class="image">
        
          <a   href="">
-          <img id="map"  src="upload/admin.jpg" class="img-responsive img-circle" alt="User">
+          <img id="map"  src="upload/<?php print_r($profile['user_image']); ?>" class="img-responsive img-circle" alt="User">
           <span class="online-status online"></span>
          </a>
         </div>
@@ -61,36 +61,36 @@ News Feed Section
     </div>
     <div class="modal-body">
     <div class="row" style="padding-left:20%;">
-    <div class="col-lg-3">
+    <div class="col-lg-2">
     <script type="text/javascript">
      function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
                 reader.onload = function (e) {
-                  $('#ns').css('background-image', 'url(' + e.target.result+ ')');
-                    $('#blah')
-                        .attr('background-images' , e.target.result)
-                        .width(150)
-                        .height(200);
+                  $('#ns').css('background-image', 'url(' + e.target.result+ ')','center center;');
+                          
+                    
                 };
 
                 reader.readAsDataURL(input.files[0]);
             }
         }
 </script>
-    <form  action="homeuser.php" method="POST" enctype="multipart/form-data">
-
-  <input id="ns" onchange="readURL(this);" type="file" name="image" accept="image/gif, image/jpeg, image/png" for="avatarselect" class="page-input-title-img" style="background: url(upload/admin.jpg) center center;">
-  
-</form>
+   
    
     </div>
-    <div class="col-lg-4" >
+    <div class="col-lg-8" >
     <div class="form-content">
-                 <form action="function.php" method="POST">
+    
+                 
+                 <form  action="function.php" method="POST" enctype="multipart/form-data">
+
+<input id="ns"  onchange="readURL(this);" type="file" name="image" accept="image/gif, image/jpeg, image/png" for="avatarselect" class="page-input-title-img" style="background: url(upload/<?php print_r($profile['user_image']); ?>) center center;background-size: cover !important;">
+
+
                             <div class="form-group"><label for="username">Full Name</label><input type="text" id="name" name="name" required="required"    value="<?php print_r($profile['user_fullName']); ?>   "        /> </div>
-                            <div class="form-group"><label for="password">Phone</label><input type="tel" id="phone" name="Phone number" required="required" value=<?php print_r($profile['user_contact']); ?> /></div>
+                            <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" required="required" value=<?php print_r($profile['user_contact']); ?> /></div>
              
                             <div class="form-group"><button name="Save" type="submit">Save</button></div>
                         </form>
