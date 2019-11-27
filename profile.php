@@ -22,7 +22,7 @@ if (!isset($_SESSION))
 <body>
 
 <!-- ==============================================
-Navigation Section
+Navigation Sectionf
 =============================================== -->  
 
 
@@ -60,15 +60,37 @@ News Feed Section
       <h2>Edit Profile</h2>
     </div>
     <div class="modal-body">
-    <div class="row" style="padding-left:30%;">
+    <div class="row" style="padding-left:20%;">
     <div class="col-lg-3">
-    <img id="map" style="height=50%" src="upload/admin.jpg" class="img-responsive img-circle" alt="User">
+    <script type="text/javascript">
+     function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                  $('#ns').css('background-image', 'url(' + e.target.result+ ')');
+                    $('#blah')
+                        .attr('background-images' , e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+    <form  action="homeuser.php" method="POST" enctype="multipart/form-data">
+
+  <input id="ns" onchange="readURL(this);" type="file" name="image" accept="image/gif, image/jpeg, image/png" for="avatarselect" class="page-input-title-img" style="background: url(upload/admin.jpg) center center;">
+  
+</form>
+   
     </div>
-    <div class="col-lg-1" >
+    <div class="col-lg-4" >
     <div class="form-content">
                  <form action="function.php" method="POST">
-                            <div class="form-group"><label for="username">Full Name</label><input type="text" id="name" name="name" required="required"               /> </div>
-                            <div class="form-group"><label for="password">Phone</label><input type="tel" id="phone" name="Phone number" required="required" /></div>
+                            <div class="form-group"><label for="username">Full Name</label><input type="text" id="name" name="name" required="required"    value="<?php print_r($profile['user_fullName']); ?>   "        /> </div>
+                            <div class="form-group"><label for="password">Phone</label><input type="tel" id="phone" name="Phone number" required="required" value=<?php print_r($profile['user_contact']); ?> /></div>
              
                             <div class="form-group"><button name="Save" type="submit">Save</button></div>
                         </form>
@@ -162,13 +184,13 @@ window.onclick = function(event) {
     <div class="selected-files" id="queued-files"></div>
     <div class="message-form-input" style="display: none;"><input type="text" name="value" id="form-value"></div>
     <div id="values">
-        <label id="open_images" title="Upload images"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/camera.svg"></label>
-        <input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/video.svg"></label>
-        <input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" title="Add a place"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/map.svg"></label>
-        <input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title="Add a visited location"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/visited.svg"></label>
-        <input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title="Share a song or a link from SoundCloud"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/music.svg"></label>
-        <input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title="Add a played game"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/game.svg"></label>
-        <input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="Add a place where you ate at"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/events/food.svg"></label>
+        <label id="open_images" title="Upload images"><img src="./image/icons/events/camera.svg"></label>
+        <input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="./image/icons/events/video.svg"></label>
+        <input type="radio" name="type" value="map" id="map" class="input_hidden"><label for="map" title="Add a place"><img src="./image/icons/events/map.svg"></label>
+        <input type="radio" name="type" value="visited" id="visited" class="input_hidden"><label for="visited" title="Add a visited location"><img src="./image/icons/events/visited.svg"></label>
+        <input type="radio" name="type" value="music" id="music" class="input_hidden"><label for="music" title="Share a song or a link from SoundCloud"><img src="./image/icons/events/music.svg"></label>
+        <input type="radio" name="type" value="game" id="game" class="input_hidden"><label for="game" title="Add a played game"><img src="./image/icons/events/game.svg"></label>
+        <input type="radio" name="type" value="food" id="food" class="input_hidden"><label for="food" title="Add a place where you ate at"><img src="./image/icons/events/food.svg"></label>
 
         <input name="images[]" id="images" size="27" type="file" class="inputImage" title="Upload images" multiple="multiple" accept="image/*">
     </div>

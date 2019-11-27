@@ -26,7 +26,7 @@
     <!-- ==============================================
 		CSS
 		=============================================== -->
-   
+        <link rel="stylesheet" href="./css/st1.css">
     <link type="text/css" href="css/demos/photo.css" rel="stylesheet">
     <link type="text/css" href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />

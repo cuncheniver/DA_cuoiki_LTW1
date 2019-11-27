@@ -1909,7 +1909,7 @@ font-size: 11px;
 padding-top: 3px;
 }
 .page-input-title-img {
-margin: -75px 0 0 10px;
+margin: 0 !important;
 width: 100px;
 height: 100px;
 cursor: pointer;
