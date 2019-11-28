@@ -270,9 +270,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </a>
             </div>
             <div class="p-2 nav-icon-lg dark-black">
-                <a class="nav-icon" href="upload.php"><em class="fa fa-instagram"></em>
-                    <span>Upload</span>
-                </a>
+               
             </div>
             <div class="p-2 nav-icon-lg clean-black">
             <a class="nav-icon" href="profile.php"><em class="fa fa-user"></em>

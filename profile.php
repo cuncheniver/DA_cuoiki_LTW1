@@ -163,7 +163,7 @@ window.onclick = function(event) {
    
    <div class="col-lg-6" style="background: #fff;">
    <div class="message-container">
-	<form id="postForm" name="form" action="function.php" method="POST" enctype="multipart/form-data">
+	<form  name="form" action="function.php" method="POST" enctype="multipart/form-data">
 		<div class="message-form-content">
 			<div class="message-form-header">
 				<div class="message-form-user"></div>
@@ -173,13 +173,12 @@ window.onclick = function(event) {
 			</div>
 			
 			<div class="message-form-inner">
-				<textarea id="post9999999999" class="message-form" placeholder="What's on your mind?" name="message"></textarea>
+				<textarea id="post9999999999" class="message-form" placeholder="What's on your mind?" name="context"></textarea>
 			</div>
 			<div id="plugins-forms" style="display: none;"></div>
 			
-			<input type="hidden" name="privacy" id="message-privacy" value="1">
-			<input type="hidden" name="group" id="message-group" value="">
-			<input type="hidden" name="page" id="message-page" value="">
+			
+		
 			
 			<div class="selected-files" id="queued-files"></div>
 			<div class="message-form-input"><input type="text" name="value" id="form-value"></div>

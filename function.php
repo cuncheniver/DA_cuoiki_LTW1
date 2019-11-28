@@ -197,7 +197,35 @@ function findUserById($id){
     return $user;   
 }   
 if(isset($_POST["action"])) {
-    echo"ok";
+   
+    $user_id = $_SESSION['userId'];
+   $x='';
+$i = 0 ;   
+    foreach ($_FILES['images']['name'] as $file)
+            {
+                    
+                    
+                    $errors= array();
+                    $file_name = $_FILES['images']['name'][$i];
+                    $file_size =$_FILES['images']['size'][$i];
+                    $file_tmp =$_FILES['images']['tmp_name'][$i];
+                    $file_type=$_FILES['images']['type'][$i]; 
+                    $newp='upload/'.$file_name;
+                    
+                    $fileExt = explode('.',$file_name);
+                    $fileActualExt = strtolower(end($fileExt));
+                    move_uploaded_file($file_tmp,$newp);
+               $i++;
+            }
+           
+         $x= implode(',',$_FILES['images']['name'] )   ;
+  
+
+
+    $context = $_POST["context"];
+    $sql = "INSERT INTO `post`(`uid`, `context`, `type`, `value`, `time`, `public`, `likes`, `comments`, `shares`) VALUES ($user_id ,'$context','images','$x',now(),1,0,0,0)";
+    mysqli_query($connect,$sql);        
+   
 }
 
 function findProfile($userId)
