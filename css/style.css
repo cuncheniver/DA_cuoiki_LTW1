@@ -758,6 +758,7 @@ float: left;
 float: left;
 width: 100%;
 cursor: pointer;
+height: 200px!important;
 }
 .message-type-image img {
 width: 100%;

@@ -195,149 +195,91 @@ window.onclick = function(event) {
 	
 	</form>
 </div>
-    <div class="row">
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/6.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>312</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
+    <div class="message-container last-message" id="message3" data-filter="" data-last="3" data-username="phu" data-type="1" data-userid="1">
+    <div class="message-content">
+        <div class="message-inner">
+            <div class="message-avatar" id="avatar-p-3">
+                <a href="" rel="loadpage">
+                    <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/1.jpg">
+                </a>
+            </div>
+            <div class="message-top">
+
+                <div class="message-menu" onclick="messageMenu(3, 1)"></div>
+                <div id="message-menu3" class="message-menu-container">
+                    <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
+                        <div class="message-menu-row">Show in tab</div>
+                    </a>
+                    <div class="message-menu-divider"></div>
+                    <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
+                    <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+                    <div class="message-menu-divider"></div>
+                    <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
+                    <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
+                    <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+
+                </div>
+                <div class="message-author" id="author-p-3">
+                    <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage">phu</a>
+                </div>
+                <div class="message-time">
+                    <span id="time-p-3"><a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" rel="loadpage">
+                            <div class="timeago" title="2019-11-28T14:06:48+01:00">5 hours ago</div>
+                        </a></span><span id="privacy3">
+                        <div class="privacy-icons public-icon" title="Public"></div>
+                    </span>
+                    <div id="message_loader3"></div>
+                </div>
+            </div>
+            <div class="message-message" id="message_text3">
+
+            </div>
+
         </div>
-        </a>
-     </div>
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/9.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
+        <div class="message-divider"></div>
+        <div class="message-type-image event-picture">
+            <div class="image-container-padding"><a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+                    <div class="image-thumbnail-container-half">
+                        <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1320257503_78764593_2015581271.jpg"></div>
+                    </div>
+                </a><a onclick="gallery('1408002763_857595611_1584272309.jpg', 3, 'media', 1)" id="1408002763_857595611_1584272309.jpg">
+                    <div class="image-thumbnail-container-half">
+                        <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1408002763_857595611_1584272309.jpg"></div>
+                    </div>
+                </a></div>
         </div>
-        </a>
-     </div>
-     
-    </div><!--/ row -->
-    
-    <div class="row">
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/32.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>12</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
+        <div class="message-divider"></div>
+        <div class="message-replies">
+            <div class="message-actions">
+                <div class="message-actions-content" id="message-action3"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+                    <div class="actions_btn loader" id="action-loader3"></div>
+                </div>
+            </div>
+            <div class="message-replies-content" id="comments-list3">
+
+            </div>
         </div>
-        </a>
-     </div>
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/30.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>1499</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
+        <div class="message-comment-box-container" id="comment_box_3">
+            <div class="message-reply-avatar">
+                <img src="http://localhost/phpsocial//thumb.php?t=a&amp;w=50&amp;h=50&amp;src=554998916_654242243_1232677585.jpeg">
+            </div>
+            <div class="message-comment-box-form">
+                <textarea id="comment-form3" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+                <label for="commentimage3" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="3"></label>
+            </div>
+            <div class="comments-buttons">
+                <div id="comments-controls3" class="comments-controls" style="display: none;">
+                    <div class="comment-btn button-active">
+                        <a id="post-comment" onclick="postComment(3)">Post</a>
+                    </div>
+                    <div id="queued-comment-files3"></div>
+                </div>
+                <input type="file" name="commentimage" id="commentimage3" style="display: none;" accept="image/*">
+            </div>
+            <div class="delete_preloader" id="post_comment_3"></div>
         </div>
-        </a>
-     </div>
-     
-    </div><!--/ row -->
-    
-    <div class="row">
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/19.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>1742</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
-        </div>
-        </a>
-     </div>
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/8.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>1269</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
-        </div>
-        </a>
-     </div>
-     
-    </div><!--/ row -->
-    
-    <div class="row">
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/36.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>12456</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
-        </div>
-        </a>
-     </div>
-    
-     <div class="col-lg-6">
-        <a href="#myModal" data-toggle="modal">
-        <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/25.jpg') no-repeat;
-                 background-size: cover;
-                 background-position: center center;
-                 -webkit-background-size: cover;
-                 -moz-background-size: cover;
-                 -o-background-size: cover;">
-         <div class="explore-top">
-          <div class="explore-like"><i class="fa fa-heart"></i> <span>10945</span></div>
-          <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-         </div>		  
-        </div>
-        </a>
-     </div>
-     
-    </div><!--/ row -->
+    </div>
+</div>
    
    </div>
    <div class="col-lg-3">
