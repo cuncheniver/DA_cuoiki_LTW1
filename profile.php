@@ -9,7 +9,7 @@ if (!isset($_SESSION))
   $userId =$_SESSION['userId'];
   $profile = findProfile($userId);
    $currentUser= findUserById($userId); 
-   
+   $postbyUser= findAllPostsbyUser($userId);
     
     
    if(!$currentUser)
@@ -195,12 +195,13 @@ window.onclick = function(event) {
 	
 	</form>
 </div>
+
     <div class="message-container last-message" id="message3" data-filter="" data-last="3" data-username="phu" data-type="1" data-userid="1">
-    <div class="message-content">
+      <div class="message-content">
         <div class="message-inner">
             <div class="message-avatar" id="avatar-p-3">
                 <a href="" rel="loadpage">
-                    <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/1.jpg">
+                    <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
                 </a>
             </div>
             <div class="message-top">
@@ -238,13 +239,10 @@ window.onclick = function(event) {
         </div>
         <div class="message-divider"></div>
         <div class="message-type-image event-picture">
-            <div class="image-container-padding"><a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
-                    <div class="image-thumbnail-container-half">
+            <div class="image-container-padding">
+              <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+                    <div class="image-thumbnail-container">
                         <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1320257503_78764593_2015581271.jpg"></div>
-                    </div>
-                </a><a onclick="gallery('1408002763_857595611_1584272309.jpg', 3, 'media', 1)" id="1408002763_857595611_1584272309.jpg">
-                    <div class="image-thumbnail-container-half">
-                        <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1408002763_857595611_1584272309.jpg"></div>
                     </div>
                 </a></div>
         </div>
@@ -261,7 +259,7 @@ window.onclick = function(event) {
         </div>
         <div class="message-comment-box-container" id="comment_box_3">
             <div class="message-reply-avatar">
-                <img src="http://localhost/phpsocial//thumb.php?t=a&amp;w=50&amp;h=50&amp;src=554998916_654242243_1232677585.jpeg">
+                <img src="upload/<?php print_r($profile['user_image']) ?>">
             </div>
             <div class="message-comment-box-form">
                 <textarea id="comment-form3" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
@@ -278,8 +276,8 @@ window.onclick = function(event) {
             </div>
             <div class="delete_preloader" id="post_comment_3"></div>
         </div>
+      </div>
     </div>
-</div>
    
    </div>
    <div class="col-lg-3">

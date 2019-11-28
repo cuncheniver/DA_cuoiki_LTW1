@@ -242,6 +242,15 @@ function findProfile($userId)
 
 		return $result->fetch_assoc();
 }
+function findAllPostsbyUser($userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM post WHERE uid=? ");
+    $stmt ->execute(array($userId));
+    $posts = $stmt ->fetchAll(PDO::FETCH_ASSOC);
+    return $posts;
+
+}
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);

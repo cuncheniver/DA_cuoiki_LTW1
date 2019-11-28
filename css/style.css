@@ -767,10 +767,11 @@ float: left;
 .image-container-padding {
 padding: 10px 0 0 10px;
 overflow: auto;
+height: 200px!important;
 }
 .image-thumbnail-container {
 float: left;
-width: 33.3%;
+width: 100%;
 position: relative;
 }
 .image-thumbnail-container-half {
