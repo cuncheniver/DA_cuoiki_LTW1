@@ -688,7 +688,7 @@ cursor: pointer;
 .message-avatar {
 width: 42px;
 float: left;
-overflow:auto;
+
 }
 .message-avatar img {
 border-radius: 3px;

@@ -116,6 +116,93 @@ if ($result) {
       header('Location: home.php');
 }
 }
+if(isset($_POST["display"]))
+{
+    ?>
+    <div class="message-content">
+    <div class="message-inner">
+        <div class="message-avatar" id="avatar-p-3">
+            <a href="" rel="loadpage">
+                <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
+            </a>
+        </div>
+        <div class="message-top">
+
+            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
+            <div id="message-menu3" class="message-menu-container">
+                <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
+                    <div class="message-menu-row">Show in tab</div>
+                </a>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
+                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+
+            </div>
+            <div class="message-author" id="author-p-3">
+                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage">phu</a>
+            </div>
+            <div class="message-time">
+                <span id="time-p-3"><a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" rel="loadpage">
+                        <div class="timeago" title="2019-11-28T14:06:48+01:00">5 hours ago</div>
+                    </a></span><span id="privacy3">
+                    <div class="privacy-icons public-icon" title="Public"></div>
+                </span>
+                <div id="message_loader3"></div>
+            </div>
+        </div>
+        <div class="message-message" id="message_text3">
+
+        </div>
+
+    </div>
+    <div class="message-divider"></div>
+    <div class="message-type-image event-picture">
+        <div class="image-container-padding">
+          <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+                <div class="image-thumbnail-container">
+                    <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1320257503_78764593_2015581271.jpg"></div>
+                </div>
+            </a></div>
+    </div>
+    <div class="message-divider"></div>
+    <div class="message-replies">
+        <div class="message-actions">
+            <div class="message-actions-content" id="message-action3"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+                <div class="actions_btn loader" id="action-loader3"></div>
+            </div>
+        </div>
+        <div class="message-replies-content" id="comments-list3">
+
+        </div>
+    </div>
+    <div class="message-comment-box-container" id="comment_box_3">
+        <div class="message-reply-avatar">
+            <img src="upload/<?php print_r($profile['user_image']) ?>">
+        </div>
+        <div class="message-comment-box-form">
+            <textarea id="comment-form3" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+            <label for="commentimage3" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="3"></label>
+        </div>
+        <div class="comments-buttons">
+            <div id="comments-controls3" class="comments-controls" style="display: none;">
+                <div class="comment-btn button-active">
+                    <a id="post-comment" onclick="postComment(3)">Post</a>
+                </div>
+                <div id="queued-comment-files3"></div>
+            </div>
+            <input type="file" name="commentimage" id="commentimage3" style="display: none;" accept="image/*">
+        </div>
+        <div class="delete_preloader" id="post_comment_3"></div>
+    </div>
+  </div>
+  <?php
+}
+
+
 if (isset($_POST["Save"])) {
 
     $user_id = $_SESSION['userId'];
@@ -196,8 +283,19 @@ function findUserById($id){
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;   
 }   
-if(isset($_POST["action"])) {
+
+
+
+if(isset($_POST['context']) || isset($_POST['images']) ) {
    
+    
+    ?>
+    <h1><?php echo "ok" ?><h1>
+    <?php
+  
+  
+   
+
     $user_id = $_SESSION['userId'];
    $x='';
 $i = 0 ;   
@@ -212,6 +310,7 @@ $i = 0 ;
                     $file_type=$_FILES['images']['type'][$i]; 
                     $newp='upload/'.$file_name;
                     
+                    
                     $fileExt = explode('.',$file_name);
                     $fileActualExt = strtolower(end($fileExt));
                     move_uploaded_file($file_tmp,$newp);
@@ -220,11 +319,12 @@ $i = 0 ;
            
          $x= implode(',',$_FILES['images']['name'] )   ;
   
-
-
-    $context = $_POST["context"];
-    $sql = "INSERT INTO `post`(`uid`, `context`, `type`, `value`, `time`, `public`, `likes`, `comments`, `shares`) VALUES ($user_id ,'$context','images','$x',now(),1,0,0,0)";
-    mysqli_query($connect,$sql);        
+        
+            
+    $context =mysqli_real_escape_string($connect,$_POST['context']);
+    $sql = "INSERT INTO `post`(`uid`, `content`, `type`, `value`, `time`, `public`, `likes`, `comments`, `shares`) VALUES ($user_id ,'$context','images','$x',now(),1,0,0,0)";
+    mysqli_query($connect,$sql);    
+    
    
 }
 
