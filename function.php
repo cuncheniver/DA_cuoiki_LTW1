@@ -118,8 +118,15 @@ if ($result) {
 }
 if(isset($_POST["display"]))
 {
-    ?>
-    <div class="message-content">
+    $userId =$_SESSION['userId'];
+  $profile = findProfile($userId);
+
+  $sql = "select * from post where uid = '$userId' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {
+?>
+  <div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
             <a href="" rel="loadpage">
@@ -155,19 +162,29 @@ if(isset($_POST["display"]))
             </div>
         </div>
         <div class="message-message" id="message_text3">
-
+            <?php echo $row['content']; ?>
         </div>
 
     </div>
     <div class="message-divider"></div>
+    <?php if($row['value'])
+    {
+        $i=0;
+        $list = explode(',',$row['value']);
+       
+    ?>
     <div class="message-type-image event-picture">
+    <?php foreach($list  as $image)
+        { ?>
         <div class="image-container-padding">
           <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
                 <div class="image-thumbnail-container">
-                    <div class="image-thumbnail"><img src="http://localhost/phpsocial//thumb.php?t=m&amp;w=300&amp;h=300&amp;src=1320257503_78764593_2015581271.jpg"></div>
+                    <div class="image-thumbnail"><img src="upload/<?php echo $image ;?>"></div>
                 </div>
             </a></div>
+        <?php } ?>
     </div>
+    <?php }?>
     <div class="message-divider"></div>
     <div class="message-replies">
         <div class="message-actions">
@@ -199,7 +216,9 @@ if(isset($_POST["display"]))
         <div class="delete_preloader" id="post_comment_3"></div>
     </div>
   </div>
-  <?php
+  
+<?php
+}exit();
 }
 
 
@@ -289,9 +308,7 @@ function findUserById($id){
 if(isset($_POST['context']) || isset($_POST['images']) ) {
    
     
-    ?>
-    <h1><?php echo "ok" ?><h1>
-    <?php
+  
   
   
    

@@ -196,13 +196,14 @@ window.onclick = function(event) {
 	</form>
 </div>
 
-    <div class="message-container last-message" id="message3" data-filter="" data-last="3" data-username="phu" data-type="1" data-userid="1">
+    <div class="message-container last-message" id="ok">
     
     </div>
     <div id="output"></div>
    </div>
    <script>
    $(document).ready(function(){
+       displaystt();
     $("form#fileUploadForm").submit(function(event){
  
  //disable the default form submission
@@ -220,14 +221,29 @@ window.onclick = function(event) {
    contentType: false,
    processData: false,
    success: function (returndata) {
-     $("#output").html(returndata);
+       displaystt();
+    $("textarea").val('');
+    $("input").val('');
    }
  });
-
+ 
  return false;
 });
 
    });
+   function displaystt(){
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "display":1
+           },
+           success: function (d) {
+            $("#output").html(d); 
+           }
+       });
+   }    
    
       </script>
   	

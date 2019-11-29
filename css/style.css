@@ -758,7 +758,7 @@ float: left;
 float: left;
 width: 100%;
 cursor: pointer;
-height: 200px!important;
+height: 300px!important;
 }
 .message-type-image img {
 width: 100%;
@@ -766,13 +766,14 @@ float: left;
 }
 .image-container-padding {
 padding: 10px 0 0 10px;
-overflow: auto;
-height: 200px!important;
+overflow: hidden;
+height: 300px!important;
 }
 .image-thumbnail-container {
 float: left;
 width: 100%;
 position: relative;
+height: 300px;
 }
 .image-thumbnail-container-half {
 float: left;
@@ -780,10 +781,12 @@ width: 50%;
 }
 .image-thumbnail {
 padding: 0 10px 10px 0;
-overflow: auto;
+overflow: hidden;
+height: 280px;
 }
 .image-thumbnail img {
 cursor: pointer;
+height: 200px;
 }
 .image-thumbnail-text {
 color: #FFF;
