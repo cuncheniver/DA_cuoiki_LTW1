@@ -118,6 +118,7 @@ if ($result) {
 }
 if(isset($_POST["display"]))
 {
+    
     $userId =$_SESSION['userId'];
   $profile = findProfile($userId);
 
@@ -162,7 +163,9 @@ if(isset($_POST["display"]))
             </div>
         </div>
         <div class="message-message" id="message_text3">
-            <?php echo $row['content']; ?>
+            <?php echo $row['content'];
+          echo $row['id'];
+            ?>
         </div>
 
     </div>
@@ -201,13 +204,13 @@ if(isset($_POST["display"]))
             <img src="upload/<?php print_r($profile['user_image']) ?>">
         </div>
         <div class="message-comment-box-form">
-            <textarea id="comment-form3" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
-            <label for="commentimage3" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="3"></label>
+            <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+            <label for="commentimage<?php  echo $row['id'];?>" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="3"></label>
         </div>
         <div class="comments-buttons">
             <div id="comments-controls3" class="comments-controls" style="display: none;">
                 <div class="comment-btn button-active">
-                    <a id="post-comment" onclick="postComment(3)">Post</a>
+                    <a id="post-comment" onclick="vd()">Post</a>
                 </div>
                 <div id="queued-comment-files3"></div>
             </div>
@@ -295,6 +298,7 @@ if (isset($_POST["Save"])) {
 
 
   }
+  
 function findUserById($id){
     global $db;
     $stmt = $db->prepare("SELECT * FROM login WHERE id=? LIMIT 1");
@@ -302,7 +306,13 @@ function findUserById($id){
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;   
 }   
-
+function findNewPostById($id){
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM `post` WHERE uid=? GROUP BY id DESC LIMIT 1");
+    $stmt -> execute(array($id));
+    $user = $stmt ->fetch(PDO::FETCH_ASSOC);
+    return $user;   
+}   
 
 
 if(isset($_POST['context']) || isset($_POST['images']) ) {

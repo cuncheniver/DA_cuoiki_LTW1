@@ -10,7 +10,9 @@ if (!isset($_SESSION))
   $profile = findProfile($userId);
    $currentUser= findUserById($userId); 
    $postbyUser= findAllPostsbyUser($userId);
-    
+   $userId =$_SESSION['userId'];
+   $idpost=  findNewPostById($userId);
+ 
     
    if(!$currentUser)
    {
@@ -133,7 +135,9 @@ window.onclick = function(event) {
         <div class="detail">
        
 
-         <h4><?php print_r($profile['user_fullName']); ?></h4>
+         <h4><?php print_r($profile['user_fullName']); 
+          print_r($idpost['id']);
+         ?></h4>
         <small> Contact: <?php print_r($profile['user_contact']); ?> </small>                        
         </div>
         <div class="row">
@@ -230,6 +234,8 @@ window.onclick = function(event) {
  return false;
 });
 
+
+
    });
    function displaystt(){
        $.ajax({
@@ -244,7 +250,19 @@ window.onclick = function(event) {
            }
        });
    }    
-   
+   function displaycmt(){
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "displaycmt":1
+           },
+           success: function (d) {
+            $("#output").html(d); 
+           }
+       });
+   }   
       </script>
   	
 
