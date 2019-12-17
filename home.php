@@ -2,6 +2,7 @@
 ob_start();
 require_once 'function.php';
 include 'layoutmain.php';
+
 if (!isset($_SESSION))
   {
     session_start();
@@ -23,559 +24,187 @@ if (!isset($_SESSION))
 
    
 
-    <!-- ==============================================
-	 News Feed Section
-	 =============================================== -->
-    <section class="newsfeed">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
+    <!-- ============================================ -->
+    <!-- secssion new feed-->
+    <section class="profile-two">
+  <div class="container-fluid">
+    <div class="row">
 
-                    <a href="#">
-                        <div class="storybox" style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('img/posts/2.gif') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                            <div class="story-body text-center">
-                                <div class=""><img class="img-circle" src="img/users/10.jpg" alt="user"></div>
-                                <h4>Clifford Graham</h4>
-                                <p>2 hours ago</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="storybox" style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('img/posts/3.gif') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                            <div class="story-body text-center">
-                                <div class=""><img class="img-circle" src="img/users/13.jpeg" alt="user"></div>
-                                <h4>Eleanor Harper</h4>
-                                <p>4 hours ago</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="storybox" style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('img/posts/4.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                            <div class="story-body text-center">
-                                <div class=""><img class="img-circle" src="img/users/12.jpg" alt="user"></div>
-                                <h4>Sean Coleman</h4>
-                                <p>5 hours ago</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="storybox" style="background: linear-gradient( rgba(34,34,34,0.78), rgba(34,34,34,0.78)), url('img/posts/15.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                            <div class="story-body text-center">
-                                <div class=""><img class="img-circle" src="img/users/15.jpg" alt="user"></div>
-                                <h4>Vanessa Wells</h4>
-                                <p>5 hours ago</p>
-                            </div>
-                        </div>
-                    </a>
-
-                    <div class="trending-box hidden-xs hidden-md">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <a href="photo_stories.html">
-                                    <h4>More stories</h4>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--/ col-lg-3 -->
-                <div class="col-lg-6">
-
-                    <div class="cardbox">
-
-                        <div class="cardbox-heading">
-                            <!-- START dropdown-->
-                            <div class="dropdown pull-right">
-                                <button class="btn btn-secondary btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <em class="fa fa-ellipsis-h"></em>
-                                </button>
-                                <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                    <a class="dropdown-item" href="#">Hide post</a>
-                                    <a class="dropdown-item" href="#">Stop following</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                            <!--/ dropdown -->
-                            <!-- END dropdown-->
-                            <div class="media m-0">
-                                <div class="d-flex mr-3">
-                                    <a href="#"><img class="img-responsive img-circle" src="img/users/18.jpg" alt="User"></a>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0">Benjamin Robinson</p>
-                                    <small><span>10 hours ago</span></small>
-                                </div>
-                            </div>
-                            <!--/ media -->
-                        </div>
-                        <!--/ cardbox-heading -->
-
-                        <div class="cardbox-item">
-                            <a href="#myModal" data-toggle="modal">
-                                <img class="img-responsive" src="img/posts/1.jpg" alt="MaterialImg">
-                            </a>
-                        </div>
-                        <!--/ cardbox-item -->
-                        <div class="cardbox-base">
-                            <ul>
-                                <li><a href="#"><img src="img/users/1.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/2.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/3.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/4.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/5.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/6.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/7.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/8.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/9.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/10.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-base -->
-                        <div class="cardbox-like">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i></a><span> 786,286</span></li>
-                                <li><a href="#" title="" class="com"><i class="fa fa-comments"></i></a> <span class="span-last"> 126,400</span></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-like -->
-
-                    </div>
-                    <!--/ cardbox -->
-
-                    <div class="cardbox">
-
-                        <div class="cardbox-heading">
-                            <!-- START dropdown-->
-                            <div class="dropdown pull-right">
-                                <button class="btn btn-secondary btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <em class="fa fa-ellipsis-h"></em>
-                                </button>
-                                <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                    <a class="dropdown-item" href="#">Hide post</a>
-                                    <a class="dropdown-item" href="#">Stop following</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                            <!--/ dropdown -->
-                            <!-- END dropdown-->
-                            <div class="media m-0">
-                                <div class="d-flex mr-3">
-                                    <a href="#"><img class="img-responsive img-circle" src="img/users/7.jpg" alt="User"></a>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0">Vanessa Wells</p>
-                                    <small><span>12 hours ago</span></small>
-                                </div>
-                            </div>
-                            <!--/ media -->
-                        </div>
-                        <!--/ cardbox-heading -->
-
-                        <div class="cardbox-item">
-                            <a href="#myModal" data-toggle="modal">
-                                <img class="img-responsive" src="img/posts/5.jpg" alt="MaterialImg">
-                            </a>
-                        </div>
-                        <!--/ cardbox-item -->
-                        <div class="cardbox-base">
-                            <ul>
-                                <li><a href="#"><img src="img/users/1.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/2.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/3.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/4.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/5.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/6.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/7.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/8.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/9.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/10.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-base -->
-                        <div class="cardbox-like">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i></a><span> 786,286</span></li>
-                                <li><a href="#" title="" class="com"><i class="fa fa-comments"></i></a> <span class="span-last"> 126,400</span></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-like -->
-
-                    </div>
-                    <!--/ cardbox -->
-
-                    <div class="cardbox">
-
-                        <div class="cardbox-heading">
-                            <!-- START dropdown-->
-                            <div class="dropdown pull-right">
-                                <button class="btn btn-secondary btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <em class="fa fa-ellipsis-h"></em>
-                                </button>
-                                <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                    <a class="dropdown-item" href="#">Hide post</a>
-                                    <a class="dropdown-item" href="#">Stop following</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                            <!--/ dropdown -->
-                            <!-- END dropdown-->
-                            <div class="media m-0">
-                                <div class="d-flex mr-3">
-                                    <a href="#"><img class="img-responsive img-circle" src="img/users/2.jpg" alt="User"></a>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0">Alex Grantte</p>
-                                    <small><span>12 hours ago</span></small>
-                                </div>
-                            </div>
-                            <!--/ media -->
-                        </div>
-                        <!--/ cardbox-heading -->
-
-                        <div class="cardbox-item">
-                            <a href="#myModal" data-toggle="modal">
-                                <img class="img-responsive" src="img/posts/14.jpg" alt="MaterialImg">
-                            </a>
-                        </div>
-                        <!--/ cardbox-item -->
-                        <div class="cardbox-base">
-                            <ul>
-                                <li><a href="#"><img src="img/users/1.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/2.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/3.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/4.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/5.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/6.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/7.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/8.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/9.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/10.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-base -->
-                        <div class="cardbox-like">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i></a><span> 786,286</span></li>
-                                <li><a href="#" title="" class="com"><i class="fa fa-comments"></i></a> <span class="span-last"> 126,400</span></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-like -->
-
-                    </div>
-                    <!--/ cardbox -->
-
-                    <div class="cardbox">
-
-                        <div class="cardbox-heading">
-                            <!-- START dropdown-->
-                            <div class="dropdown pull-right">
-                                <button class="btn btn-secondary btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <em class="fa fa-ellipsis-h"></em>
-                                </button>
-                                <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                    <a class="dropdown-item" href="#">Hide post</a>
-                                    <a class="dropdown-item" href="#">Stop following</a>
-                                    <a class="dropdown-item" href="#">Report</a>
-                                </div>
-                            </div>
-                            <!--/ dropdown -->
-                            <!-- END dropdown-->
-                            <div class="media m-0">
-                                <div class="d-flex mr-3">
-                                    <a href="#"><img class="img-responsive img-circle" src="img/users/9.jpg" alt="User"></a>
-                                </div>
-                                <div class="media-body">
-                                    <p class="m-0">Anna Morgan</p>
-                                    <small><span>13 hours ago</span></small>
-                                </div>
-                            </div>
-                            <!--/ media -->
-                        </div>
-                        <!--/ cardbox-heading -->
-
-                        <div class="cardbox-item">
-                            <a href="#myModal" data-toggle="modal">
-                                <img class="img-responsive" src="img/posts/18.jpg" alt="MaterialImg">
-                            </a>
-                        </div>
-                        <!--/ cardbox-item -->
-                        <div class="cardbox-base">
-                            <ul>
-                                <li><a href="#"><img src="img/users/1.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/2.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/3.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/4.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/5.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/6.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/7.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/8.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/9.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                                <li><a href="#"><img src="img/users/10.jpg" class="img-responsive img-circle" alt="User"></a></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-base -->
-                        <div class="cardbox-like">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-heart"></i></a><span> 786,286</span></li>
-                                <li><a href="#" title="" class="com"><i class="fa fa-comments"></i></a> <span class="span-last"> 126,400</span></li>
-                            </ul>
-                        </div>
-                        <!--/ cardbox-like -->
-
-                    </div>
-                    <!--/ cardbox -->
-
-                </div>
-                <!--/ col-lg-6 -->
-                <div class="col-lg-3">
-
-                    <div class="suggestion-box full-width">
-                        <div class="suggestions-list">
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/17.jpeg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Anthony McCartney</h4>
-                                    <span>@antony</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/16.jpg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Sean Coleman</h4>
-                                    <span>@sean</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/14.jpg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Francis Long</h4>
-                                    <span>@francis</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/11.jpg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Vanessa Wells</h4>
-                                    <span>@vannessa</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/9.jpg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Anna Morgan</h4>
-                                    <span>@anna</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                            <div class="suggestion-body">
-                                <img class="img-responsive img-circle" src="img/users/8.jpg" alt="Image">
-                                <div class="name-box">
-                                    <h4>Clifford Graham</h4>
-                                    <span>@clifford</span>
-                                </div>
-                                <span><i class="fa fa-plus"></i></span>
-                            </div>
-                        </div>
-                        <!--suggestions-list end-->
-                    </div>
-
-                    <div class="trending-box">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Trending Photos</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="trending-box">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/17.jpg" class="img-responsive" alt="Image"></a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/12.jpg" class="img-responsive" alt="Image"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/21.gif" class="img-responsive" alt="Image"></a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/23.gif" class="img-responsive" alt="Image"></a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/11.jpg" class="img-responsive" alt="Image"></a>
-                            </div>
-                            <div class="col-lg-6">
-                                <a href="#"><img src="img/posts/20.jpg" class="img-responsive" alt="Image"></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </div>
-            <!--/ row -->
-        </div>
-        <!--/ container -->
-    </section>
-    <!--/ newsfeed -->
-
-    <!-- ==============================================
-	 Modal Section
-	 =============================================== -->
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-
-                    <div class="row">
-
-                        <div class="col-md-8 modal-image">
-                            <img class="img-responsive" src="img/posts/1.jpg" alt="Image">
-                        </div>
-                        <!--/ col-md-8 -->
-                        <div class="col-md-4 modal-meta">
-                            <div class="modal-meta-top">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-                                </button>
-                                <!--/ button -->
-                                <div class="img-poster clearfix">
-                                    <a href=""><img class="img-responsive img-circle" src="img/users/18.jpg" alt="Image"></a>
-                                    <strong><a href="">Benjamin</a></strong>
-                                    <span>12 minutes ago</span><br>
-                                    <a href="" class="kafe kafe-btn-mint-small"><i class="fa fa-check-square"></i> Following</a>
-                                </div>
-                                <!--/ img-poster -->
-
-                                <ul class="img-comment-list">
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src="img/users/17.jpeg" class="img-responsive img-circle" alt="Image">
-                                        </div>
-                                        <div class="comment-text">
-                                            <strong><a href="">Anthony McCartney</a></strong>
-                                            <p>Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                                        </div>
-                                    </li>
-                                    <!--/ li -->
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src="img/users/15.jpg" class="img-responsive img-circle" alt="Image">
-                                        </div>
-                                        <div class="comment-text">
-                                            <strong><a href="">Vanessa Wells</a></strong>
-                                            <p>Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span>on December 5th, 2016</span>
-                                        </div>
-                                    </li>
-                                    <!--/ li -->
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src="img/users/14.jpg" class="img-responsive img-circle" alt="Image">
-                                        </div>
-                                        <div class="comment-text">
-                                            <strong><a href="">Sean Coleman</a></strong>
-                                            <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                                        </div>
-                                    </li>
-                                    <!--/ li -->
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src="img/users/13.jpeg" class="img-responsive img-circle" alt="Image">
-                                        </div>
-                                        <div class="comment-text">
-                                            <strong><a href="">Anna Morgan</a></strong>
-                                            <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                                        </div>
-                                    </li>
-                                    <!--/ li -->
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src="img/users/3.jpg" class="img-responsive img-circle" alt="Image">
-                                        </div>
-                                        <div class="comment-text">
-                                            <strong><a href="">Allison Fowler</a></strong>
-                                            <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
-                                        </div>
-                                    </li>
-                                    <!--/ li -->
-                                </ul>
-                                <!--/ comment-list -->
-
-                                <div class="modal-meta-bottom">
-                                    <ul>
-                                        <li><a class="modal-like" href="#"><i class="fa fa-heart"></i></a><span class="modal-one"> 786,286</span> |
-                                            <a class="modal-comment" href="#"><i class="fa fa-comments"></i></a><span> 786,286</span> </li>
-                                        <li>
-                                            <span class="thumb-xs">
-                                                <img class="img-responsive img-circle" src="http://bootdey.com/img/Content/user_3.jpg" alt="Image">
-                                            </span>
-                                            <div class="comment-body">
-                                                <input class="form-control input-sm" type="text" placeholder="Write your comment...">
-                                            </div>
-                                            <!--/ comment-body -->
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!--/ modal-meta-bottom -->
-
-                            </div>
-                            <!--/ modal-meta-top -->
-                        </div>
-                        <!--/ col-md-4 -->
-
-                    </div>
-                    <!--/ row -->
-                </div>
-                <!--/ modal-body -->
-
-            </div>
-            <!--/ modal-content -->
-        </div>
-        <!--/ modal-dialog -->
-    </div>
-    <!--/ modal -->
-
-
-    <!-- ==============================================
-	 Scripts
-	 =============================================== -->
+      <div class="col-lg-3">
+        <aside id="leftsidebar" class="sidebar">		  
+        <ul class="list">
+          <li>
+          <div class="user-info">
  
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+         
+          <div class="modal-body">
+          <div class="row" style="padding-left:20%;">
+          <div class="col-lg-2">
+         
+   
+   
+          </div>
+              
+          </div>
+   
+        </div>
+  
+        </div>
+
+        </div>
+        <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
+        <div class="detail">    
+                             
+        </div>
+       
+        </li>
+        <li>
+        <small class="text-muted"><a href="photo_profile_two.html"> Group <em class="fa fa-angle-right pull-right"></em></a> </small><br>
+        <small class="text-muted"><a href="photo_followers.html"> Friend <em class="fa fa-angle-right pull-right"></em></a> </small><br>
+        <small class="text-muted"><a href="photo_followers.html"> Game <em class="fa fa-angle-right pull-right"></em></a> </small>
+        
+          </aside>				
+        </div><!--/ col-lg-3-->
+        
+        <div class="col-lg-6" style="background: #fff;">
+        <div class="message-container">
+        <form  name="f"  method="POST" enctype="multipart/form-data" id="fileUploadForm">
+          <div class="message-form-content">
+            <div class="message-form-header">
+              <div class="message-form-user"></div>
+              Update your status
+              <div class="message-form-private"></div>
+              <div class="message-loader" id="post-loader9999999999" style="visibility: hidden"><div class="preloader"></div></div>
+            </div>
+            
+            <div class="message-form-inner">
+              <textarea id="post9999999999" id="content" class="message-form" placeholder="What's on your mind?" name="context"></textarea>
+            </div>
+            <div id="plugins-forms" style="display: none;"></div>
+            
+			
+		
+			
+              <div class="selected-files" id="queued-files"></div>
+              <div class="message-form-input"><input type="text" name="value" id="form-value"></div>
+              <div id="values">
+                <label id="open_images" title="Upload images"><img src="./image/icons/events/camera.svg"></label>
+                <input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="./image/icons/events/video.svg"></label>
+              
+                <input name="images[]" id="images" size="27" type="file" class="inputImage" title="Upload images" multiple="multiple" accept="image/*">
+              </div>
+              
+              <button type="submit" id="action" value="POST" name="action" class="message-btn button-active" ><a>Post</a></button>
+          
+            </div>
+          
+          </form>
+          </div>
+
+          <div class="message-container last-message" id="ok">
+          
+              </div>
+              <div id="output"></div>
+            </div>
+            <script>
+            $(document).ready(function(){
+                displaystt();
+              $("form#fileUploadForm").submit(function(event){
+          
+      //disable the default form submission
+      event.preventDefault();
+
+      //grab all form data  
+      var formData = new FormData($(this)[0]);
+
+ $.ajax({
+   url: 'function.php',
+   type: 'POST',
+   data: formData,
+   async: false,
+   cache: false,
+   contentType: false,
+   processData: false,
+   success: function (returndata) {
+       displaystt();
+    $("textarea").val('');
+    $("input").val('');
+   }
+ });
+ 
+ return false;
+});
 
 
 
-</body>
+   });
+   function displaystt(){
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "display":1
+           },
+           success: function (d) {
+            $("#output").html(d); 
+           }
+       });
+   }    
+   function displaycmt(){
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "displaycmt":1
+           },
+           success: function (d) {
+            $("#output").html(d); 
+           }
+       });
+   }   
+      </script>
+   
 
-</html>
+   
+   
+   </div>
+   
+  </div><!--/ row-->	
+ </div><!--/ container -->
+</section><!--/ profile -->
+<?php
+    include 'footer.php';
+?>

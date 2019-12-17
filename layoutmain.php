@@ -29,7 +29,7 @@ if (!isset($_SESSION))
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluffs - Ultimate Bootstrap Social Network UI Kit</title>
+    <title>CX_DA</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta property="og:title" content="">
@@ -166,7 +166,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="home.php"><i class="fa fa-instagram"></i> Fluffs</a>
+                    <a class="navbar-brand" href="home.php"><i class="fa fa-meh-o"></i> CX</a>
                 </div><!-- /.navbar-header -->
                 <div class="navbar-left">
                     <div class="collapse navbar-collapse" id="navbar-collapse">
