@@ -120,14 +120,48 @@ if ($result) {
 if(isset($_POST["displaycmt"]))
 {
     $userId =$_SESSION['userId'];
-    $profile = findProfile($userId);
+
+   
     $id= $_POST['cc'];
-  $sql = "select * from comments where postid = '35' ORDER BY id DESC";
+  $sql = "select * from comments where postid = $id ORDER BY id DESC";
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {
+    $profile = findProfile($row['uid']);
     ?>
-        <div><?php echo $id;?></div>
+      
+<div class="message-reply-container" id="comment<?php echo row['id'] ?>">
+    <div class="message-menu comment-menu" onclick="messageMenu(2, 4)"></div>
+    <div id="comment-menu<?php echo row['id'] ?>" class="message-menu-container">
+        <div class="message-menu-row" onclick="edit_comment(2, 0, 6)" id="edit_text_c2">Edit</div>
+        <div class="message-menu-row" onclick="deleteModal(2, 0, 6)">Delete</div>
+    </div>
+    
+    <div class="message-reply-avatar" id="avatar-c-2">
+        <a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image'])?>"></a>
+    </div>
+   
+    <div class="message-reply-message">
+        <span class="message-reply-author" id="author-c-2"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName'])?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
+        <?php if($row['value'] !='')
+    {
+    ?>
+        <div class="comment-image-thumbnail"><a onclick="gallery('127706057_210810256_1601482327.jpg', 2, 'media', 2)" id="127706057_210810256_1601482327.jpg"><img style="width: 30% !important;
+
+height: 40%;" src="upload/<?php print_r($row['value'])?>" ></a></div>
+    <?php }?>
+    </div>
+    <div class="message-reply-footer" id="comment-action2">
+        <div class="message-time"><span class="like-comment"><a onclick="doLike(2, 1)" id="doLikeC2">Like</a> -&nbsp;</span>
+            <span id="time-c-2">
+                <div class="timeago" title="2019-12-18T20:13:28+01:00"><?php echo $row['time']?></div>
+            </span>
+            <div class="actions_btn loader" id="action-c-loader2"></div>
+        </div>
+    </div>
+    <div class="delete_preloader" id="del_comment_2"></div>
+</div>
+
     <?php
   }
 }
@@ -252,10 +286,8 @@ if(isset($_POST["display"]))
 		formData2.append("type", "picture");
 		formData2.append("value", $('#commentimage'+id)[0].files[0]);
     }
-    if(typeof($('#commentimage'+id)[0].files[0]) == "undefined")
-    {
-        formData2.append("value", '');
-    }
+  
+    
 	
 	
 	
@@ -402,10 +434,14 @@ if(isset($_POST['id']) || isset($_POST['comment']) ) {
     $user_id = $_SESSION['userId'];
     $id= $_POST['id'];
     $text=$_POST['comment'];
+ 
     
-    
-     if($_POST['value'] != '')
+    $tenanh=$_FILES['value']['name'];
+    $fileExt = explode('.',$tenanh);
+    $fileActualExt = strtolower(end($fileExt));
+    if(!empty($tenanh))
     {
+        
         $vl= $_FILES['value']['name'] ;
     
         $tmp = $_FILES['value']['tmp_name'];
@@ -417,16 +453,20 @@ if(isset($_POST['id']) || isset($_POST['comment']) ) {
      else{
        
        move_uploaded_file($tmp,$newp);
-       $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
-        mysqli_query($connect,$sql1);
+      $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+       mysqli_query($connect,$sql1);
         
      }
     }
     else{
-        $vl = $_POST['value'];
-        $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+        ?>
+        <script> console.log("ok")</script>
+        <?php
+       $vl = '';
+       $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
         mysqli_query($connect,$sql1);
     }
+    
     
 }
 

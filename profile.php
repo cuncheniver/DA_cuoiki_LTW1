@@ -208,8 +208,18 @@ window.onclick = function(event) {
    
    <script>
    $(document).ready(function(){
-
+        
        displaystt();
+       
+       <?php    $userId =$_SESSION['userId'];
+  
+
+  $sql = "select * from post where uid = '$userId' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {?>
+      displaycmt(<?php echo $row['id']?>);
+   <?php } ?>
     $("form#fileUploadForm").submit(function(event){
  
  //disable the default form submission
