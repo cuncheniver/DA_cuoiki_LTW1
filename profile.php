@@ -296,15 +296,25 @@ $("form#fileCMTForm").submit(function(event){
 </div> 
 <div class="suggestion-box full-width">
     <div class="suggestions-list">
-        
+      <?php $userId =$_SESSION['userId'];
+
+   
+
+$sql = "SELECT * FROM login l join profile p on l.id = p.user_ID and l.id !=$userId";
+$result = mysqli_query($connect, $sql);
+while($row=mysqli_fetch_array($result))
+{
+
+?>  
         <div class="suggestion-body">
-            <img class="img-responsive img-circle" src="assets/img/users/17.jpeg" alt="Image">
+            <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
             <div class="name-box">
-                <h4>Anthony McCartney</h4>
-                <span>@antony</span>
+                <h4><?php echo $row['user_fullName']?></h4>
+                <span>@<?php echo $row['user_name']?></span>
             </div>
             <span><i class="fa fa-plus"></i></span>
         </div>
+<?php }?>
       
     </div>
     <!--suggestions-list end-->
