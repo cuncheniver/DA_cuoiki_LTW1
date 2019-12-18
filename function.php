@@ -75,7 +75,8 @@ function createUser($name,$pass)
     
     return $db->lastInsertId();
 }
-
+?>
+<?php
 if (isset($_POST["login"])) 
 {
     $username = $_POST["username"];
@@ -127,7 +128,7 @@ if(isset($_POST["display"]))
   while($row=mysqli_fetch_array($result))
   {
 ?>
-  <div class="message-content">
+<div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
             <a href="" rel="loadpage">
@@ -177,10 +178,10 @@ if(isset($_POST["display"]))
        
     ?>
     <div class="message-type-image event-picture">
-    <?php foreach($list  as $image)
+        <?php foreach($list  as $image)
         { ?>
         <div class="image-container-padding">
-          <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+            <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
                 <div class="image-thumbnail-container">
                     <div class="image-thumbnail"><img src="upload/<?php echo $image ;?>"></div>
                 </div>
@@ -204,25 +205,76 @@ if(isset($_POST["display"]))
             <img src="upload/<?php print_r($profile['user_image']) ?>">
         </div>
         <div class="message-comment-box-form">
-            <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(3)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
-            <label for="commentimage<?php  echo $row['id'];?>" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="3"></label>
+            <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(<?php  echo $row['id'];?>)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+            <label for="commentimage<?php  echo $row['id'];?>" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="<?php  echo $row['id'];?>"></label>
         </div>
         <div class="comments-buttons">
-            <div id="comments-controls3" class="comments-controls" style="display: none;">
+            <div id="comments-controls<?php  echo $row['id'];?>" class="comments-controls" style="display: none;">
                 <div class="comment-btn button-active">
-                    <a id="post-comment" onclick="vd()">Post</a>
+                    <a id="post-comment" onclick="postComments(<?php  echo $row['id'];?>)">Post</a>
                 </div>
-                <div id="queued-comment-files3"></div>
+                <div id="f">
+
+                </div>
+                <script> function postComments(id) {
+    var comment = $('#comment-form'+id).val();
+    $('#post_comment_'+id).html('<div class="preloader preloader-center"></div>');
+	
+	// Remove the post button
+	$('#comments-controls'+id).hide();
+	
+	// Show the loading animation
+	$('#action-loader'+id).html('<div class="privacy_loader"></div>');
+	
+	var formData2 = new FormData();
+	
+	// Build the form
+	formData2.append("id", id);
+	formData2.append("comment", comment);
+	
+	
+	if(typeof($('#commentimage'+id)[0].files[0]) !== "undefined") {
+
+		formData2.append("type", "picture");
+		formData2.append("value", $('#commentimage'+id)[0].files[0]);
+    }
+    if(typeof($('#commentimage'+id)[0].files[0]) == "undefined")
+    {
+        formData2.append("value", '');
+    }
+	
+	
+	
+    $.ajax({
+   url: 'function.php',
+   type: 'POST',
+   data: formData2,
+   async: false,
+   cache: false,
+   contentType: false,
+   processData: false,
+   success: function (returndata) {
+    $("#f").html(returndata); 
+    $("#queued-comment-files"+id).html(""); 
+   }
+ });
+	
+}</script>
+                <div id="queued-comment-files<?php  echo $row['id'];?>"></div>
             </div>
-            <input type="file" name="commentimage" id="commentimage3" style="display: none;" accept="image/*">
+            <input type="file" name="commentimage" id="commentimage<?php  echo $row['id'];?>" style="display: none;" accept="image/*">
         </div>
-        <div class="delete_preloader" id="post_comment_3"></div>
+        <div class="delete_preloader" id="post_comment_<?php  echo $row['id'];?>"></div>
     </div>
-  </div>
-  
+</div>
+
 <?php
+
 }exit();
+
 }
+
+
 
 
 if (isset($_POST["Save"])) {
@@ -313,16 +365,40 @@ function findNewPostById($id){
     $user = $stmt ->fetch(PDO::FETCH_ASSOC);
     return $user;   
 }   
-
+if(isset($_POST['id']) || isset($_POST['comment']) ) {
+    
+    $user_id = $_SESSION['userId'];
+    $id= $_POST['id'];
+    $text=$_POST['comment'];
+    
+    
+     if($_POST['value'] != '')
+    {
+        $vl= $_FILES['value']['name'] ;
+    
+        $tmp = $_FILES['value']['tmp_name'];
+        $newp='upload/'.$vl;
+     if(!move_uploaded_file($tmp,$newp))
+     {
+       $error ='upload anh that bai';
+     }
+     else{
+       
+       move_uploaded_file($tmp,$newp);
+       $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+        mysqli_query($connect,$sql1);
+        
+     }
+    }
+    else{
+        $vl = $_POST['value'];
+        $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+        mysqli_query($connect,$sql1);
+    }
+    
+}
 
 if(isset($_POST['context']) || isset($_POST['images']) ) {
-   
-    
-  
-  
-  
-   
-
     $user_id = $_SESSION['userId'];
    $x='';
 $i = 0 ;   

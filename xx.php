@@ -233,30 +233,6 @@ window.onclick = function(event) {
  
  return false;
 });
-$("form#fileCMTForm").submit(function(event){
- 
- //disable the default form submission
- event.preventDefault();
-
- //grab all form data  
- var formData = new FormData($(this)[0]);
-
- $.ajax({
-   url: 'function.php',
-   type: 'POST',
-   data: formData,
-   async: false,
-   cache: false,
-   contentType: false,
-   processData: false,
-   success: function (returndata) {
-       displaystt();
-    
-   }
- });
- 
- return false;
-});
 
 
 

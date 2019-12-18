@@ -213,72 +213,7 @@ function loadBlocked(start) {
 		}
 	});
 }
-function postComment(id) {
-	var comment = $('#comment-form'+id).val();
-	
-	$('#post_comment_'+id).html('<div class="preloader preloader-center"></div>');
-	
-	// Remove the post button
-	$('#comments-controls'+id).hide();
-	
-	// Show the loading animation
-	$('#action-loader'+id).html('<div class="privacy_loader"></div>');
-	
-	var formData = new FormData();
-	
-	// Build the form
-	formData.append("id", id);
-	formData.append("comment", comment);
-	formData.append("token_id", token_id);
-	
-	if(typeof($('#commentimage'+id)[0].files[0]) !== "undefined") {
 
-		formData.append("type", "picture");
-		formData.append("value", $('#commentimage'+id)[0].files[0]);
-	}
-	
-	// Send the request
-	var ajax = new XMLHttpRequest;
-	ajax.open('POST', baseUrl+"/requests/post_comment.php", true);
-	ajax.send(formData);
-	
-	ajax.onreadystatechange = function() {
-		if(ajax.readyState == XMLHttpRequest.DONE) {
-			try {
-				var result = jQuery.parseJSON(ajax.responseText);
-				
-				// Append the new comment to the div id
-				$('#comments-list'+id).append(result.content);
-				$('#message-action'+id).html(result.actions);
-				
-				// Fade In the style="display: none" class
-				$('.message-reply-container').fadeIn(500);
-				
-				// Reload the timeago plugin
-				jQuery(".timeago").timeago('updateFromDOM');
-				
-				// Empty the text area
-				$('#comment-form'+id).val('');
-			} catch(e) {
-				
-			}
-			
-			// Remove the loader animation
-			$('#post_comment_'+id).html('');
-			$('#action-loader'+id).html('');
-			$('#mentions-container').remove();
-		}
-	}
-	
-	// Reset the form's height
-	$('#comment-form'+id).height(0);
-	
-	// Reset the image input
-	$('#commentimage'+id).val('');
-	
-	// Clear the queue preview
-	$('#queued-comment-files'+id).html('');
-}
 function share(id) {
 	$('#share').fadeIn();
 	$('.modal-background').fadeIn();
@@ -1995,10 +1930,12 @@ $(document).ready(function() {
 	
 	$(document).on('click', '.comment-image-btn', function() {
 		activeComment = $(this).data("active-comment");
+		console.log(activeComment);
 	});
 	
 	$(document).on('change', 'input[name="commentimage"]', function() {
 		if(this.files.length > 0) {
+			
 			// Clear any previous selections
 			$('#queued-comment-files'+activeComment).html('');
 			
