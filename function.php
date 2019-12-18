@@ -117,6 +117,20 @@ if ($result) {
       header('Location: home.php');
 }
 }
+if(isset($_POST["displaycmt"]))
+{
+    $userId =$_SESSION['userId'];
+    $profile = findProfile($userId);
+    $id= $_POST['cc'];
+  $sql = "select * from comments where postid = '35' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {
+    ?>
+        <div><?php echo $id;?></div>
+    <?php
+  }
+}
 if(isset($_POST["display"]))
 {
     
@@ -192,15 +206,15 @@ if(isset($_POST["display"]))
     <div class="message-divider"></div>
     <div class="message-replies">
         <div class="message-actions">
-            <div class="message-actions-content" id="message-action3"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
-                <div class="actions_btn loader" id="action-loader3"></div>
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+                <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
             </div>
         </div>
-        <div class="message-replies-content" id="comments-list3">
-
+        <div class="message-replies-content" id="comments-list<?php  echo $row['id'];?>">
+                
         </div>
     </div>
-    <div class="message-comment-box-container" id="comment_box_3">
+    <div class="message-comment-box-container" id="comment_box_<?php  echo $row['id'];?>">
         <div class="message-reply-avatar">
             <img src="upload/<?php print_r($profile['user_image']) ?>">
         </div>
@@ -254,12 +268,30 @@ if(isset($_POST["display"]))
    contentType: false,
    processData: false,
    success: function (returndata) {
+    displaycmt(id);
     $("#f").html(returndata); 
     $("#queued-comment-files"+id).html(""); 
+   
    }
  });
 	
-}</script>
+}
+function displaycmt(id){
+  
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+                "cc" :id,
+               "displaycmt":1
+           },
+           success: function (d) {
+            $("#comments-list"+id).html(d); 
+           }
+       });
+   }   
+</script>
                 <div id="queued-comment-files<?php  echo $row['id'];?>"></div>
             </div>
             <input type="file" name="commentimage" id="commentimage<?php  echo $row['id'];?>" style="display: none;" accept="image/*">

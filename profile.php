@@ -208,6 +208,7 @@ window.onclick = function(event) {
    
    <script>
    $(document).ready(function(){
+
        displaystt();
     $("form#fileUploadForm").submit(function(event){
  
@@ -227,6 +228,7 @@ window.onclick = function(event) {
    processData: false,
    success: function (returndata) {
        displaystt();
+       
     
    }
  });
@@ -274,26 +276,8 @@ $("form#fileCMTForm").submit(function(event){
            }
        });
    }    
-   function displaycmt(){
-       $.ajax({
-           url: "function.php",
-           type: "POST",
-           async: false,
-           data:{
-               "displaycmt":1
-           },
-           success: function (d) {
-            $("#output").html(d); 
-           }
-       });
-   }   
   
-   $(document).ready(function(){
-    $("form#fileForm").submit(function(event){
-  console.log("ok");
-
-});
-   });
+  
 
       </script>
   
