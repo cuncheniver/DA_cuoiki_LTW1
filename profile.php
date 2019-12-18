@@ -293,7 +293,7 @@ $("form#fileCMTForm").submit(function(event){
   <div class="col-lg-3">
 <center><div class="suggestion-box full-width">
 <h2>Gợi ý kết bạn</h2>
-</div>
+</div> 
 <div class="suggestion-box full-width">
     <div class="suggestions-list">
         
