@@ -290,15 +290,34 @@ $("form#fileCMTForm").submit(function(event){
   
 
       </script>
-  
-   
-   <div class="trending-box">
-    <div class="row">
-     <div class="col-lg-12">
-       <h4>Trending Photos</h4>
-     </div>
+  <div class="col-lg-3">
+<center><div class="suggestion-box full-width">
+<h2>Gợi ý kết bạn</h2>
+</div>
+<div class="suggestion-box full-width">
+    <div class="suggestions-list">
+        
+        <div class="suggestion-body">
+            <img class="img-responsive img-circle" src="assets/img/users/17.jpeg" alt="Image">
+            <div class="name-box">
+                <h4>Anthony McCartney</h4>
+                <span>@antony</span>
+            </div>
+            <span><i class="fa fa-plus"></i></span>
+        </div>
+      
     </div>
-   </div>
+    <!--suggestions-list end-->
+</div>
+
+
+
+
+
+
+</div>
+   
+ 
    
 
    
