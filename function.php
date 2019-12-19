@@ -168,9 +168,10 @@ height: 40%;" src="upload/<?php print_r($row['value'])?>" ></a></div>
 if(isset($_POST["display"]))
 {
     
-    $userId =$_SESSION['userId'];
+    $userId =$_POST['ID'];
+    $userFr =$_POST['IDkhach'];
   $profile = findProfile($userId);
-
+  $profileFr = findProfile($userFr);
   $sql = "select * from post where uid = '$userId' ORDER BY id DESC";
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
@@ -250,7 +251,7 @@ if(isset($_POST["display"]))
     </div>
     <div class="message-comment-box-container" id="comment_box_<?php  echo $row['id'];?>">
         <div class="message-reply-avatar">
-            <img src="upload/<?php print_r($profile['user_image']) ?>">
+            <img src="upload/<?php print_r($profileFr['user_image']) ?>">
         </div>
         <div class="message-comment-box-form">
             <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(<?php  echo $row['id'];?>)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>

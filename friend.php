@@ -12,7 +12,8 @@ if (!isset($_SESSION))
    $postbyUser= findAllPostsbyUser($userId);
    $userId =$_SESSION['userId'];
    $idpost=  findNewPostById($userId);
- 
+   $user=findUserById($_GET['id']);
+   $profilefr = findProfile($_GET['id']);
     
    if(!$currentUser)
    {
@@ -29,7 +30,7 @@ if (!isset($_SESSION))
             <div class="col-lg-12">
                 <div class="post-content">
                     <div class="author-post text-center">
-                        <a href="#"><img class="img-fluid img-circle" src="assets/img/users/13.jpeg" alt="Image"></a>
+                        <a href="#"><img class="img-fluid img-circle" src="upload/<?php print_r($profilefr['user_image']) ?>" alt="Image"></a>
                     </div><!-- /author -->
                 </div><!-- /.post-content -->
             </div><!-- /col-sm-12 -->
@@ -47,9 +48,9 @@ if (!isset($_SESSION))
           <div class="details-box row">
 		   <div class="col-lg-9">
            <div class="content-box">
-		     <h4>Anna Morgan <i class="fa fa-check"></i></h4>
-             <p>Welcome to the offical account of Anna Morgan. Success is in the PIXELS, <span class="hashtag">#pixels</span></p>
-			 <small><span>www.themashabrand.com</span></small>
+		     <h4><?php print_r($profilefr['user_fullName']) ?> <i class="fa fa-check"></i></h4>
+             <p>Welcome to the offical account of <?php print_r($profilefr['user_fullName']) ?>. </p>
+			 <small><span><?php print_r($profilefr['user_contact']) ?></span></small>
            </div><!--/ media -->
 		   </div> 
 		   <div class="col-lg-3">
@@ -83,118 +84,49 @@ if (!isset($_SESSION))
 <section class="newsfeed">
     <div class="container">
 
-        <div class="row">
-
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/14.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>14,100</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
-
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/18.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>100,100</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
-
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/15.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>100</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
-
-        </div>
+    <div id="output"></div>
         <!--/ row -->
+        <script>
+   $(document).ready(function(){
+        
+    displaystt(<?php print_r($profilefr['user_ID']) ?>,<?php print_r($userId) ?>);
+       
+    
+       
+       <?php    $Id =$profilefr['user_ID'];
+  
 
-        <div class="row">
+  $sql = "select * from post where uid = '$Id' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {?>
+      displaycmt(<?php echo $row['id']?>,<?php print_r($userId) ?>);
+   <?php } ?>
+  
 
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/25.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>324</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
 
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/36.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>1023</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
 
-            <div class="col-lg-4">
-                <a href="#myModal" data-toggle="modal">
-                    <div class="explorebox" style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/26.jpg') no-repeat;
-		          background-size: cover;
-                  background-position: center center;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;">
-                        <div class="explore-top">
-                            <div class="explore-like"><i class="fa fa-heart"></i> <span>40</span></div>
-                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!--/ col-lg-4 -->
 
-        </div>
-        <!--/ row -->
+   });
+   function displaystt(id,idk){
+       $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "ID":id,
+               "IDkhach":idk,
+               "display":1
+           },
+           success: function (d) {
+            $("#output").html(d); 
+           }
+       });
+   }    
+  
+  
 
+      </script>
     </div>
     <!--/ container -->
 </section>

@@ -209,7 +209,7 @@ window.onclick = function(event) {
    <script>
    $(document).ready(function(){
         
-    displaystt();
+    displaystt(<?php echo $_SESSION['userId']?>);
        
     
        
@@ -229,7 +229,7 @@ window.onclick = function(event) {
 
  //grab all form data  
  var formData = new FormData($(this)[0]);
-
+ 
  $.ajax({
    url: 'function.php',
    type: 'POST',
@@ -239,7 +239,7 @@ window.onclick = function(event) {
    contentType: false,
    processData: false,
    success: function (returndata) {
-       displaystt();
+       displaystt(<?php echo $_SESSION['userId']?>);
        
     
    }
@@ -247,40 +247,19 @@ window.onclick = function(event) {
  
  return false;
 });
-$("form#fileCMTForm").submit(function(event){
- 
- //disable the default form submission
- event.preventDefault();
 
- //grab all form data  
- var formData = new FormData($(this)[0]);
-
- $.ajax({
-   url: 'function.php',
-   type: 'POST',
-   data: formData,
-   async: false,
-   cache: false,
-   contentType: false,
-   processData: false,
-   success: function (returndata) {
-       displaystt();
-    
-   }
- });
- 
- return false;
-});
 
 
 
    });
-   function displaystt(){
+   function displaystt(id){
        $.ajax({
            url: "function.php",
            type: "POST",
            async: false,
            data:{
+               "ID" :id,
+               "IDkhach" : id,
                "display":1
            },
            success: function (d) {
@@ -311,9 +290,7 @@ while($row=mysqli_fetch_array($result))
         <div class="suggestion-body">
             <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
             <div class="name-box">
-            <a href="friend.php?id=<?php  
-            echo $user['id'];
-            ?>"> <h4><?php echo $row['user_fullName']?></h4></a>
+            <a href="friend.php?id=<?php print_r($row['user_ID']) ?>"> <h4><?php echo $row['user_fullName']?></h4></a>
                 <span>@<?php echo $row['user_name']?></span>
             </div>
             <span><i class="fa fa-plus"></i></span>
