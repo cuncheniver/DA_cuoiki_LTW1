@@ -174,7 +174,7 @@ margin-top: -20px;
 width: 100%;
 
 max-width: 1300px;
-overflow: auto;
+
 }
 .row .one { width: 8.333%; }
 .row .two { width: 16.667%; }
@@ -1962,7 +1962,7 @@ border: 2px solid #888;
 overflow: auto;
 }
 .container {
-padding: 15px 0;
+
 overflow: auto;
 width: 100%;
 float: left;

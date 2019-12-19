@@ -209,7 +209,9 @@ window.onclick = function(event) {
    <script>
    $(document).ready(function(){
         
-       displaystt();
+    displaystt();
+       
+    
        
        <?php    $userId =$_SESSION['userId'];
   
@@ -309,7 +311,9 @@ while($row=mysqli_fetch_array($result))
         <div class="suggestion-body">
             <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
             <div class="name-box">
-                <h4><?php echo $row['user_fullName']?></h4>
+            <a href="friend.php?id=<?php  
+            echo $user['id'];
+            ?>"> <h4><?php echo $row['user_fullName']?></h4></a>
                 <span>@<?php echo $row['user_name']?></span>
             </div>
             <span><i class="fa fa-plus"></i></span>

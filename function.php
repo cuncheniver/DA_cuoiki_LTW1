@@ -200,7 +200,7 @@ if(isset($_POST["display"]))
 
             </div>
             <div class="message-author" id="author-p-3">
-                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage">phu</a>
+                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
                 <span id="time-p-3"><a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" rel="loadpage">
