@@ -7,13 +7,22 @@ if (!isset($_SESSION))
     session_start();
   }
   $userId =$_SESSION['userId'];
-  $profile = findProfile($userId);
    $currentUser= findUserById($userId); 
-   $postbyUser= findAllPostsbyUser($userId);
-   $userId =$_SESSION['userId'];
-   $idpost=  findNewPostById($userId);
    $user=findUserById($_GET['id']);
-   $profilefr = findProfile($_GET['id']);
+   $relationship= findRelationship($currentUser['id'],$user['id']);
+   $isFriend = count($relationship)===2;
+   $follow= findfollow($currentUser['id'],$user['id']);
+   $isFollow = count($follow)===1;
+   $noRelationship = count($relationship)===0;
+   
+   $noFollow = count($follow)===0;
+   if(count($relationship)===1)
+   {
+       $isRequesting= $relationship[0]['user1Id']===$currentUser['id'];
+   }
+   
+   $user=findUserById($_GET['id']);
+   $profilefr = findProfile($_GET['id']);   
     
    if(!$currentUser)
    {
@@ -54,9 +63,39 @@ if (!isset($_SESSION))
            </div><!--/ media -->
 		   </div> 
 		   <div class="col-lg-3">
+           <?php  if ( $user['id']!== $currentUser['id']):
+?>
+<form action="fr.php" method="POST">
+
+
+<input type="hidden" name="id" value="<?php echo $user['id']?>" >
+<?php if($isFriend):?>
+
+<input type="submit" name="action" class="btn btn-primary" value="Xoa ket ban" >
+<?php elseif($noRelationship):?>
+<input type="submit" name="action" class="btn btn-primary" value="gui yeu cau ket ban" >
+<?php else: ?>
+<?php if(!$isRequesting):?>
+<input type="submit" name="action" class="btn btn-primary" value="chap nhan ket ban" >
+<?php endif; ?>
+<input type="submit" name="action" class="btn btn-primary" value="huy yeu cau ket ban" >
+<?php  endif;?> 
+<?php if($isFollow):?>
+    <a href="" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> Following</a>
+         
+<input type="submit" name="action" class="btn btn-primary" value="Bõ theo dõi" >
+<?php elseif($noFollow):?>
+    <div class="follow-box">
+    
+<input class="kafe-btn kafe-btn-mint" type="submit" name="action" class="btn btn-primary" value="Theo dõi">
+</div>
+<?php  endif;?> 
+
+</form>
+
+<?php  endif;?> 
            <div class="follow-box">
-		    <a href="" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> Following</a>
-           </div><!--/ dropdown -->
+		      </div><!--/ dropdown -->
 		   </div>
           </div><!--/ details-box -->
 		  

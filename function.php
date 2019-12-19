@@ -552,7 +552,14 @@ function addRelationship($user1Id,$user2Id)
   
 
 }
-
+function findLike($user2Id,$text)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM SLL where  user2Id=? and  Text=?");
+    $stmt -> execute(array($user2Id,$text));
+    $posts= $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    return $posts;
+}
 function addFollow($user1Id,$user2Id)
 {
     global $db;
