@@ -527,6 +527,57 @@ function findAllPostsbyUser($userId)
     return $posts;
 
 }
+function findRelationship($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM friends where (user1Id=? and user2Id=?) or( user1Id =? and user2Id=?)");
+    $stmt -> execute(array($user1Id,$user2Id,$user2Id,$user1Id));
+    $posts= $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    return $posts;
+}
+function findfollow($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM follow where (user1Id=? and user2Id=?)");
+    $stmt -> execute(array($user1Id,$user2Id));
+    $posts= $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    return $posts;
+}
+
+function addRelationship($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO friends(user1Id,user2Id) values(?,?)");
+    $stmt -> execute(array($user1Id,$user2Id));
+  
+
+}
+
+function addFollow($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("INSERT INTO follow(user1Id,user2Id) values(?,?)");
+    $stmt -> execute(array($user1Id,$user2Id));
+  
+
+}
+function removeFollow($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("DELETE FROM follow where (user1Id=? and user2Id=?) ");
+    $stmt -> execute(array($user1Id,$user2Id));
+  
+
+}
+
+function removeRelationship($user1Id,$user2Id)
+{
+    global $db;
+    $stmt = $db->prepare("DELETE FROM friends where (user1Id=? and user2Id=?) or (user1Id=? and user2Id=?)");
+    $stmt -> execute(array($user1Id,$user2Id,$user2Id,$user1Id));
+  
+
+}
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
