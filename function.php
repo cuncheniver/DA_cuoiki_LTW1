@@ -560,6 +560,39 @@ function findLike($user2Id,$text)
     $posts= $stmt -> fetchAll(PDO::FETCH_ASSOC);
     return $posts;
 }
+function countFollower($userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as fl from follow WHERE user2Id =?");
+    $stmt -> execute(array($userId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+function countFollowing($userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as fl from follow WHERE user1Id =?");
+    $stmt -> execute(array($userId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+
+function countFrends($userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as fr FROM friends f1, friends f2 where f1.user1Id =$userId and f1.user2Id=f2.user1Id and f2.user2Id =$userId");
+    $stmt -> execute(array($userId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+function countPost($userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as post FROM post WHERE uid = ? ");
+    $stmt -> execute(array($userId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
 function addFollow($user1Id,$user2Id)
 {
     global $db;

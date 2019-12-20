@@ -109,9 +109,10 @@ if (!isset($_SESSION))
 
             <div class="menu-category">
                 <ul class="menu">
-                    <li class="current-menu-item"><a href="photo_profile.html">Posts <span>1.7k</span></a></li>
-                    <li><a href="photo_followers.html">Followers <span>1.3M</span></a></li>
-                    <li><a href="photo_followers.html">Following <span>1200</span></a></li>
+                    <li class="current-menu-item"><a href="photo_profile.html">Posts <span><?php  $s = countPost($_GET['id']); echo $s['post'] ; ?> </span></a></li>
+                    <li class="current-menu-item"><a href="photo_profile.html">Friends <span><?php  $s = countFrends($_GET['id']); echo $s['fr'] ; ?> </span></a></li>
+                    <li><a href="photo_followers.html">Followers <span><?php  $s = countFollower($_GET['id']); echo $s['fl'] ; ?></span></a></li>
+                    <li><a href="photo_followers.html">Following <span><?php  $s = countFollowing($_GET['id']); echo $s['fl'] ; ?></span></a></li>
                 </ul>
             </div>
 
