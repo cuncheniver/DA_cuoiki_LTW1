@@ -127,46 +127,56 @@ if(isset($_POST["displaycmt"]))
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {
-    $profile = findProfile($row['uid']);
-    ?>
-      
-<div class="message-reply-container" id="comment<?php echo row['id'] ?>">
-    <div class="message-menu comment-menu" onclick="messageMenu(2, 4)"></div>
-    <div id="comment-menu<?php echo row['id'] ?>" class="message-menu-container">
-        <div class="message-menu-row" onclick="edit_comment(2, 0, 6)" id="edit_text_c2">Edit</div>
-        <div class="message-menu-row" onclick="deleteModal(2, 0, 6)">Delete</div>
-    </div>
     
-    <div class="message-reply-avatar" id="avatar-c-2">
-        <a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image'])?>"></a>
-    </div>
-   
-    <div class="message-reply-message">
-        <span class="message-reply-author" id="author-c-2"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName'])?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
-        <?php if($row['value'] !='')
-    {
-    ?>
-        <div class="comment-image-thumbnail"><a onclick="gallery('127706057_210810256_1601482327.jpg', 2, 'media', 2)" id="127706057_210810256_1601482327.jpg"><img style="width: 30% !important;
-
-height: 40%;" src="upload/<?php print_r($row['value'])?>" ></a></div>
-    <?php }?>
-    </div>
-    <div class="message-reply-footer" id="comment-action2">
-        <div class="message-time"><span class="like-comment"><a onclick="doLike(2, 1)" id="doLikeC2">Like</a> -&nbsp;</span>
-            <span id="time-c-2">
-                <div class="timeago" title="2019-12-18T20:13:28+01:00"><?php echo $row['time']?></div>
-            </span>
-            <div class="actions_btn loader" id="action-c-loader2"></div>
+        $profile = findProfile($row['uid']);
+        ?>
+          
+    <div class="message-reply-container" id="comment<?php echo row['id'] ?>">
+        <div class="message-menu comment-menu" onclick="messageMenu(2, 4)"></div>
+        <div id="comment-menu<?php echo row['id'] ?>" class="message-menu-container">
+            <div class="message-menu-row" onclick="edit_comment(2, 0, 6)" id="edit_text_c2">Edit</div>
+            <div class="message-menu-row" onclick="deleteModal(2, 0, 6)">Delete</div>
         </div>
+        
+        <div class="message-reply-avatar" id="avatar-c-2">
+            <a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image'])?>"></a>
+        </div>
+       
+        <div class="message-reply-message">
+            <span class="message-reply-author" id="author-c-2"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName'])?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
+            <?php if($row['value'] !='')
+        {
+        ?>
+            <div class="comment-image-thumbnail"><a onclick="gallery('127706057_210810256_1601482327.jpg', 2, 'media', 2)" id="127706057_210810256_1601482327.jpg"><img style="width: 30% !important;
+    
+    height: 40%;" src="upload/<?php print_r($row['value'])?>" ></a></div>
+        <?php }?>
+        </div>
+        <div class="message-reply-footer" id="comment-action2">
+            <div class="message-time"><span class="like-comment"><a onclick="doLike(2, 1)" id="doLikeC2">Like</a> -&nbsp;</span>
+                <span id="time-c-2">
+                    <div class="timeago" title="2019-12-18T20:13:28+01:00"><?php echo $row['time']?></div>
+                </span>
+                <div class="actions_btn loader" id="action-c-loader2"></div>
+            </div>
+        </div>
+        <div class="delete_preloader" id="del_comment_2"></div>
     </div>
-    <div class="delete_preloader" id="del_comment_2"></div>
-</div>
+      
+   
 
     <?php
   }
 }
 if(isset($_POST["display"]))
 {
+    if(isset($_POST['isFriend']))
+    {
+        $isFriend = $_POST['isFriend'];
+    }
+    else{
+        $isFriend=0;
+    }
     
     $userId =$_POST['ID'];
     $userFr =$_POST['IDkhach'];
@@ -176,7 +186,9 @@ if(isset($_POST["display"]))
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {
+    if(empty($userFr)){
 ?>
+
 <div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
@@ -274,7 +286,218 @@ if(isset($_POST["display"]))
                 </div>
                 <div id="f">
 
+     </div>
+        <?php } else{?>
+
+        <?php if($row['public']==1 ){ ?>
+            <div class="message-content">
+    <div class="message-inner">
+        <div class="message-avatar" id="avatar-p-3">
+            <a href="" rel="loadpage">
+                <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
+            </a>
+        </div>
+        <div class="message-top">
+
+            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
+            <div id="message-menu3" class="message-menu-container">
+                <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
+                    <div class="message-menu-row">Show in tab</div>
+                </a>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
+                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+
+            </div>
+            <div class="message-author" id="author-p-3">
+                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
+            </div>
+            <div class="message-time">
+                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                        <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
+                    </a></span><span id="privacy<?php echo $row['id'] ?>">
+                    <?php if($row['public'] == 1) 
+                    {
+                    ?>
+                    <div class="privacy-icons public-icon" title="Public"></div>
+                    <?php } else if($row['public'] == 2){ ?>
+                        <div class="privacy-icons friends-icon" title="Private"></div>
+                  
+
+                    <?php }else if($row['public'] == 0){?>
+                        <div class="privacy-icons private-icon" title="Private"></div>
+                    <?php }?>
+                </span>
+                <div id="message_loader<?php echo $row['id'] ?>"></div>
+            </div>
+        </div>
+        <div class="message-message" id="message_text3">
+            <?php echo $row['content'];
+        
+            ?>
+        </div>
+
+    </div>
+    <div class="message-divider"></div>
+    <?php if($row['value'])
+    {
+        $i=0;
+        $list = explode(',',$row['value']);
+       
+    ?>
+    <div class="message-type-image event-picture">
+        <?php foreach($list  as $image)
+        { ?>
+        <div class="image-container-padding">
+            <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+                <div class="image-thumbnail-container">
+                    <div class="image-thumbnail"><img src="upload/<?php echo $image ;?>"></div>
                 </div>
+            </a></div>
+        <?php } ?>
+       
+    </div>
+    <?php }?>
+    <div class="message-divider"></div>
+    <div class="message-replies">
+        <div class="message-actions">
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+                <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
+            </div>
+        </div>
+        <div class="message-replies-content" id="comments-list<?php  echo $row['id'];?>">
+                
+        </div>
+    </div>
+    <div class="message-comment-box-container" id="comment_box_<?php  echo $row['id'];?>">
+        <div class="message-reply-avatar">
+            <img src="upload/<?php print_r($profileFr['user_image']) ?>">
+        </div>
+        <div class="message-comment-box-form">
+            <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(<?php  echo $row['id'];?>)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+            <label for="commentimage<?php  echo $row['id'];?>" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="<?php  echo $row['id'];?>"></label>
+        </div>
+        <div class="comments-buttons">
+            <div id="comments-controls<?php  echo $row['id'];?>" class="comments-controls" style="display: none;">
+                <div class="comment-btn button-active">
+                    <a id="post-comment" onclick="postComments(<?php  echo $row['id'];?>)">Post</a>
+                </div>
+                <div id="f">
+
+     </div>
+
+
+        <?php } else ?>
+        <?php if($row['public']==2 ){ 
+            ?>
+            <?php if($isFriend==1){?>
+                <div class="message-content">
+    <div class="message-inner">
+        <div class="message-avatar" id="avatar-p-3">
+            <a href="" rel="loadpage">
+                <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
+            </a>
+        </div>
+        <div class="message-top">
+
+            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
+            <div id="message-menu3" class="message-menu-container">
+                <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
+                    <div class="message-menu-row">Show in tab</div>
+                </a>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
+                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+                <div class="message-menu-divider"></div>
+                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+
+            </div>
+            <div class="message-author" id="author-p-3">
+                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
+            </div>
+            <div class="message-time">
+                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                        <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
+                    </a></span><span id="privacy<?php echo $row['id'] ?>">
+                    <?php if($row['public'] == 1) 
+                    {
+                    ?>
+                    <div class="privacy-icons public-icon" title="Public"></div>
+                    <?php } else if($row['public'] == 2){ ?>
+                        <div class="privacy-icons friends-icon" title="Private"></div>
+                  
+
+                    <?php }else if($row['public'] == 0){?>
+                        <div class="privacy-icons private-icon" title="Private"></div>
+                    <?php }?>
+                </span>
+                <div id="message_loader<?php echo $row['id'] ?>"></div>
+            </div>
+        </div>
+        <div class="message-message" id="message_text3">
+            <?php echo $row['content'];
+        
+            ?>
+        </div>
+
+    </div>
+    <div class="message-divider"></div>
+    <?php if($row['value'])
+    {
+        $i=0;
+        $list = explode(',',$row['value']);
+       
+    ?>
+    <div class="message-type-image event-picture">
+        <?php foreach($list  as $image)
+        { ?>
+        <div class="image-container-padding">
+            <a onclick="gallery('1320257503_78764593_2015581271.jpg', 3, 'media', 1)" id="1320257503_78764593_2015581271.jpg">
+                <div class="image-thumbnail-container">
+                    <div class="image-thumbnail"><img src="upload/<?php echo $image ;?>"></div>
+                </div>
+            </a></div>
+        <?php } ?>
+       
+    </div>
+    <?php }?>
+    <div class="message-divider"></div>
+    <div class="message-replies">
+        <div class="message-actions">
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+                <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
+            </div>
+        </div>
+        <div class="message-replies-content" id="comments-list<?php  echo $row['id'];?>">
+                
+        </div>
+    </div>
+    <div class="message-comment-box-container" id="comment_box_<?php  echo $row['id'];?>">
+        <div class="message-reply-avatar">
+            <img src="upload/<?php print_r($profileFr['user_image']) ?>">
+        </div>
+        <div class="message-comment-box-form">
+            <textarea id="comment-form<?php  echo $row['id'];?>" onclick="showButton(<?php  echo $row['id'];?>)" placeholder="Leave a comment..." class="comment-reply-textarea"></textarea>
+            <label for="commentimage<?php  echo $row['id'];?>" class="c-w-icon c-w-icon-picture comment-image-btn" title="Upload image" data-active-comment="<?php  echo $row['id'];?>"></label>
+        </div>
+        <div class="comments-buttons">
+            <div id="comments-controls<?php  echo $row['id'];?>" class="comments-controls" style="display: none;">
+                <div class="comment-btn button-active">
+                    <a id="post-comment" onclick="postComments(<?php  echo $row['id'];?>)">Post</a>
+                </div>
+                <div id="f">
+
+     </div>
+            <?php }?>
+        <?php }?>
+
+        <?php }?>
                 <script> function postComments(id) {
     var comment = $('#comment-form'+id).val();
     $('#post_comment_'+id).html('<div class="preloader preloader-center"></div>');

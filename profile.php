@@ -219,7 +219,7 @@ window.onclick = function(event) {
    <script>
    $(document).ready(function(){
         
-    displaystt(<?php echo $_SESSION['userId']?>);
+    displaystt(<?php echo $_SESSION['userId']?>,0);
        
     
        
@@ -251,7 +251,7 @@ window.onclick = function(event) {
    processData: false,
    success: function (returndata) {
       console.log(returndata);
-       displaystt(<?php echo $_SESSION['userId']?>);
+       displaystt(<?php echo $_SESSION['userId']?>,0);
        
     
    }
@@ -264,14 +264,14 @@ window.onclick = function(event) {
 
 
    });
-   function displaystt(id){
+   function displaystt(id,idk){
        $.ajax({
            url: "function.php",
            type: "POST",
            async: false,
            data:{
                "ID" :id,
-               "IDkhach" : id,
+               "IDkhach" : idk,
                "display":1
            },
            success: function (d) {

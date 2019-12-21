@@ -128,8 +128,11 @@ if (!isset($_SESSION))
         <!--/ row -->
         <script>
    $(document).ready(function(){
-        
-    displaystt(<?php print_r($profilefr['user_ID']) ?>,<?php print_r($userId) ?>);
+       $fr=0;
+    <?php if($isFriend) {?>
+        $fr =1;
+    <?php }?>
+    displaystt(<?php print_r($profilefr['user_ID']) ?>,<?php print_r($userId) ?>,$fr);
        
     
        
@@ -145,10 +148,10 @@ if (!isset($_SESSION))
   
 
 
-
+  
 
    });
-   function displaystt(id,idk){
+   function displaystt(id,idk,isfr){
        $.ajax({
            url: "function.php",
            type: "POST",
@@ -156,6 +159,7 @@ if (!isset($_SESSION))
            data:{
                "ID":id,
                "IDkhach":idk,
+               "isFriend":isfr,
                "display":1
            },
            success: function (d) {
