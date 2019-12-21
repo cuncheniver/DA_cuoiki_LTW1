@@ -496,9 +496,10 @@ $i = 0 ;
          $x= implode(',',$_FILES['images']['name'] )   ;
   
         
-            
-    $context =mysqli_real_escape_string($connect,$_POST['context']);
-    $sql = "INSERT INTO `post`(`uid`, `content`, `type`, `value`, `time`, `public`, `likes`, `comments`, `shares`) VALUES ($user_id ,'$context','images','$x',now(),1,0,0,0)";
+           
+   $context =mysqli_real_escape_string($connect,$_POST['context']);
+    $tt = mysqli_real_escape_string($connect,$_POST['trangthai']);
+   $sql = "INSERT INTO `post`(`uid`, `content`, `type`, `value`, `time`, `public`, `likes`, `comments`, `shares`) VALUES ($user_id ,'$context','images','$x',now(),$tt,0,0,0)";
     mysqli_query($connect,$sql);    
     
    

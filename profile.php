@@ -185,6 +185,16 @@ window.onclick = function(event) {
 		
 			
 			<div class="selected-files" id="queued-files"></div>
+      <div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="Who should see the message" id="privacy-button"><a>
+        <div  id="privacy-btn" class="privacy-icons public-icon" value="xx"></div>
+        <input id="sos" name="trangthai" type="text"  size="27" value="1" style="display:none" >
+		
+    </a></div>
+    <div id="message-menu9999999999" class="message-menu-container message-menu-privacy message-menu-active">
+    <div class="message-menu-row" onclick="postPrivacy(1)">Public</div>
+    <div class="message-menu-row" onclick="postPrivacy(2)">Friends</div>
+    <div class="message-menu-row" onclick="postPrivacy(0)">Private</div>
+    </div>
 			<div class="message-form-input"><input type="text" name="value" id="form-value"></div>
 			<div id="values">
 				<label id="open_images" title="Upload images"><img src="./image/icons/events/camera.svg"></label>
@@ -233,12 +243,14 @@ window.onclick = function(event) {
  $.ajax({
    url: 'function.php',
    type: 'POST',
-   data: formData,
+   data: 
+     formData,
    async: false,
    cache: false,
    contentType: false,
    processData: false,
    success: function (returndata) {
+      console.log(returndata);
        displaystt(<?php echo $_SESSION['userId']?>);
        
     

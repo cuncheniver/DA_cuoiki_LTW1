@@ -1645,14 +1645,17 @@ function messageMenu(id, type, close) {
 function postPrivacy(type) {
 	// Set the input value
 	$('#message-privacy').val(type);
-	
+	$('#sos').val(type);	
 	// Set the privacy icon on the button
 	$('#privacy-btn').removeClass();
 	if(type == 1) {
+		
 		$('#privacy-btn').addClass('privacy-icons public-icon');
 	} else if(type == 2) {
+		
 		$('#privacy-btn').addClass('privacy-icons friends-icon');
 	} else {
+		
 		$('#privacy-btn').addClass('privacy-icons private-icon');
 	}
 }
