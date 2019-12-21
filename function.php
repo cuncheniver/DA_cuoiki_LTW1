@@ -204,17 +204,27 @@ if(isset($_POST["display"]))
                 <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
-                <span id="time-p-3"><a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" rel="loadpage">
-                        <div class="timeago" title="2019-11-28T14:06:48+01:00">5 hours ago</div>
-                    </a></span><span id="privacy3">
+                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                        <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
+                    </a></span><span id="privacy<?php echo $row['id'] ?>">
+                    <?php if($row['public'] == 1) 
+                    {
+                    ?>
                     <div class="privacy-icons public-icon" title="Public"></div>
+                    <?php } else if($row['public'] == 2){ ?>
+                        <div class="privacy-icons friends-icon" title="Private"></div>
+                  
+
+                    <?php }else if($row['public'] == 0){?>
+                        <div class="privacy-icons private-icon" title="Private"></div>
+                    <?php }?>
                 </span>
-                <div id="message_loader3"></div>
+                <div id="message_loader<?php echo $row['id'] ?>"></div>
             </div>
         </div>
         <div class="message-message" id="message_text3">
             <?php echo $row['content'];
-          echo $row['id'];
+        
             ?>
         </div>
 
