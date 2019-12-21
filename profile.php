@@ -219,7 +219,7 @@ window.onclick = function(event) {
    <script>
    $(document).ready(function(){
         
-    displaystt(<?php echo $_SESSION['userId']?>,0);
+    displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
        
     
        
@@ -251,7 +251,7 @@ window.onclick = function(event) {
    processData: false,
    success: function (returndata) {
       console.log(returndata);
-       displaystt(<?php echo $_SESSION['userId']?>,0);
+       displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
        
     
    }

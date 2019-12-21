@@ -186,7 +186,7 @@ if(isset($_POST["display"]))
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {
-    if(empty($userFr)){
+    if($userId == $userFr){
 ?>
 
 <div class="message-content">
@@ -263,7 +263,12 @@ if(isset($_POST["display"]))
     <div class="message-divider"></div>
     <div class="message-replies">
         <div class="message-actions">
-            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="doLike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
+            
+            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+    <div class="actions_btn like_btn"> 1</div>
+            </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
             </div>
         </div>
@@ -365,7 +370,12 @@ if(isset($_POST["display"]))
     <div class="message-divider"></div>
     <div class="message-replies">
         <div class="message-actions">
-            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="dolike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
+            
+            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+    <div class="actions_btn like_btn"> 1</div>
+            </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
             </div>
         </div>
@@ -470,7 +480,12 @@ if(isset($_POST["display"]))
     <div class="message-divider"></div>
     <div class="message-replies">
         <div class="message-actions">
-            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="doLike(3, 0)" id="doLike3">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="dolike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
+            <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
+            
+            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+    <div class="actions_btn like_btn"> 1</div>
+            </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
             </div>
         </div>
@@ -500,7 +515,9 @@ if(isset($_POST["display"]))
         <?php }?>
                 <script> function postComments(id) {
     var comment = $('#comment-form'+id).val();
-    $('#post_comment_'+id).html('<div class="preloader preloader-center"></div>');
+    if(comment != "")
+    {
+        $('#post_comment_'+id).html('<div class="preloader preloader-center"></div>');
 	
 	// Remove the post button
 	$('#comments-controls'+id).hide();
@@ -540,6 +557,8 @@ if(isset($_POST["display"]))
    
    }
  });
+    }
+    
 	
 }
 function displaycmt(id){
@@ -557,6 +576,8 @@ function displaycmt(id){
            }
        });
    }   
+
+  
 </script>
                 <div id="queued-comment-files<?php  echo $row['id'];?>"></div>
             </div>
@@ -565,14 +586,71 @@ function displaycmt(id){
         <div class="delete_preloader" id="post_comment_<?php  echo $row['id'];?>"></div>
     </div>
 </div>
-
+<script>
+ function Dolike(id,type){
+    if(type == 1) {
+		
+	} else if(type == 2) {
+		
+	} else {
+        console.log("ok");
+		$('#action-loader'+id).html('<div class="privacy_loader"></div>');
+		
+		var attrVal = $('#doLike'+id).attr('onclick');
+		$('#doLike'+id).removeAttr('onclick');
+	}
+	$.ajax({
+		type: "POST",
+		url: "function.php",
+		data: "id="+id+"&type="+type+"&like="+type, 
+		cache: false,
+		success: function(html) {
+            if(type == 1) {
+				
+			} else if(type == 2) {
+				
+			} else {
+				//$('#doLike'+id).html("unlike");
+			
+				
+			}
+			
+		}
+	});
+   }
+   function DisplayLike(id,type)
+   {
+    $.ajax({
+		type: "POST",
+		url: "function.php",
+		data: "id="+id+"&type="+type+"&displaylike="+type, 
+		cache: false,
+		success: function(html) {
+            if(type == 1) {
+				
+			} else if(type == 2) {
+				
+			} else {
+				$('#doLike'+id).html("unlike");
+			
+				
+			}
+			
+		}
+	});
+   }
+</script>
 <?php
 
 }exit();
 
 }
 
+if(isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']) ) {
+    $sql1 = "INSERT INTO profile(user_ID,user_fullName,user_contact,user_image) VALUES ( '$user_id','$ten', '$sdt','$tenanh')";
+    mysqli_query($connect,$sql1);
 
+}
 
 
 if (isset($_POST["Save"])) {
@@ -664,42 +742,45 @@ function findNewPostById($id){
     return $user;   
 }   
 if(isset($_POST['id']) || isset($_POST['comment']) ) {
+   
     
     $user_id = $_SESSION['userId'];
     $id= $_POST['id'];
     $text=$_POST['comment'];
- 
-    
-    $tenanh=$_FILES['value']['name'];
-    $fileExt = explode('.',$tenanh);
-    $fileActualExt = strtolower(end($fileExt));
-    if(!empty($tenanh))
+    if($text != "")
     {
+        $tenanh=$_FILES['value']['name'];
+        $fileExt = explode('.',$tenanh);
+        $fileActualExt = strtolower(end($fileExt));
+        if(!empty($tenanh))
+        {
+            
+            $vl= $_FILES['value']['name'] ;
         
-        $vl= $_FILES['value']['name'] ;
-    
-        $tmp = $_FILES['value']['tmp_name'];
-        $newp='upload/'.$vl;
-     if(!move_uploaded_file($tmp,$newp))
-     {
-       $error ='upload anh that bai';
-     }
-     else{
-       
-       move_uploaded_file($tmp,$newp);
-      $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
-       mysqli_query($connect,$sql1);
-        
-     }
+            $tmp = $_FILES['value']['tmp_name'];
+            $newp='upload/'.$vl;
+         if(!move_uploaded_file($tmp,$newp))
+         {
+           $error ='upload anh that bai';
+         }
+         else{
+           
+           move_uploaded_file($tmp,$newp);
+          $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+           mysqli_query($connect,$sql1);
+            
+         }
+        }
+        else{
+            ?>
+            <script> console.log("ok")</script>
+            <?php
+           $vl = '';
+           $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+            mysqli_query($connect,$sql1);
+        }
     }
-    else{
-        ?>
-        <script> console.log("ok")</script>
-        <?php
-       $vl = '';
-       $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
-        mysqli_query($connect,$sql1);
-    }
+   
     
     
 }
