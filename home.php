@@ -57,33 +57,7 @@ if (!isset($_SESSION))
         </div>
 
         </div>
-        <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-          modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        }
-        </script>
+      
         <div class="detail">    
                              
         </div>
@@ -135,31 +109,76 @@ if (!isset($_SESSION))
           <div class="message-container last-message" id="ok">
           
               </div>
-              <div id="output"></div>
+              
+        
+        <?php    
+      
+        
+      $sql0 = "select id from login";
+      $result0 = mysqli_query($connect, $sql0);   
+        while($row0=mysqli_fetch_array($result0))
+      {?>
+    
+            <div id="output<?php echo $row0['id'] ?>"></div>
+       <?php } ?>
+              
             </div>
             <script>
-            $(document).ready(function(){
-                displaystt();
-              $("form#fileUploadForm").submit(function(event){
-          
-      //disable the default form submission
-      event.preventDefault();
+   $(document).ready(function(){
+        
+    <?php    
+  
+    $idd = $_SESSION['userId'];
+  $sql0 = "select id from login";
+  $result0 = mysqli_query($connect, $sql0);   
+    while($row0=mysqli_fetch_array($result0))
+  {?>
+  <?php 
+   $relationship= findRelationship($idd,$row0['id']);
+   $isFriend = count($relationship)===2;
+   ?>
+   $fr=0;
+    <?php if($isFriend) {?>
+        $fr =1;
+    <?php }?>
+    displaystt(<?php echo $row0['id'] ?>,<?php echo $idd?>,$fr);
+    <?php    $pID = $row0['id'];
+  
 
-      //grab all form data  
-      var formData = new FormData($(this)[0]);
+  $sql = "select * from post  where uid = '$pID' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {?>
+      displaycmt(<?php echo $row['id']?>);
+   <?php } ?>
+   <?php } ?>
+    
+       
+    
+       
+      
+    $("form#fileUploadForm").submit(function(event){
+ 
+ //disable the default form submission
+ event.preventDefault();
 
+ //grab all form data  
+ var formData = new FormData($(this)[0]);
+ 
  $.ajax({
    url: 'function.php',
    type: 'POST',
-   data: formData,
+   data: 
+     formData,
    async: false,
    cache: false,
    contentType: false,
    processData: false,
    success: function (returndata) {
-       displaystt();
-    $("textarea").val('');
-    $("input").val('');
+      console.log(returndata);
+       displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
+       
+    
    }
  });
  
@@ -168,36 +187,28 @@ if (!isset($_SESSION))
 
 
 
+
    });
-   function displaystt(){
+   function displaystt(id,idk,isfr){
        $.ajax({
            url: "function.php",
            type: "POST",
            async: false,
            data:{
+                "ID":id,
+               "IDkhach":idk,
+               "isFriend":isfr,
                "display":1
            },
-           success: function (d) {
-            $("#output").html(d); 
+           success: function (d) {            
+            $("#output"+id).html(d); 
            }
        });
    }    
-   function displaycmt(){
-       $.ajax({
-           url: "function.php",
-           type: "POST",
-           async: false,
-           data:{
-               "displaycmt":1
-           },
-           success: function (d) {
-            $("#output").html(d); 
-           }
-       });
-   }   
-      </script>
-   
+  
+  
 
+      </script>
    
    
    </div>
