@@ -1264,7 +1264,7 @@ function sendEmail($email, $subject, $content)
         $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
         $mail->SMTPAuth = true; // Enable SMTP authentication
         $mail->Username = 'nguyentranphu1233@gmail.com'; // SMTP username
-        $mail->Password = 'FUdmtlnlacccpCK3'; // SMTP password
+        $mail->Password = 'FUdmtlnlacccphongCK4'; // SMTP password
         $mail->SMTPSecure = 'ssl'; // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 465; // TCP port to connect to
         //Recipients

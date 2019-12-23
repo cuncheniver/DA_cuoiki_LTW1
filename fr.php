@@ -20,7 +20,15 @@ if(count($relationship)===1)
 }
 if($_POST['action']=== 'gui yeu cau ket ban')
 {
+    
+    
+
     addRelationship($currentUser['id'],$user['id']);
+     $secret = generateRandomString();
+     $link = 'href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id='.$currentUser['id'].'"';
+    sendEmail($user['email'], 'Friend Request', ' <a '.$link.'> click here </a>');
+                  
+
    
 }
 if($_POST['action']=== 'huy yeu cau ket ban' || $_POST['action']=== 'Xoa ket ban' )
