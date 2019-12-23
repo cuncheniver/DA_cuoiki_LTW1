@@ -189,13 +189,14 @@ if (!isset($_SESSION))
     DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>);
    <?php } ?>
+   
    <?php } ?>
    var x= setInterval(function(){
     
     countNT(<?php echo $idd ?>);
     loadNoti(<?php echo $idd ?>); 
  
-  },2000);
+  },1000);
    
        
     

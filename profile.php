@@ -250,6 +250,12 @@ window.onclick = function(event) {
       DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>);
    <?php } ?>
+   var x= setInterval(function(){
+    
+    countNT(<?php echo $_SESSION['userId'] ?>);
+    loadNoti(<?php echo $_SESSION['userId'] ?>); 
+ 
+  },1000);
     $("form#fileUploadForm").submit(function(event){
  
  //disable the default form submission

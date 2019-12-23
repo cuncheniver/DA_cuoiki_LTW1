@@ -165,7 +165,12 @@ if (!isset($_SESSION))
    <?php } ?>
   
 
-
+   var x= setInterval(function(){
+    
+    countNT(<?php echo $_SESSION['userId'] ?>);
+    loadNoti(<?php echo $_SESSION['userId'] ?>); 
+ 
+  },1000);
   
 
    });
