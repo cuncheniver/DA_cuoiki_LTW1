@@ -125,6 +125,23 @@ if (!isset($_SESSION))
     <div class="container">
 
     <div id="output"></div>
+    <div id="likes" class="modal-large" style="display: none;">
+       <div class="modal-container modal-container-large">
+           <div class="modal-inner">
+               <div class="modal-title">Likes</div>
+           </div>
+           <div class="message-divider"></div>
+           <div class="modal-inner modal-inner-large">
+               <div id="likes-result" class="modal-listing-results scrollable">
+
+               </div>
+           </div>
+           <div class="message-divider"></div>
+           <div class="modal-menu">
+               <div class="modal-cancel button-normal" id="delete-cancel"><a onclick="likesModal(0, 0, 1)">Close</a></div>
+           </div>
+       </div>
+   </div>
         <!--/ row -->
         <script>
    $(document).ready(function(){
@@ -132,6 +149,7 @@ if (!isset($_SESSION))
     <?php if($isFriend) {?>
         $fr =1;
     <?php }?>
+    
     displaystt(<?php print_r($profilefr['user_ID']) ?>,<?php print_r($userId) ?>,$fr);
        
     
@@ -143,6 +161,7 @@ if (!isset($_SESSION))
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {?>
+  DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>,<?php print_r($userId) ?>);
    <?php } ?>
   
@@ -168,6 +187,25 @@ if (!isset($_SESSION))
        });
    }    
   
+   function likesModal(id, type, close) {
+	// Type 0: Message, Type 1: Comment
+	if(close) {
+		hideModal();
+	} else {
+		$('#likes').fadeIn();
+		$('.modal-background').fadeIn();
+		$('#likes-result').html('<div class="modal-listing-load-more"><div class="preloader preloader-center"></div></div>');
+		$.ajax({
+			type: "POST",
+			url: "function.php",
+			data: "ID="+id+"&extra="+type+"&listLikes="+type, 
+			cache: false,
+			success: function(html) {
+				$('#likes-result').html(html);
+			}
+		});
+	}
+}
   
 
       </script>

@@ -215,7 +215,7 @@ window.onclick = function(event) {
     </div>
     <div id="output"></div>
     <div id="likes" class="modal-large" style="display: none;">
-    <div class="modal-container modal-container-large">
+      <div class="modal-container modal-container-large">
         <div class="modal-inner">
             <div class="modal-title">Likes</div>
         </div>
@@ -228,7 +228,7 @@ window.onclick = function(event) {
         <div class="message-divider"></div>
         <div class="modal-menu">
             <div class="modal-cancel button-normal" id="delete-cancel"><a onclick="likesModal(0, 0, 1)">Close</a></div>
-        </div>
+      </div>
     </div>
 </div>
    </div>
@@ -269,8 +269,17 @@ window.onclick = function(event) {
    processData: false,
    success: function (returndata) {
       console.log(returndata);
-       displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
-       
+      displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
+      <?php    $userId =$_SESSION['userId'];
+  
+
+  $sql = "select * from post where uid = '$userId' ORDER BY id DESC";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {?>
+      DisplayLike(<?php echo $row['id']?>,0);
+      displaycmt(<?php echo $row['id']?>);
+   <?php } ?>
     
    }
  });
