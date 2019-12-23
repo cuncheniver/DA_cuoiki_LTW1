@@ -162,6 +162,22 @@ if (!isset($_SESSION))
   {?>
   DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>,<?php print_r($userId) ?>);
+      <?php    $cmtID = $row['id'];
+  ?>
+      <?php
+
+$sql2 = "select * from comments  where postid = '$cmtID' ORDER BY id DESC";
+$result2 = mysqli_query($connect, $sql2);
+while($row2=mysqli_fetch_array($result2))
+{?>
+
+  DisplayLike(<?php echo $row2['id']?>,1);
+    
+  
+
+
+
+ <?php } ?>
    <?php } ?>
   
 

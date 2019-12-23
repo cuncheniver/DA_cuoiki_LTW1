@@ -132,19 +132,19 @@ if (isset($_POST["displaycmt"]))
         $profile = findProfile($row['uid']);
 ?>
           
-    <div class="message-reply-container" id="comment<?php echo row['id'] ?>">
+    <div class="message-reply-container" id="comment<?php echo $row['id'] ?>">
         <div class="message-menu comment-menu" onclick="messageMenu(2, 4)"></div>
         <div id="comment-menu<?php echo row['id'] ?>" class="message-menu-container">
             <div class="message-menu-row" onclick="edit_comment(2, 0, 6)" id="edit_text_c2">Edit</div>
             <div class="message-menu-row" onclick="deleteModal(2, 0, 6)">Delete</div>
         </div>
         
-        <div class="message-reply-avatar" id="avatar-c-2">
+        <div class="message-reply-avatar" id="avatar-c-<?php echo $row['id'] ?>">
             <a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>"></a>
         </div>
        
         <div class="message-reply-message">
-            <span class="message-reply-author" id="author-c-2"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
+            <span class="message-reply-author" id="author-c-<?php echo $row['id'] ?>"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
             <?php if ($row['value'] != '')
         {
 ?>
@@ -154,15 +154,18 @@ if (isset($_POST["displaycmt"]))
         <?php
         } ?>
         </div>
-        <div class="message-reply-footer" id="comment-action2">
-            <div class="message-time"><span class="like-comment"><a onclick="doLike(2, 1)" id="doLikeC2">Like</a> -&nbsp;</span>
-                <span id="time-c-2">
+        <div class="message-reply-footer" id="comment-action<?php echo $row['id'] ?>">
+            <div class="message-time"><span class="like-comment"><a onclick="Dolike(<?php echo $row['id'] ?>, 1)" id="doLikeC<?php echo $row['id'] ?>">Like</a> -&nbsp;</span>
+                <span id="time-c-<?php echo $row['id'] ?>">
                     <div class="timeago" title="2019-12-18T20:13:28+01:00"><?php echo $row['time'] ?></div>
                 </span>
-                <div class="actions_btn loader" id="action-c-loader2"></div>
+                <a onclick="likesModal(<?php echo $row['id'] ?>, 1)" title="View who liked" id="ac<?php echo $row['id'] ?>">
+                    <div class="actions_btn like_btn"> </div>
+                </a>
+                <div class="actions_btn loader" id="action-c-loader<?php echo $row['id'] ?>"></div>
             </div>
         </div>
-        <div class="delete_preloader" id="del_comment_2"></div>
+        <div class="delete_preloader" id="del_comment_<?php echo $row['id'] ?>"></div>
     </div>
       
    
@@ -651,9 +654,11 @@ function displaycmt(id){
 		cache: false,
 		success: function(html) {
             if(type == 1) {
-				
+                DisplayLike(id,type);
 			} else if(type == 2) {
-				
+              
+               
+                
 			} else {
                 
                 DisplayLike(id,type);
@@ -682,7 +687,21 @@ function displaycmt(id){
 		success: function(html) {
             var result = $.parseJSON(html);
             if(type == 1) {
-				
+				<?php $userId = $_SESSION['userId'];
+
+                ?>
+
+                
+                $('#doLikeC'+id).html(result.TrangThai);
+
+                if(result.count>0)
+                {$('#ac'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
+                else
+                $('#al'+id).html('');
+                <?php ?>
+                
+               
+               
 			} else if(type == 2) {
 				
 			} else {
@@ -790,7 +809,7 @@ if (isset($_POST["iNoti"]))
 function findLikeP($postId, $userId)
 {
     global $db;
-    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and userId=$userId  ");
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and userId=$userId and type=0 ");
     $stmt->execute(array(
         $postId,
         $userId
@@ -798,7 +817,17 @@ function findLikeP($postId, $userId)
     $posts = $stmt->fetch(PDO::FETCH_ASSOC);
     return $posts;
 }
-
+function findLikeCmt($postId, $userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and userId=$userId and type=1 ");
+    $stmt->execute(array(
+        $postId,
+        $userId
+    ));
+    $posts = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
 function countNoti($Id)
 {
 
@@ -812,7 +841,18 @@ function countLikePost($postId)
 {
 
     global $db;
-    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =?");
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and type=0");
+    $stmt->execute(array(
+        $postId
+    ));
+    $posts = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+function countLikeCmt($postId)
+{
+
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and type=1");
     $stmt->execute(array(
         $postId
     ));
@@ -829,6 +869,7 @@ function countCmtPost($postId)
     $posts = $stmt->fetch(PDO::FETCH_ASSOC);
     return $posts;
 }
+
 if (isset($_POST["listLikes"]))
 {
     $pid = $_POST['ID'];
@@ -866,7 +907,10 @@ if (isset($_POST["listLikes"]))
 if (isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"]))
 {
     $pid = $_POST['ID'];
+    $typee= $_POST['type'];
     $idUser = $_SESSION['userId'];
+    if($typee == 0)
+    {
     $s = countLikePost($pid);
     $s2 = countCmtPost($pid);
     $isLike = findLikeP($pid, $idUser);
@@ -885,6 +929,27 @@ if (isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"])
         'TrangThai' => $btTT,
         'countCMT' => $s2['cmt']
     );
+    }
+    else{
+        $s = countLikeCmt($pid);
+        
+        $isLike = findLikeCmt($pid, $idUser);
+        $btTT = "";
+        if ($isLike['likee'] > 0)
+        {
+            $btTT = "Unlike";
+        }
+        else
+        {
+            $btTT = "like";
+        }
+    
+        $member = array(
+            'count' => $s['likee'],
+            'TrangThai' => $btTT
+            
+        );
+    }
 
     echo json_encode($member);
 
@@ -897,7 +962,9 @@ if (isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']))
     $k = $_POST['like'];
      $upId = findUserByPost($pid);
      $x = $upId['uid'];
-   
+
+   if($type==0)
+   {
     if ($k == "like")
     {   
         
@@ -920,6 +987,14 @@ if (isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']))
         mysqli_query($connect, $sql2);
     }
 
+   }
+   else{
+    $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+    $sql2 = "UPDATE `comments` SET `likes` = likes+1 WHERE id = $pid";
+    mysqli_query($connect, $sql1);
+    mysqli_query($connect, $sql2);
+   }
+    
 }
 
 if (isset($_POST["Save"]))
