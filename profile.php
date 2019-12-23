@@ -218,7 +218,7 @@ window.onclick = function(event) {
    
    <script>
    $(document).ready(function(){
-        
+    
     displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
        
     
@@ -230,6 +230,7 @@ window.onclick = function(event) {
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {?>
+      DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>);
    <?php } ?>
     $("form#fileUploadForm").submit(function(event){

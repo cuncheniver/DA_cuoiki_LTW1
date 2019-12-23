@@ -594,15 +594,17 @@ function displaycmt(id){
 		
 	} else {
         console.log("ok");
-		$('#action-loader'+id).html('<div class="privacy_loader"></div>');
-		
-		var attrVal = $('#doLike'+id).attr('onclick');
-		$('#doLike'+id).removeAttr('onclick');
-	}
+	
+	
+    }
+    var trangthai = $('#doLike'+id).html();
+    console.log(trangthai);
+   
+    
 	$.ajax({
 		type: "POST",
 		url: "function.php",
-		data: "id="+id+"&type="+type+"&like="+type, 
+		data: "id="+id+"&type="+type+"&like="+trangthai, 
 		cache: false,
 		success: function(html) {
             if(type == 1) {
@@ -610,7 +612,7 @@ function displaycmt(id){
 			} else if(type == 2) {
 				
 			} else {
-				//$('#doLike'+id).html("unlike");
+				DisplayLike(id,type);
 			
 				
 			}
@@ -622,17 +624,31 @@ function displaycmt(id){
    {
     $.ajax({
 		type: "POST",
-		url: "function.php",
-		data: "id="+id+"&type="+type+"&displaylike="+type, 
-		cache: false,
+        url: "function.php",
+        async: true,
+        data: "ID="+id+"&type="+type+"&displaylike="+type, 
+        
+		
 		success: function(html) {
+            var result = $.parseJSON(html);
             if(type == 1) {
 				
 			} else if(type == 2) {
 				
 			} else {
-				$('#doLike'+id).html("unlike");
-			
+                <?php    $userId =$_SESSION['userId'];
+      
+
+
+  ?>
+
+
+                $('#doLike'+id).html(result.TrangThai);
+
+                if(result.count>0)
+                {$('#al'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
+                else
+                $('#al'+id).html('');
 				
 			}
 			
@@ -646,10 +662,64 @@ function displaycmt(id){
 
 }
 
-if(isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']) ) {
-    $sql1 = "INSERT INTO profile(user_ID,user_fullName,user_contact,user_image) VALUES ( '$user_id','$ten', '$sdt','$tenanh')";
-    mysqli_query($connect,$sql1);
+function findLikeP($postId,$userId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and userId=$userId  ");
+    $stmt -> execute(array($postId,$userId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+function countLikePost($postId)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =?");
+    $stmt -> execute(array($postId));
+    $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
+if( isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"]))
+{
+    $pid= $_POST['ID'];
+    $idUser = $_SESSION['userId'];
+     $s = countLikePost($pid); 
+     $isLike = findLikeP($pid,$idUser);
+    $btTT = "";
+    if($isLike['likee'] >0)
+    {
+        $btTT = "Unlike";
+    }else{
+        $btTT = "like";
+    }
 
+    $member = array('count' => $s['likee']
+    ,'TrangThai' => $btTT
+    ,'email' => 'ahoangphuc@gmail.com');
+
+  
+    echo json_encode($member);
+     
+}
+if(isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']) ) {
+    $pid = $_POST['id'];
+    $user_id = $_SESSION['userId'];
+    $type = $_POST['type'];
+    $k = $_POST['like'];
+    if($k == "like")
+    {
+        $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+        $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid";
+           mysqli_query($connect,$sql1);
+         mysqli_query($connect,$sql2);
+    }
+    else
+    {
+        $sql1 = "DELETE FROM `likes` where postId =$pid  ";
+        $sql2 = "UPDATE `post` SET `likes` = likes-1 WHERE id = $pid";
+           mysqli_query($connect,$sql1);
+         mysqli_query($connect,$sql2);
+    }
+    
 }
 
 

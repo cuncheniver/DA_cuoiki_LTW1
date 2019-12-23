@@ -72,40 +72,49 @@ if (!isset($_SESSION))
         </div><!--/ col-lg-3-->
         
         <div class="col-lg-6" style="background: #fff;">
-        <div class="message-container">
-        <form  name="f"  method="POST" enctype="multipart/form-data" id="fileUploadForm">
-          <div class="message-form-content">
-            <div class="message-form-header">
-              <div class="message-form-user"></div>
-              Update your status
-              <div class="message-form-private"></div>
-              <div class="message-loader" id="post-loader9999999999" style="visibility: hidden"><div class="preloader"></div></div>
-            </div>
-            
-            <div class="message-form-inner">
-              <textarea id="post9999999999" id="content" class="message-form" placeholder="What's on your mind?" name="context"></textarea>
-            </div>
-            <div id="plugins-forms" style="display: none;"></div>
-            
+       <div class="message-container">
+	<form  name="f"  method="POST" enctype="multipart/form-data" id="fileUploadForm">
+		<div class="message-form-content">
+			<div class="message-form-header">
+				<div class="message-form-user"></div>
+				Update your status
+				<div class="message-form-private"></div>
+				<div class="message-loader" id="post-loader9999999999" style="visibility: hidden"><div class="preloader"></div></div>
+			</div>
+			
+			<div class="message-form-inner">
+				<textarea id="post9999999999" id="content" class="message-form" placeholder="What's on your mind?" name="context"></textarea>
+			</div>
+			<div id="plugins-forms" style="display: none;"></div>
+			
 			
 		
 			
-              <div class="selected-files" id="queued-files"></div>
-              <div class="message-form-input"><input type="text" name="value" id="form-value"></div>
-              <div id="values">
-                <label id="open_images" title="Upload images"><img src="./image/icons/events/camera.svg"></label>
-                <input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="./image/icons/events/video.svg"></label>
-              
-                <input name="images[]" id="images" size="27" type="file" class="inputImage" title="Upload images" multiple="multiple" accept="image/*">
-              </div>
-              
-              <button type="submit" id="action" value="POST" name="action" class="message-btn button-active" ><a>Post</a></button>
-          
-            </div>
-          
-          </form>
-          </div>
-
+			<div class="selected-files" id="queued-files"></div>
+      <div class="message-btn button-normal" onclick="messageMenu(9999999999, 1)" title="Who should see the message" id="privacy-button"><a>
+        <div  id="privacy-btn" class="privacy-icons public-icon" value="xx"></div>
+        <input id="sos" name="trangthai" type="text"  size="27" value="1" style="display:none" >
+		
+    </a></div>
+    <div id="message-menu9999999999" class="message-menu-container message-menu-privacy message-menu-active">
+    <div class="message-menu-row" onclick="postPrivacy(1)">Public</div>
+    <div class="message-menu-row" onclick="postPrivacy(2)">Friends</div>
+    <div class="message-menu-row" onclick="postPrivacy(0)">Private</div>
+    </div>
+			<div class="message-form-input"><input type="text" name="value" id="form-value"></div>
+			<div id="values">
+				<label id="open_images" title="Upload images"><img src="./image/icons/events/camera.svg"></label>
+				<input type="radio" name="type" value="video" id="video" class="input_hidden"><label for="video" title="Share a movie or a link from YouTube or Vimeo"><img src="./image/icons/events/video.svg"></label>
+			
+				<input name="images[]" id="images" size="27" type="file" class="inputImage" title="Upload images" multiple="multiple" accept="image/*">
+			</div>
+			
+			<button type="submit" id="action" value="POST" name="action" class="message-btn button-active" ><a>Post</a></button>
+	
+		</div>
+	
+	</form>
+</div>
           <div class="message-container last-message" id="ok">
           
               </div>
