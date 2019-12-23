@@ -158,6 +158,7 @@ if (!isset($_SESSION))
   $result = mysqli_query($connect, $sql);
   while($row=mysqli_fetch_array($result))
   {?>
+    DisplayLike(<?php echo $row['id']?>,0);
       displaycmt(<?php echo $row['id']?>);
    <?php } ?>
    <?php } ?>

@@ -334,8 +334,8 @@ function likesModal(id, type, close) {
 		$('#likes-result').html('<div class="modal-listing-load-more"><div class="preloader preloader-center"></div></div>');
 		$.ajax({
 			type: "POST",
-			url: baseUrl+"/requests/load_likes.php",
-			data: "id="+id+"&extra="+type+"&token_id="+token_id, 
+			url: "function.php",
+			data: "id="+id+"&extra="+type+"&listLikes="+1, 
 			cache: false,
 			success: function(html) {
 				$('#likes-result').html(html);

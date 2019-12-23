@@ -266,7 +266,7 @@ if(isset($_POST["display"]))
             <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="doLike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
             <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
             
-            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+            <a onclick="likesModal(<?php  echo $row['id'];?>, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
     <div class="actions_btn like_btn"> 1</div>
             </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
@@ -373,7 +373,7 @@ if(isset($_POST["display"]))
             <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="dolike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
             <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
             
-            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+            <a onclick="likesModal(<?php  echo $row['id'];?>, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
     <div class="actions_btn like_btn"> 1</div>
             </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
@@ -483,7 +483,7 @@ if(isset($_POST["display"]))
             <div class="message-actions-content" id="message-action<?php  echo $row['id'];?>"><a onclick="Dolike(<?php  echo $row['id'];?>,0)" id="dolike<?php  echo $row['id'];?>">Like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
             <div class="actions_btn comments_btn" id="ac<?php  echo $row['id'];?>"> 2</div>
             
-            <a onclick="likesModal(4, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
+            <a onclick="likesModal(<?php  echo $row['id'];?>, 0)" title="View who liked" id="al<?php  echo $row['id'];?>">
     <div class="actions_btn like_btn"> 1</div>
             </a>
                 <div class="actions_btn loader" id="action-loader<?php  echo $row['id'];?>"></div>
@@ -642,13 +642,15 @@ function displaycmt(id){
 
   ?>
 
-
+                
                 $('#doLike'+id).html(result.TrangThai);
 
                 if(result.count>0)
                 {$('#al'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
                 else
                 $('#al'+id).html('');
+                <?php ?>
+               
 				
 			}
 			
@@ -678,6 +680,41 @@ function countLikePost($postId)
     $posts= $stmt -> fetch(PDO::FETCH_ASSOC);
     return $posts;
 }
+
+if(  isset($_POST["listLikes"]))
+{
+    $pid= $_POST['ID'];
+    $idUser = $_SESSION['userId'];
+    ?>
+      
+        <?php    $userId =$_SESSION['userId'];
+  
+
+  $sql = "SELECT * FROM `likes` JOIN profile p WHERE userId = p.user_ID and postId = $pid";
+  $result = mysqli_query($connect, $sql);
+  while($row=mysqli_fetch_array($result))
+  {?>
+    <div class="modal-listing">
+    <div class="modal-listing-inner">
+        <div id="friend<?php echo $row['id'] ?>"></div>
+        <div class="message-avatar" id="avatar<?php echo $row['id'] ?>"><a href="friend.php?id=<?php print_r($row['user_ID'])?>"><img src="upload/<?php print_r($row['user_image']) ?>"></a></div>
+        <div class="message-top">
+
+            <div class="message-time"><?php echo $row['user_fullName'] ?>&nbsp;</div>
+        </div>
+
+    </div>
+</div>
+        
+   <?php } ?>
+       
+
+
+
+
+    <?php
+}
+
 if( isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"]))
 {
     $pid= $_POST['ID'];
