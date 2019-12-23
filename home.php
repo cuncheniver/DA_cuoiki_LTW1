@@ -1,16 +1,19 @@
-<?php
+<?php 
 ob_start();
 require_once 'function.php';
 include 'layoutmain.php';
-
 if (!isset($_SESSION))
   {
     session_start();
   }
   $userId =$_SESSION['userId'];
+  $profile = findProfile($userId);
    $currentUser= findUserById($userId); 
-  
-
+   $postbyUser= findAllPostsbyUser($userId);
+   $userId =$_SESSION['userId'];
+   $idpost=  findNewPostById($userId);
+ 
+    
    if(!$currentUser)
    {
     
@@ -153,7 +156,7 @@ if (!isset($_SESSION))
             
             <script>
    $(document).ready(function(){
-        
+    
     <?php    
   
     $idd = $_SESSION['userId'];
@@ -172,6 +175,7 @@ if (!isset($_SESSION))
     <?php }?>
    
     displaystt(<?php echo $row0['id']?>,<?php echo $idd?>,$fr);
+   
     <?php    $pID = $row0['id'];
   ?>
 
@@ -186,7 +190,13 @@ if (!isset($_SESSION))
       displaycmt(<?php echo $row['id']?>);
    <?php } ?>
    <?php } ?>
+   var x= setInterval(function(){
     
+    countNT(<?php echo $idd ?>);
+    loadNoti(<?php echo $idd ?>); 
+ 
+  },2000);
+   
        
     
        

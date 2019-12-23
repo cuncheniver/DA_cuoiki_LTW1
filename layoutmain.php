@@ -186,9 +186,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
                         </li>
 
                         <li class="dropdown notification-list">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <a  class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fa fa-bell noti-icon"></i>
-                                <span class="badge badge-danger badge-pill noti-icon-badge">1</span>
+                                <span id="CNT">
+                                
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
 
@@ -228,7 +230,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                             </div>
                             <!--/ dropdown-menu-->
                         </li>
-
+                        
                        
 
                         <li class="dropdown mega-avatar">
@@ -247,6 +249,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 <a class="dropdown-item" href="setting.php">Setting</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="out.php">Sign out</a>
+                                <a class="dropdown-item" href="home.php">Home</a>
                             </div>
                         </li><!-- /navbar-item -->
 
@@ -259,29 +262,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <!-- ==============================================
 	 Navbar Second Section
 	 =============================================== -->
-    <section class="nav-sec">
-        <div class="d-flex justify-content-between">
-            <div class="p-2 nav-icon-lg mint-green">
-               
-            </div>
-            <div class="p-2 nav-icon-lg clean-black">
-            <a class="nav-icon" href="home.php"><em class="fa fa-home"></em>
-                    <span>Home</span>
-                </a>
-            </div>
-            <div class="p-2 nav-icon-lg dark-black">
-               
-            </div>
-            <div class="p-2 nav-icon-lg clean-black">
-            <a class="nav-icon" href="profile.php"><em class="fa fa-user"></em>
-                    <span>Profile</span>
-                </a>
-            </div>
-            <div class="p-2 nav-icon-lg dark-black">
-                
-            </div>
-        </div>
-    </section>
+  
 
 
 <footer>

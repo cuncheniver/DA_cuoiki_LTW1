@@ -24,11 +24,7 @@
 </footer>
 <!-- Footer -->
 <!-- Footer -->
-        <script src="js/jquery.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/base.js"></script>
-            <script src="plugins/slimscroll/jquery.slimscroll.js">
-        </script>
+       
 
 </body>
 </html>

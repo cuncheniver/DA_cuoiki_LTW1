@@ -655,8 +655,14 @@ function displaycmt(id){
 			} else if(type == 2) {
 				
 			} else {
-				DisplayLike(id,type);
-			
+                
+                DisplayLike(id,type);
+                if(trangthai == "like")
+                {
+                    loadNoti(<?php echo $_SESSION['userId'] ?>);     
+                }
+                
+              countNT(<?php echo $_SESSION['userId'] ?>);
 				
 			}
 			
@@ -705,11 +711,80 @@ function displaycmt(id){
 		}
 	});
    }
+
+   function loadNoti(id)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "iNoti="+id, 
+        
+		
+		success: function(html) {
+			$('#Slim').html(html);
+		}
+	});
+   }
+   function countNT(id)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "IC="+id, 
+        
+		
+		success: function(html) {
+			$('#CNT').html(html);
+		}
+	});
+   }
+  
+
 </script>
 <?php
     }
     exit();
 
+}
+if (isset($_POST["IC"]))
+{
+    $uId = $_POST["IC"];
+    $kq = countNoti($uId);
+    ?>
+    <?php if($kq['noti'] >0) {?>
+        <span class="badge badge-danger badge-pill noti-icon-badge"><?php echo $kq['noti'] ?></span>
+    <?php } ?>
+    <?php 
+
+}
+
+if (isset($_POST["iNoti"]))
+{
+
+    $y =  $_POST['iNoti']
+?>
+      
+        <?php $userId = $_SESSION['userId'];
+
+    $sq = "SELECT * FROM  `notifications` n WHERE n.to=$y";
+    $rs = mysqli_query($connect, $sq);
+    while ($row = mysqli_fetch_array($rs))
+    { ?>
+        <a href="javascript:void(0);" class="dropdown-item notify-item">
+    <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
+    <p class="notify-details">noti ví dụ nè má<small class="text-muted">1 min ago</small></p>
+</a>
+        
+   <?php
+    } ?>
+       
+
+
+
+
+    <?php
 }
 
 function findLikeP($postId, $userId)
@@ -723,8 +798,19 @@ function findLikeP($postId, $userId)
     $posts = $stmt->fetch(PDO::FETCH_ASSOC);
     return $posts;
 }
+
+function countNoti($Id)
+{
+
+    global $db;
+    $stmt = $db->prepare("SELECT count(*) as noti from `notifications` n WHERE n.to=? and n.read=0");
+    $stmt->execute(array($Id));
+    $posts = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
 function countLikePost($postId)
 {
+
     global $db;
     $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =?");
     $stmt->execute(array(
@@ -809,12 +895,22 @@ if (isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']))
     $user_id = $_SESSION['userId'];
     $type = $_POST['type'];
     $k = $_POST['like'];
+     $upId = findUserByPost($pid);
+     $x = $upId['uid'];
+   
     if ($k == "like")
-    {
+    {   
+        
         $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
         $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid";
+        $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$pid,0,1,0,now())";
         mysqli_query($connect, $sql1);
         mysqli_query($connect, $sql2);
+        if($x !=$user_id)
+        {
+            mysqli_query($connect, $sql3);
+        }
+      
     }
     else
     {
@@ -896,13 +992,19 @@ if (isset($_POST["Save"]))
 
 }
 
+function findUserByPost($id)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM post  WHERE id=? LIMIT 1");
+    $stmt->execute(array($id));
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 function findUserById($id)
 {
     global $db;
     $stmt = $db->prepare("SELECT * FROM login WHERE id=? LIMIT 1");
-    $stmt->execute(array(
-        $id
-    ));
+    $stmt->execute(array($id));
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     return $user;
 }
