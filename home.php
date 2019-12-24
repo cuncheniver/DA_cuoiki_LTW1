@@ -29,6 +29,7 @@ if (!isset($_SESSION))
 
     <!-- ============================================ -->
     <!-- secssion new feed-->
+    <div id="content">
     <section class="profile-two">
   <div class="container-fluid">
     <div class="row">
@@ -316,6 +317,11 @@ while($row2=mysqli_fetch_array($result2))
   </div><!--/ row-->	
  </div><!--/ container -->
 </section><!--/ profile -->
+<?php 
+include 'bcfrien.php';
+?>
+
+</div>
 <?php
     include 'footer.php';
 ?>

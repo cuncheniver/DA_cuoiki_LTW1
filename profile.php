@@ -378,6 +378,7 @@ while($row=mysqli_fetch_array($result))
 <?php }?>
       
     </div>
+    
     <!--suggestions-list end-->
 </div>
 
@@ -398,7 +399,9 @@ while($row=mysqli_fetch_array($result))
   </div><!--/ row-->	
  </div><!--/ container -->
 </section><!--/ profile -->
-
+<?php 
+include 'bcfrien.php';
+?>
 <!-- ==============================================
 Modal Section
 =============================================== -->

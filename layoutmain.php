@@ -157,6 +157,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
      Navigation Section
      =============================================== -->
      <header class="tr-header">
+    
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -257,6 +258,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 </div><!-- /.nav-right -->
             </div><!-- /.container -->
         </nav><!-- /.navbar -->
+        
     </header><!-- Page Header -->
 
     <!-- ==============================================
@@ -279,5 +281,6 @@ $('#Slim,#Slim2').slimScroll({
        size:"8px",
    });		
 </script>
+
 </footer>
 </body>

@@ -232,4 +232,7 @@ while($row2=mysqli_fetch_array($result2))
     </div>
     <!--/ container -->
 </section>
+<?php 
+include 'bcfrien.php';
+?>
 </body>
