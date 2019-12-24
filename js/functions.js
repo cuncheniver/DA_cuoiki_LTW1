@@ -1264,38 +1264,7 @@ function chatPluginContainer(id, close, extra) {
 	$('#chat-plugin-container').css(pos);
 	$('#chat-plugin-container').data('active-window', id);
 }
-function openChatWindow(id, username, realname, url, status) {
-	var checkWindow = $('#chat-window-'+id).html();
-	if(!checkWindow) {
-		// Get the html window model
-		var window_html = $('#chat-window-model').html();
-		
-		// Replace the JS variables with the variables
-		var window_html = window_html.replace(/\'\+realname\+\'/g, realname).replace(/\'\+id\+\'/g, id).replace(/\'\+username\+\'/g, username).replace(/\'\+url\+\'/g, url).replace(/\'\+status\+\'/g, status).replace(/\<!--/g, '').replace(/\-->/g, '');
-		
-		$('.bc-container').append(window_html);
-		
-		addFriendArray(id);
-		
-		$.ajax({
-			type: "POST",
-			url: baseUrl+"/requests/load_chat.php",
-			data: "uid="+id+"&for=1&token_id="+token_id, 
-			cache: false,
-			success: function(html) {
-				// Append the new comment to the div id
-				$('#bc-friends-chat-'+id).prepend(html);
-				
-				// Scroll to the bottom of the content
-				$("#bc-friends-chat-"+id).scrollTop($("#bc-friends-chat-"+id+".bc-friends-chat")[0].scrollHeight);
-				
-				// Reload the timeago plugin
-				jQuery(".timeago").timeago('updateFromDOM');
-			}
-		});
-	}
-	$('#c-w-'+id).focus();
-}
+
 function closeChatWindow(id) {
 	$('#chat-window-'+id).remove();
 	

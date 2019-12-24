@@ -25,12 +25,35 @@
         <div class="bc-friends-header" onclick="minimizeChatWindow('friends-list')" data-state="maximized">
             <div class="bc-friends-username">Online Friends (<span id="friends-count">1</span>)</div>
             <div class="minimize_btn"></div><a href="http://localhost:8080/phpsocial//index.php?a=settings&amp;b=privacy" rel="loadpage" onclick="minimizeChatWindow('friends-list')">
-                <div class="settings_btn c-s-icon"></div>
+                
             </a>
         </div>
         <div class="bc-friends-content scrollable" id="friends-list">
-            <div class="sidebar-users"><a onclick="openChatWindow('3', 'quan', 'quan', 'http://localhost:8080/phpsocial/', 'http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png')"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png" class="sidebar-status-icon"> <img src="http://localhost:8080/phpsocial//thumb.php?t=a&amp;w=25&amp;h=25&amp;src=default.png"> quan</a></div>
+            <div class="sidebar-users"><a onclick="openChatWindow1('3', 'quan', 'quan', 'http://localhost:8080/DA_cuoiki_LTW1', 'http://localhost:8080/themes/dolphin/images/icons/online.png')"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png" class="sidebar-status-icon"> <img src="http://localhost:8080/phpsocial//thumb.php?t=a&amp;w=25&amp;h=25&amp;src=default.png"> quan</a></div>
         </div>
         <div class="c-w-input c-w-input-search"><input type="text" placeholder="Search in friends" id="search-window"></div>
+    </div>
+   
+    
+</div>
+
+<div id="chat-window-model" style=" display: none; ">
+    <div class="bc-friends-container bc-friends-user" id="chat-window-'+id+'" onclick="disableTitleAlert('+id+')" data-state="maximized">
+        <div class="bc-friends-header" id="chat-header-'+id+'" onclick="minimizeChatWindow('+id+')">
+            <div class="c-w-status" id="online-status-'+id+'">
+                <!--<img src="'+status+'" class="sidebar-status-icon">-->
+            </div>
+            <div class="bc-friends-username"><a href="http://localhost:8080/phpsocial//index.php?a=profile&amp;u='+username+'" rel="loadpage" onclick="minimizeChatWindow('+id+')">'+realname+'</a></div><a onclick="closeChatWindow(''+id+'')">
+                <div class="delete_btn"></div>
+            </a><a href="http://localhost:8080/phpsocial//index.php?a=messages&amp;u='+username+'&amp;id='+id+'" rel="loadpage" onclick="minimizeChatWindow('+id+')">
+                <div class="settings_btn c-s-icon"></div>
+            </a>
+        </div>
+        <div class="bc-friends-chat scrollable" id="bc-friends-chat-'+id+'"></div>
+        <div class="c-w-input"><input onkeydown="if(event.keyCode == 13) { postChat('+id+', 2)}" id="c-w-'+id+'" placeholder="Type a message...">
+            <div class="preloader preloader-center" id="c-w-p-'+id+'" style="display: none; margin-top: 3px; margin-bottom: 4px;"></div>
+            <div class="c-w-icon c-w-icon-smiles" id="chat-smiles-'+id+'" onclick="chatPluginContainer('+id+')" title="Add emoticons"></div><label for="chatimage" data-userid="'+id+'" class="c-w-icon c-w-icon-picture chat-image-btn" title="Upload image"></label>
+            <div data-userid="'+id+'" class="c-w-icon c-w-icon-camera chat-camera-btn" onclick="cameraModal()" title="Take a photo"></div>
+        </div>
     </div>
 </div>

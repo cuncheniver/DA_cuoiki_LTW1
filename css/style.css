@@ -1554,7 +1554,7 @@ display: block;
 text-decoration: none;
 color: #7f7f7f;
 text-overflow: ellipsis;
-overflow: hidden;
+
 white-space: nowrap;
 }
 .sidebar-users a:hover {
@@ -2843,9 +2843,9 @@ pointer-events: none;
 .bc-friends-header {
 border: 1px solid #BFBFBF;
 border-bottom: 1px solid #EEE;
-height: 14px;
+height: 35px;
 background: #f8f8f8;
-padding: 10px;
+padding: 15px;
 font-size: 13px;
 font-weight: bold;
 color: #777;
@@ -2891,7 +2891,7 @@ border: 1px solid #BFBFBF;
 border-top: none;
 border-bottom: none;
 padding: 0 5px;
-overflow: auto;
+
 }
 .bc-friends-chat .timeago {
 font-size: 10px;

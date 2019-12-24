@@ -759,7 +759,23 @@ function displaycmt(id){
 		}
 	});
    }
-  
+   function openChatWindow1(id, username, realname, url, status) {
+	var checkWindow = $('#chat-window-'+id).html();
+	if(!checkWindow) {
+		// Get the html window model
+	
+		
+		$('.bc-container').append('<div class="bc-friends-container bc-friends-user" id="chat-window-1" onclick="disableTitleAlert(1)" data-state="maximized"></div>');
+		
+		$('#bc-friends-chat-'+id).prepend("sssss");
+				
+				// Scroll to the bottom of the content
+	    
+		
+	
+	}
+	$('#c-w-'+id).focus();
+}
 
 </script>
 <?php
