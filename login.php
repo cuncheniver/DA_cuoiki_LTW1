@@ -69,7 +69,7 @@ if (!isset($_SESSION))
 
 if($_SESSION['used'])
 {echo "Mail kích hoat đã gửi vào email của bạn";
-    echo $_SESSION['used'];
+   
     unset($_SESSION['used']);}
 
     if($_SESSION['ok'])
@@ -98,7 +98,7 @@ if($_SESSION['used'])
                         <form action="function.php" method="POST">
                             <div class="form-group"><label for="username">Username</label><input type="text" id="username" name="username" required="required" /></div>
                             <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" required="required" /></div>
-                            <div class="form-group"><label class="form-remember"><input type="checkbox"/>Remember Me</label><a class="form-recovery" href="#">Forgot Password?</a></div>
+                            <div class="form-group"><label class="form-remember"><input type="checkbox"/>Remember Me</label><a class="form-recovery" href="forgotpass.php">Forgot Password?</a></div>
                             <div class="form-group"><button name="login" type="submit">Log In</button></div>
                         </form>
                     </div>

@@ -65,6 +65,13 @@ if (isset($_POST["register"]))
         }
     }
 }
+function findUserByEmail($email){
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM login WHERE email=? LIMIT 1");
+    $stmt -> execute(array($email));
+    $user = $stmt ->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 function createUser($name, $pass)
 {
     global $db;
