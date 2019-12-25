@@ -745,8 +745,23 @@ function displaycmt(id){
 		}
 	});
    }
+   function ListFr(id)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "idList="+id, 
+        
+		
+		success: function(html) {
+			$('#friends-list').html(html);
+		}
+	});
+   }
    function countNT(id)
    {
+       
     $.ajax({
 		type: "POST",
         url: "function.php",
@@ -762,14 +777,7 @@ function displaycmt(id){
    function openChatWindow1(id, username, realname, url, status) {
 	var checkWindow = $('#chat-window-'+id).html();
 	if(!checkWindow) {
-		// Get the html window model
-	
 		
-		$('.bc-container').append('<div class="bc-friends-container bc-friends-user" id="chat-window-1" onclick="disableTitleAlert(1)" data-state="maximized"></div>');
-		
-		$('#bc-friends-chat-'+id).prepend("sssss");
-				
-				// Scroll to the bottom of the content
 	    
 		
 	
@@ -782,6 +790,41 @@ function displaycmt(id){
     }
     exit();
 
+}
+if (isset($_POST["idList"]))
+{
+
+
+    $idu =  $_POST['idList'];
+?>
+      
+        <?php 
+
+    $sq = "SELECT * FROM  profile where user_ID !=$idu  ";
+    $rs = mysqli_query($connect, $sq);
+    while ($row = mysqli_fetch_array($rs))
+    { ?>
+    <script>  console.log(<?php echo $idu ?> );</script>
+       <?php 
+
+        $rl= findRelationship($idu,$row['user_ID']);
+        $kt = count($rl)===2;
+        if($kt)
+        {
+       ?>
+        <div class="sidebar-users">
+        <a onclick="openChatWindow(<?php print_r($row['user_image']) ?>)">
+        <img  class="sidebar-status-icon"> <img width="25" height="25" src="upload/<?php print_r($row['user_image']) ?>"> <?php print_r($row['user_fullName']) ?></a></div>
+
+        <?php }?>
+   <?php
+    } ?>
+       
+
+
+
+
+    <?php
 }
 if (isset($_POST["IC"]))
 {
