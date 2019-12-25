@@ -31,6 +31,7 @@ if (!isset($_SESSION))
      exit(0);
    }
 ?>
+
 <section class="user-profile">
     <div class="container-fluid">
         <div class="row">
@@ -64,6 +65,9 @@ if (!isset($_SESSION))
 		   <div class="col-lg-3">
            <?php  if ( $user['id']!== $currentUser['id']):
 ?>
+
+
+
 <form action="fr.php" method="POST">
 
 

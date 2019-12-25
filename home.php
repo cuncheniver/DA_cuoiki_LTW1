@@ -214,6 +214,7 @@ while($row2=mysqli_fetch_array($result2))
    <?php } ?>
   
    var x= setInterval(function(){
+    
     ListFr(<?php echo $idd ?>);
     countNT(<?php echo $idd ?>);
     loadNoti(<?php echo $idd ?>); 

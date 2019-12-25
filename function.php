@@ -759,6 +759,58 @@ function displaycmt(id){
 		}
 	});
    }
+  
+
+   function LoadChat(id1)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "IDchat1="+id1, 
+        
+		
+		success: function(html) {
+			$('#bc-friends-chat-'+id1).html(html);
+		}
+	});
+   }
+   function postChatt(id) {
+    console.log(id);
+
+	
+		var message = $('input#c-w-'+id).val();
+		$('#c-w-'+id).hide();
+		$('#c-w-p-'+id).show();
+
+	// Reset the chat input area
+	$('#c-w-'+id).val('');
+	$('.chat-user'+id).val('');
+	
+	
+	$.ajax({
+		type   : "POST",
+		url: "function.php",
+		data: 'messagee='+encodeURIComponent(message)+'&iid='+id,
+		cache: false,
+		success: function(html) {
+			
+		// Append the new chat to the div chat container
+        $('#bc-friends-chat-'+id).append(html);
+			$('#chat-container-'+id).append(html);
+			
+				$('#c-w-'+id).show();
+				$('#c-w-'+id).focus();
+				$('#c-w-p-'+id).hide();
+			
+			
+			
+			
+		
+		}
+	});
+}
+
    function countNT(id)
    {
        
@@ -774,15 +826,33 @@ function displaycmt(id){
 		}
 	});
    }
-   function openChatWindow1(id, username, realname, url, status) {
+   function openChatWindow1(id) {
 	var checkWindow = $('#chat-window-'+id).html();
 	if(!checkWindow) {
+        
+        
+        
+        $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "idFr="+id, 
+        
 		
-	    
-		
+		success: function(html) {
+            $('.bc-container').append(html);
+
+            
+            var x= setInterval(function(){
+                LoadChat(id);
+
+ 
+  },1000);
+		}
+	});
 	
 	}
-	$('#c-w-'+id).focus();
+	
 }
 
 </script>
@@ -790,6 +860,104 @@ function displaycmt(id){
     }
     exit();
 
+
+}
+
+if (isset($_POST["IDchat1"]))
+{
+    $userId = $_SESSION['userId'];
+    
+    $idchat1 = $_POST["IDchat1"];
+    
+    $pro1 = findProfile($userId);
+    $pro2 = findProfile($idchat1);
+    ?>
+            <?php 
+
+    $sq = "SELECT * FROM `chat` c WHERE (c.from = $userId and c.to=$idchat1 ) or (c.from=$idchat1 and c.to = $userId)  ";
+    $rs = mysqli_query($connect, $sq);
+    while ($row = mysqli_fetch_array($rs))
+    { ?>
+     <?php $pro = findProfile($row['from']); ?>
+         <div class="message-reply-container user-one" data-chat-id="<?php echo $row['id'] ?>">
+    <a onclick="deleteModal(<?php echo $row['id'] ?>, 2)" title="Delete">
+        <div class="delete_btn"></div>
+    </a>
+    <div class="message-reply-avatar">
+        <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $pro['user_ID'] ?>"  title="<?php echo $pro['user_fullName'] ?>" id="avatar-m-<?php echo $userId ?>"><img src="upload/<?php echo $pro['user_image'] ?>"></a>
+    </div>
+    <div class="message-reply-message">
+    <?php echo $row['message'] ; ?>
+        <div class="message-time" id="time-m-<?php echo $row['id']  ;?>">
+            <div class="timeago" title="2019-12-23T22:30:24+01:00"><?php ?></div>
+        </div>
+    </div>
+    <div class="delete_preloader" id="del_chat_<?php echo $row['id'] ; ?>"></div>
+
+</div>
+      
+   <?php
+    } ?>
+    
+    <?php 
+}
+if (isset($_POST["messagee"]))
+{
+    $userId = $_SESSION['userId'];
+    $test = $_POST["messagee"];
+    $idt = $_POST["iid"];
+    $new = findNewmes($userId,$idt);
+    $pro1 = findProfile($userId);
+    $pro2 = findProfile($idt);
+    $new2 = $new['id'] +1;
+    
+    $sql1 = "INSERT INTO `chat`( `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES ($userId,$idt,'$test','','',0,now())";
+    mysqli_query($connect, $sql1);
+
+    ?>
+    <div class="message-reply-container user-one" data-chat-id="<?php echo $new2 ?>">
+    <a onclick="deleteModal(<?php echo $new2 ?>, 2)" title="Delete">
+        <div class="delete_btn"></div>
+    </a>
+    <div class="message-reply-avatar">
+        <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $userId ?>"  title="<?php echo $pro1['user_fullName'] ?>" id="avatar-m-<?php echo $userId ?>"><img src="upload/<?php echo $pro1['user_image'] ?>"></a>
+    </div>
+    <div class="message-reply-message">
+    <?php echo $test; ?>
+        <div class="message-time" id="time-m-<?php echo $new2 ;?>">
+            <div class="timeago" title="2019-12-23T22:30:24+01:00"><?php ?></div>
+        </div>
+    </div>
+    <div class="delete_preloader" id="del_chat_<?php echo $new2; ?>"></div>
+
+</div>
+    <?php
+
+}
+if (isset($_POST["idFr"]))
+{
+    $ifr =  $_POST['idFr'];
+    $prof = findProfile($ifr);
+    ?>
+   <div class="bc-friends-container bc-friends-user" id="chat-window-<?php echo $ifr ?>" onclick="disableTitleAlert(<?php echo $ifr ?>)" data-state="maximized">
+    <div class="bc-friends-header" id="chat-header-<?php echo $ifr ?>" onclick="minimizeChatWindow(<?php echo $ifr ?>)">
+        <div class="c-w-status" id="online-status-<?php echo $ifr ?>"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png" class="sidebar-status-icon"></div>
+        <div class="bc-friends-username"><a href="friend.php?id=<?php print_r($prof['user_ID']) ?>"  onclick="minimizeChatWindow(<?php echo $ifr ?>)"><?php echo $prof['user_fullName'] ?></a></div><a onclick="closeChatWindow('<?php echo $ifr ?>')">
+            <div class="delete_btn"></div>
+        </a><a href="http://localhost:8080/phpsocial//index.php?a=messages&amp;u=quan&amp;id=<?php echo $ifr ?>" rel="loadpage" onclick="minimizeChatWindow(<?php echo $ifr ?>)">
+            
+        </a>
+    </div>
+    <div class="bc-friends-chat scrollable" id="bc-friends-chat-<?php echo $ifr ?>">
+        
+    </div>
+    <div class="c-w-input"><input onkeydown="if(event.keyCode == 13) { postChatt(<?php echo $ifr ?>)}" id="c-w-<?php echo $ifr ?>" placeholder="Type a message...">
+        <div class="preloader preloader-center" id="c-w-p-<?php echo $ifr ?>" style="display: none; margin-top: 3px; margin-bottom: 4px;"></div>
+        <div class="c-w-icon c-w-icon-smiles" id="chat-smiles-<?php echo $ifr ?>" onclick="chatPluginContainer(<?php echo $ifr ?>)" title="Add emoticons"></div><label for="chatimage" data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-picture chat-image-btn" title="Upload image"></label>
+        <div data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-camera chat-camera-btn" onclick="cameraModal()" title="Take a photo"></div>
+    </div>
+</div>
+    <?php 
 }
 if (isset($_POST["idList"]))
 {
@@ -804,7 +972,7 @@ if (isset($_POST["idList"]))
     $rs = mysqli_query($connect, $sq);
     while ($row = mysqli_fetch_array($rs))
     { ?>
-    <script>  console.log(<?php echo $idu ?> );</script>
+
        <?php 
 
         $rl= findRelationship($idu,$row['user_ID']);
@@ -813,7 +981,7 @@ if (isset($_POST["idList"]))
         {
        ?>
         <div class="sidebar-users">
-        <a onclick="openChatWindow(<?php print_r($row['user_image']) ?>)">
+        <a onclick="openChatWindow1(<?php print_r($row['user_ID']) ?>)">
         <img  class="sidebar-status-icon"> <img width="25" height="25" src="upload/<?php print_r($row['user_image']) ?>"> <?php print_r($row['user_fullName']) ?></a></div>
 
         <?php }?>
@@ -865,6 +1033,15 @@ if (isset($_POST["iNoti"]))
     <?php
 }
 
+function findNewmes($uS1,$uS2)
+{
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM chat c  WHERE (c.from=$uS1 and c.to = $uS2 ) or (c.from=$uS2 and c.to=$uS1)  GROUP BY id DESC LIMIT 1");
+    $stmt->execute(array($uS1,$uS2
+    ));
+    $posts = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $posts;
+}
 function findLikeP($postId, $userId)
 {
     global $db;

@@ -2891,6 +2891,7 @@ border: 1px solid #BFBFBF;
 border-top: none;
 border-bottom: none;
 padding: 0 5px;
+overflow: auto;
 
 }
 .bc-friends-chat .timeago {
