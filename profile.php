@@ -401,6 +401,7 @@ while($row=mysqli_fetch_array($result))
 </section><!--/ profile -->
 <?php 
 include 'bcfrien.php';
+include 'changepass.php';
 ?>
 <!-- ==============================================
 Modal Section

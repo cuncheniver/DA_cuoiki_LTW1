@@ -29,7 +29,7 @@ if (!isset($_SESSION))
 <?php
 if($_SESSION['forgot'])
 {
-    echo "ĐÃ GỬI MAIL THAY ĐỔI MẬT KHẨU VÀO EMAIL CỦA BẠN";
+    
     unset($_SESSION['forgot']);}
     else{
         if($_SESSION['none'])
@@ -69,10 +69,9 @@ if ($_POST["emaill"] != '') {
     {
         
         
-        sendEmail($user['email'],'yeu cau khoi phuc mat khau','click <a href="http://localhost:8080/khoiphuc.php
-        "> vao day</a>');
+        sendEmail($user['email'],'yeu cau khoi phuc mat khau','click <a href="http://localhost:8080/DA_cuoiki_LTW1/khoiphuc.php"> vao day</a>');
        $_SESSION['forgot']= 1;
-      
+       header('Location: login.php'); 
     }
     else
     {
