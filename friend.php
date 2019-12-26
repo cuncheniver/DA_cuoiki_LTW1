@@ -189,7 +189,7 @@ while($row2=mysqli_fetch_array($result2))
     
     countNT(<?php echo $_SESSION['userId'] ?>);
     loadNoti(<?php echo $_SESSION['userId'] ?>); 
- 
+    ListFr(<?php echo $_SESSION['userId']?>);
   },1000);
   
 

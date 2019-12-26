@@ -816,8 +816,7 @@ function displaycmt(id){
 			if($('#bc-friends-chat-'+id).length) {
 				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
 			}
-			
-			
+		
 		
 		}
 	});
@@ -1006,11 +1005,15 @@ if (isset($_POST["messagee"]))
     $new = findNewmes($userId,$idt);
     $pro1 = findProfile($userId);
     $pro2 = findProfile($idt);
+    $currentUser= findUserById($pro1['user_ID']); 
+    $recept = findUserById($pro2['user_ID']); 
     $new2 = $new['id'] +1;
     
     $sql1 = "INSERT INTO `chat`( `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES ($userId,$idt,'$test','','',0,now())";
     mysqli_query($connect, $sql1);
-
+    $link = 'href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id='.$currentUser['id'].'"';
+    sendEmail($recept['email'], 'Message', ' <a '.$link.'> '.$pro1['user_fullName'].' </a> gửi tin nhắn cho bạn nội dung : '.$test.'');
+                  
     ?>
     <div class="message-reply-container user-one" data-chat-id="<?php echo $new2 ?>">
     <a onclick="deleteModal(<?php echo $new2 ?>, 2)" title="Delete">
@@ -1051,7 +1054,7 @@ if (isset($_POST["idFr"]))
     <div class="c-w-input"><input onkeydown="if(event.keyCode == 13) { postChatt(<?php echo $ifr ?>)}" id="c-w-<?php echo $ifr ?>" placeholder="Type a message...">
         <div class="preloader preloader-center" id="c-w-p-<?php echo $ifr ?>" style="display: none; margin-top: 3px; margin-bottom: 4px;"></div>
        <label for="chatimage" data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-picture chat-image-btn" title="Upload image"></label>
-        <div data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-camera chat-camera-btn" onclick="cameraModal()" title="Take a photo"></div>
+  
     </div>
 </div>
     <?php 
