@@ -975,58 +975,7 @@ function checkNewMessages() {
 	}
 	stopNewMessages = setTimeout(checkNewMessages, checkMessageTimeout);
 }
-function postChatImage(type) {
-	// Type 1: Camera stream capture
-	var id = localStorage.getItem('chat-image-uid');
-	$('#c-w-'+id).val('');
-	chatInput(0, id);
-	
-	var formData = new FormData();
-	
-	// Build the form
-	formData.append("id", id);
-	formData.append("type", "picture");
-	formData.append("token_id", token_id);
-	if(type) {
-		formData.append("message", document.getElementById('camera-canvas').toDataURL());
-		cameraModal(1);
-	} else {
-		// Check whether when the input has changed has a file selected
-		if(typeof($('input[name=chatimage]')[0].files[0]) == "undefined") {
-			chatInput(1, id);
-			
-			return false;
-		}
-	}
-	formData.append("image", $('input[name=chatimage]')[0].files[0]);
-	
-	// Send the request
-	var ajax = new XMLHttpRequest;
-	ajax.open('POST', baseUrl+"/requests/post_chat.php", true);
-	ajax.send(formData);
-	
-	ajax.onreadystatechange = function() {
-		if(ajax.readyState == XMLHttpRequest.DONE) {
-			// Check if in the mean time any message was sent
-			checkChat(1, id);
-			
-			// Append the new chat to the div chat container
-			$('#bc-friends-chat-'+id).append(ajax.responseText);
-			$('#chat-container-'+id).append(ajax.responseText);
 
-			chatInput(1, id);
-			
-			if($('#chat-container-'+id).length) {
-				$('#chat-container-'+id).scrollTop($('#chat-container-'+id+'.chat-container')[0].scrollHeight);
-			}
-			if($('#bc-friends-chat-'+id).length) {
-				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
-			}
-			$('.last-online[data-last-online="'+id+'"]').remove();
-			jQuery(".timeago").timeago('updateFromDOM');
-		}
-	}
-}
 function postChat(id, type) {
 	// Type 1: Messages page
 	// Type 2: Chat window

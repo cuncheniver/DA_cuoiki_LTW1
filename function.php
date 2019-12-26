@@ -810,7 +810,12 @@ function displaycmt(id){
 				$('#c-w-'+id).focus();
 				$('#c-w-p-'+id).hide();
 			
-			
+                if($('#chat-container-'+id).length) {
+				$('#chat-container-'+id).scrollTop($('#chat-container-'+id+'.chat-container')[0].scrollHeight);
+			}
+			if($('#bc-friends-chat-'+id).length) {
+				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
+			}
 			
 			
 		
@@ -852,6 +857,12 @@ function displaycmt(id){
             
             var x= setInterval(function(){
                 LoadChat(id);
+                if($('#chat-container-'+id).length) {
+				$('#chat-container-'+id).scrollTop($('#chat-container-'+id+'.chat-container')[0].scrollHeight);
+			}
+			if($('#bc-friends-chat-'+id).length) {
+				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
+			}
 
  
   },1000);
@@ -861,6 +872,34 @@ function displaycmt(id){
 	}
 	
 }
+function postChatImage(type) {
+    // Type 1: Camera stream capture
+    var id = localStorage.getItem('chat-image-uid');
+   
+    
+    $('#c-w-'+id).val('');
+    
+	
+	
+	var formData2 = new FormData();
+	
+	// Build the form
+	formData2.append("idMes", id);
+	formData2.append("typeMes", "picture");
+	
+	
+	formData2.append("imageMes", $('input[name=chatimage]')[0].files[0]);
+    
+    var ajax = new XMLHttpRequest;
+	ajax.open('POST', "function.php", true);
+    ajax.send(formData2);
+    ajax.onreadystatechange = function() {
+        if(ajax.readyState == XMLHttpRequest.DONE) {
+           
+        }
+    };
+    
+}
 
 </script>
 <?php
@@ -869,7 +908,52 @@ function displaycmt(id){
 
 
 }
+if (isset($_POST["idMes"]))
+{
+    
+    $userId = $_SESSION['userId'];
+   $pro1 = findProfile($userId);
+    $idt = $_POST["idMes"];
+    $new = findNewmes($userId,$idt);
 
+    $vl = $_FILES['imageMes']['name'];
+
+    $tmp = $_FILES['imageMes']['tmp_name'];
+    $newp = 'upload/' . $vl;
+    if (!move_uploaded_file($tmp, $newp))
+    {
+        $error = 'upload anh that bai';
+    }
+    else
+    {
+
+        move_uploaded_file($tmp, $newp);
+        $sql1 = "INSERT INTO `chat`( `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES ($userId,$idt,'','picture','$vl',0,now())";
+        mysqli_query($connect, $sql1);
+        ?>
+        <div class="message-reply-container user-one" data-chat-id="<?php echo $idt ?>">
+        <a onclick="deleteModal(<?php echo $idt ?>, 2)" title="Delete">
+            <div class="delete_btn"></div>
+        </a>
+        <div class="message-reply-avatar">
+            <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $userId ?>"  title="<?php echo $pro1['user_fullName'] ?>" id="avatar-m-<?php echo $userId ?>"><img src="upload/<?php echo $pro1['user_image'] ?>"></a>
+        </div>
+        <div class="message-reply-message">
+        <div class="chat-image-thumbnail"><a onclick="gallery('1791902034_191904364_1661373176.jpg', 4, 'media', 3)" id="1791902034_191904364_1661373176.jpg"><img src="upload/<?php echo $vl ?>"></a></div>
+            <div class="message-time" id="time-m-<?php echo $idt ;?>">
+                <div class="timeago" title="2019-12-23T22:30:24+01:00"><?php ?></div>
+            </div>
+        </div>
+        <div class="delete_preloader" id="del_chat_<?php echo $idt; ?>"></div>
+    
+    </div>
+        <?php
+
+    }
+    
+
+
+}
 if (isset($_POST["IDchat1"]))
 {
     $userId = $_SESSION['userId'];
@@ -887,24 +971,30 @@ if (isset($_POST["IDchat1"]))
     { ?>
      <?php $pro = findProfile($row['from']); ?>
          <div class="message-reply-container user-one" data-chat-id="<?php echo $row['id'] ?>">
-    <a onclick="deleteModal(<?php echo $row['id'] ?>, 2)" title="Delete">
+         <?php if($row['from'] == $userId) { ?> 
+             <a onclick="deleteModal(<?php echo $row['id'] ?>, 2)" title="Delete">
         <div class="delete_btn"></div>
     </a>
+    <?php
+    } ?>
     <div class="message-reply-avatar">
         <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $pro['user_ID'] ?>"  title="<?php echo $pro['user_fullName'] ?>" id="avatar-m-<?php echo $userId ?>"><img src="upload/<?php echo $pro['user_image'] ?>"></a>
     </div>
     <div class="message-reply-message">
     <?php echo $row['message'] ; ?>
+    <?php if($row['value']) { ?>
+        <div class="chat-image-thumbnail"><a onclick="gallery('1791902034_191904364_1661373176.jpg', 4, 'media', 3)" id="<?php echo $row['value'] ?>"><img width=100 height=100 src="upload/<?php echo $row['value'] ?>"></a></div>
+    <?php }?>
         <div class="message-time" id="time-m-<?php echo $row['id']  ;?>">
-            <div class="timeago" title="2019-12-23T22:30:24+01:00"><?php ?></div>
+            <div class="timeago" title="2019-12-23T22:30:24+01:00"><?php echo $row['time'] ; ?> </div>
         </div>
     </div>
+  
     <div class="delete_preloader" id="del_chat_<?php echo $row['id'] ; ?>"></div>
-
+    <?php } ?>
 </div>
       
-   <?php
-    } ?>
+ 
     
     <?php 
 }
@@ -960,7 +1050,7 @@ if (isset($_POST["idFr"]))
     </div>
     <div class="c-w-input"><input onkeydown="if(event.keyCode == 13) { postChatt(<?php echo $ifr ?>)}" id="c-w-<?php echo $ifr ?>" placeholder="Type a message...">
         <div class="preloader preloader-center" id="c-w-p-<?php echo $ifr ?>" style="display: none; margin-top: 3px; margin-bottom: 4px;"></div>
-        <div class="c-w-icon c-w-icon-smiles" id="chat-smiles-<?php echo $ifr ?>" onclick="chatPluginContainer(<?php echo $ifr ?>)" title="Add emoticons"></div><label for="chatimage" data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-picture chat-image-btn" title="Upload image"></label>
+       <label for="chatimage" data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-picture chat-image-btn" title="Upload image"></label>
         <div data-userid="<?php echo $ifr ?>" class="c-w-icon c-w-icon-camera chat-camera-btn" onclick="cameraModal()" title="Take a photo"></div>
     </div>
 </div>
@@ -1040,6 +1130,8 @@ if (isset($_POST["iNoti"]))
     <?php
 }
 
+
+
 function findNewmes($uS1,$uS2)
 {
     global $db;
@@ -1091,6 +1183,7 @@ function countLikePost($postId)
     $posts = $stmt->fetch(PDO::FETCH_ASSOC);
     return $posts;
 }
+
 function countLikeCmt($postId)
 {
 
