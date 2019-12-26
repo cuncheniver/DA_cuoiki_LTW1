@@ -912,9 +912,14 @@ if (isset($_POST["idMes"]))
     
     $userId = $_SESSION['userId'];
    $pro1 = findProfile($userId);
+   
+  
+  
     $idt = $_POST["idMes"];
+    $pro2 = findProfile($idt);
     $new = findNewmes($userId,$idt);
-
+    $currentUser= findUserById($pro1['user_ID']); 
+    $recept = findUserById($pro2['user_ID']); 
     $vl = $_FILES['imageMes']['name'];
 
     $tmp = $_FILES['imageMes']['tmp_name'];
@@ -929,6 +934,9 @@ if (isset($_POST["idMes"]))
         move_uploaded_file($tmp, $newp);
         $sql1 = "INSERT INTO `chat`( `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES ($userId,$idt,'','picture','$vl',0,now())";
         mysqli_query($connect, $sql1);
+        $link = 'href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id='.$currentUser['id'].'"';
+        sendEmail($recept['email'], 'Message', ' <a '.$link.'> '.$pro1['user_fullName'].' </a> gửi 1 ảnh cho bạn  : <img src=upload/'.$vl.' />');
+            
         ?>
         <div class="message-reply-container user-one" data-chat-id="<?php echo $idt ?>">
         <a onclick="deleteModal(<?php echo $idt ?>, 2)" title="Delete">
