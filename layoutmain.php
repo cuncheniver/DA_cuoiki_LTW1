@@ -247,7 +247,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="profile.php"><span>Profile</span></a>
                                 
-                                <a class="dropdown-item" id="mynewpass">Change Pass</a>
+                               
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="out.php">Sign out</a>
                                 <a class="dropdown-item" href="home.php">Home</a>

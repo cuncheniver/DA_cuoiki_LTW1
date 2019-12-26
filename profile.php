@@ -51,6 +51,10 @@ News Feed Section
 
 <!-- Trigger/Open The Modal -->
 <button id="myBtn">Edit</button>
+<button id="CP" onclick="changeP(1)">Change passwords</button>
+<script>  function changeP(id){ 
+
+} </script>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -105,6 +109,7 @@ News Feed Section
   </div>
 
 </div>
+
 <script>
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -132,8 +137,61 @@ window.onclick = function(event) {
   }
 }
 </script>
-        <div class="detail">
+<script>  function changeP(id){ 
+
+var modal1 = document.getElementById("changePas");
+if(modal1.style.display == "block")
+modal1.style.display = "none";
+else
+modal1.style.display = "block";
+
+}
+function up(){
+     console.log("ok");
+      passcu = $('#passcu').val();
+      passmoi = $('#passmoi').val();
+      passmoi2 = $('#passmoi2').val();
+      if(passmoi == passmoi2) {
+
+      $.ajax({
+           url: "function.php",
+           type: "POST",
+           async: false,
+           data:{
+               "passcux" :passcu,
+               "passmoi" : passmoi,
+               
+           },
+           success: function (d) {
+            $("#error").html(d); 
+           }
+       });
+
+      } 
+    else{
+      $('#error').html("mật khẩu nhập lại không khớp");
+    }    
+        
+  
+    }
        
+
+</script>
+        <div class="detail">
+       <div id="changePas" style="display:none;padding-top:10px" >
+
+                          <div id="error"> </div>        
+                          <div class="form-group"><label for="username">MẬT KHẨU HIỆN TẠI</label><input type="password" id="passcu" name="passcu" required="required"        /> </div>
+                          <div class="form-group"><label for="phone">MẬT KHẨU MỚI</label><input type="password" id="passmoi" name="passmoi" required="required"  /></div>
+                          <div class="form-group"><label for="phone"> NHẬP LẠI MẬT KHẨU MỚI</label><input type="password" id="passmoi2" name="passmoi" required="required"  /></div>
+           
+                          <button  onclick="up()" name="SaveC">Save</button>  
+                   
+                      <script> 
+                    
+
+                       </script>
+</div>
 
          <h4><?php print_r($profile['user_fullName']); 
           print_r($idpost['id']);
@@ -153,15 +211,10 @@ window.onclick = function(event) {
        <small class="text-muted"><a href="photo_profile_two.html">320 Posts <em class="fa fa-angle-right pull-right"></em></a> </small><br>
        <small class="text-muted"><a href="photo_followers.html">2456 Followers <em class="fa fa-angle-right pull-right"></em></a> </small><br>
        <small class="text-muted"><a href="photo_followers.html">456 Following <em class="fa fa-angle-right pull-right"></em></a> </small>
-       <hr>
-       <small class="text-muted">Bio: </small>
-       <p>795 Folsom Ave, Suite 600 San Francisco, CADGE 94107</p>
-       <hr>
-       <small class="text-muted">Website: </small>
-       <p>http://www.themashabrand.com </p> 
-       <hr>                      
+         
       </li>                    
      </ul>
+     
     </aside>				
    </div><!--/ col-lg-3-->
    
@@ -273,6 +326,7 @@ while($row2=mysqli_fetch_array($result2))
     ListFr(<?php echo $_SESSION['userId']?>);
  
   },1000);
+  
     $("form#fileUploadForm").submit(function(event){
  
  //disable the default form submission
@@ -402,7 +456,7 @@ while($row=mysqli_fetch_array($result))
 </section><!--/ profile -->
 <?php 
 include 'bcfrien.php';
-include 'changepass.php';
+
 ?>
 <!-- ==============================================
 Modal Section

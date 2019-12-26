@@ -958,6 +958,37 @@ function postChatImage(type) {
 
 
 }
+if (isset($_POST["passcux"])) {
+    // lấy thông tin người dùng
+    $username = $_SESSION['userId'];
+        $oldpass= $_POST["passcux"];
+        $newpass = $_POST["passmoi"];
+    //làm sạch thông tin, xóa bỏ các tag html, ký tự đặc biệt 
+    //mà người dùng cố tình thêm vào để tấn công theo phương thức sql injection
+   
+    $password = md5($newpass);
+    $passcux = md5($oldpass);
+    if ( $newpass =="") {
+        echo " password bạn không được để trống!";
+    }else{
+
+        $sql = "select * from login where id = '$username' and password='$passcux'";
+        $query = mysqli_query($connect,$sql);
+        $num_rows = mysqli_num_rows($query);
+        if ($num_rows==0) {
+            ?> <p> Nhập sai mật khẩu </p> <?php
+        }else{
+
+            $sql = " UPDATE login SET password ='".$password."' where id = '$username'";
+            //tiến hành lưu tên đăng nhập vào session để tiện xử lý sau này
+            mysqli_query($connect,$sql);
+            ?>
+
+                <p> cập nhật mật khẩu thành công</p>
+            <?php
+        }
+    }  
+}
 if (isset($_POST["messageId"]))
 {
     $iidd = $_POST["messageId"];
@@ -1159,6 +1190,7 @@ if (isset($_POST["idList"]))
 
     <?php
 }
+
 if (isset($_POST["IC"]))
 {
     $uId = $_POST["IC"];
@@ -1743,7 +1775,7 @@ function sendEmail($email, $subject, $content)
         $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
         $mail->SMTPAuth = true; // Enable SMTP authentication
         $mail->Username = 'nguyentranphu1233@gmail.com'; // SMTP username
-        $mail->Password = 'FUdmtlnlacccphongCK4'; // SMTP password
+        $mail->Password = 'FUdmtlnlacccphongphu123CK4'; // SMTP password
         $mail->SMTPSecure = 'ssl'; // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 465; // TCP port to connect to
         //Recipients

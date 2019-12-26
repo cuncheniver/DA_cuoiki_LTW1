@@ -322,6 +322,7 @@ while($row2=mysqli_fetch_array($result2))
 </section><!--/ profile -->
 <?php 
 include 'bcfrien.php';
+
 ?>
 
 </div>

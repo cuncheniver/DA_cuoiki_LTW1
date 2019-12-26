@@ -5,7 +5,7 @@
 <div class="modal-content">
   <div class="modal-header">
     <span class="closee">&times;</span>
-    <h2>Edit Profile</h2>
+    <h2>Change Passwords</h2>
   </div>
   <div class="modal-body">
   <div class="row" style="padding-left:20%;">
@@ -32,11 +32,9 @@
   <div class="form-content">
   
                
-               <form  action="function.php" method="POST" enctype="multipart/form-data">
+               <form   method="POST" enctype="multipart/form-data">
 
-<input id="ns"  onchange="readURL(this);" type="file" name="image" accept="image/gif, image/jpeg, image/png" for="avatarselect" class="page-input-title-img" style="background: url(upload/<?php print_r($profile['user_image']); ?>) center center;background-size: cover !important;">
-
-
+<
                           <div class="form-group"><label for="username">MẬT KHẨU HIỆN TẠI</label><input type="password" id="name" name="passcu" required="required"        /> </div>
                           <div class="form-group"><label for="phone">MẬT KHẨU MỚI</label><input type="password" id="phone" name="passmoi" required="required"  /></div>
                           <div class="form-group"><label for="phone"> NHẬP LẠI MẬT KHẨU MỚI</label><input type="password" id="phone" name="passmoi" required="required"  /></div>
