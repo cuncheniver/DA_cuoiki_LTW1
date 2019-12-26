@@ -265,7 +265,25 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	 Navbar Second Section
 	 =============================================== -->
   
-
+   <div id="delete" style="display: none;">
+    <div class="modal-container">
+        <div class="modal-inner">
+            <div class="modal-title">Delete</div>
+        </div>
+        <div class="message-divider"></div>
+        <div class="modal-inner">
+            <div class="modal-desc" id="delete0" style="display: none;">Are you sure you want to delete this comment?</div>
+            <div class="modal-desc" id="delete1" style="display: none;">Are you sure you want to delete this message?</div>
+            <div class="modal-desc" id="delete2" style="">Are you sure you want to delete this chat message?</div>
+            <div class="modal-result"></div>
+        </div>
+        <div class="message-divider"></div>
+        <div class="modal-menu">
+            <div class="modal-cancel button-normal" id="delete-cancel"><a onclick="deleteModal(0, 999)">Cancel</a></div>
+            <div class="modal-btn button-active" id="delete-btn" onclick="delete_the(5, 2)"><a>Delete</a></div>
+        </div>
+    </div>
+</div>
 
 <footer>
 <script src="js/jquery.min.js"></script>

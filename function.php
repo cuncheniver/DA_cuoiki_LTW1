@@ -83,8 +83,10 @@ function createUser($name, $pass)
 
     return $db->lastInsertId();
 }
+
 ?>
 <?php
+
 if (isset($_POST["login"]))
 {
     $username = $_POST["username"];
@@ -871,6 +873,55 @@ function displaycmt(id){
 	}
 	
 }
+function deleteModal(id, type, parent) {
+	if(type == 999) {
+		hideModal();
+	} else {
+		$('#delete0, #delete1, #delete2').hide();
+		$('#delete'+type).show();
+		
+		$('#delete').fadeIn();
+		$('.modal-background').fadeIn();
+		
+		$('#delete-btn').show();
+		$('#delete-cancel').show();
+		
+		if(type == 0) {
+			$('#delete-btn').attr('onclick', 'delete_the('+id+', '+type+', '+parent+')');
+		} else {
+            console.log("ok");
+			$('#delete-btn').attr('onclick', 'delete_the('+id+', '+type+')');
+		}
+	}
+}
+function delete_the(id, type, parent) {
+	// id = unique id of the message/comment/chat
+	// type = type of post: message/comment/chat
+	hideModal();
+	
+	if(type == 0) {
+		$('#comment'+id).fadeOut(500, function() { $('#comment'+id).remove(); });
+		$('#action-loader'+parent).html('<div class="privacy_loader"></div>');
+	} else if(type == 1) {
+		$('#message'+id).fadeOut(500, function() { $('#message'+id).remove(); });
+	} else if(type == 2) {
+		$('div[data-chat-id="'+id+'"]').fadeOut(500, function() { $('div[data-chat-id="'+id+'"]').remove(); });
+	}
+	$.ajax({
+		type: "POST",
+		url: "function.php",
+		data: "messageId="+id+"&type="+type+"&parent="+parent,
+		cache: false,
+		success: function(html) {
+			if(type == 0) {
+				var result = jQuery.parseJSON(html);
+				$('#message-action'+parent).html(result.actions);
+			}
+		}
+	});
+}
+
+
 function postChatImage(type) {
     // Type 1: Camera stream capture
     var id = localStorage.getItem('chat-image-uid');
@@ -906,6 +957,12 @@ function postChatImage(type) {
     exit();
 
 
+}
+if (isset($_POST["messageId"]))
+{
+    $iidd = $_POST["messageId"];
+    $sql1 = "DELETE FROM `chat` WHERE id = $iidd";
+    mysqli_query($connect, $sql1);
 }
 if (isset($_POST["idMes"]))
 {
@@ -978,7 +1035,7 @@ if (isset($_POST["IDchat1"]))
     { ?>
      <?php $pro = findProfile($row['from']); ?>
          <div class="message-reply-container user-one" data-chat-id="<?php echo $row['id'] ?>">
-         <?php if($row['from'] == $userId) { ?> 
+         <?php if($row['to'] == $userId) { ?> 
              <a onclick="deleteModal(<?php echo $row['id'] ?>, 2)" title="Delete">
         <div class="delete_btn"></div>
     </a>
