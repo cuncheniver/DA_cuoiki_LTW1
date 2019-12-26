@@ -965,7 +965,7 @@ if (isset($_POST["IDchat1"]))
     ?>
             <?php 
 
-    $sq = "SELECT * FROM `chat` c WHERE (c.from = $userId and c.to=$idchat1 ) or (c.from=$idchat1 and c.to = $userId)  ";
+    $sq = "SELECT * FROM `chat` c WHERE (c.from = $userId and c.to=$idchat1 ) or (c.from=$idchat1 and c.to = $userId) GROUP BY id ASC ";
     $rs = mysqli_query($connect, $sq);
     while ($row = mysqli_fetch_array($rs))
     { ?>

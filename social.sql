@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 23, 2019 lúc 05:20 PM
+-- Thời gian đã tạo: Th12 26, 2019 lúc 01:55 PM
 -- Phiên bản máy phục vụ: 10.1.36-MariaDB
 -- Phiên bản PHP: 7.0.32
 
@@ -21,6 +21,43 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `social`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `from` int(11) NOT NULL,
+  `to` int(11) NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(1024) COLLATE utf8_unicode_ci NOT NULL,
+  `read` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chat`
+--
+
+INSERT INTO `chat` (`id`, `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES
+(1, 1, 2, 'ahihi, liuliu ', '', '', 0, '2019-12-25 16:10:25'),
+(2, 1, 2, 'trả lời mình đi mà', '', '', 0, '2019-12-25 16:10:38'),
+(3, 1, 2, 'huhu', '', '', 0, '2019-12-25 16:10:46'),
+(4, 1, 2, 'rồi nè', '', '', 0, '2019-12-25 16:27:40'),
+(5, 2, 1, 'quỳ', '', '', 0, '2019-12-25 16:28:01'),
+(6, 1, 2, 'a', '', '', 0, '2019-12-25 16:28:42'),
+(7, 1, 2, 'b', '', '', 0, '2019-12-25 16:28:49'),
+(8, 1, 2, 'c', '', '', 0, '2019-12-25 16:28:50'),
+(9, 1, 2, 'k', '', '', 0, '2019-12-25 16:31:21'),
+(10, 1, 2, 'ư ư ư ', '', '', 0, '2019-12-25 16:34:35'),
+(11, 1, 2, '', 'picture', '18425203_1968810340072131_4466984801651272802_n.jpg', 0, '2019-12-26 12:45:43'),
+(12, 1, 3, 'eee', '', '', 0, '2019-12-26 12:46:00'),
+(13, 3, 1, 'sao hả ', '', '', 0, '2019-12-26 12:46:48'),
+(14, 1, 3, 'em yêu anh ', '', '', 0, '2019-12-26 12:46:58');
 
 -- --------------------------------------------------------
 
@@ -43,10 +80,10 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES
-(60, 1, 54, 'ổn ', '', '2019-12-23 10:58:05', 0),
-(59, 2, 51, '', '74677125_817768911970777_5688752692575338496_o.jpg', '2019-12-23 10:56:36', 0),
+(60, 1, 54, 'ổn ', '', '2019-12-23 17:57:53', 1),
+(59, 2, 51, '', '74677125_817768911970777_5688752692575338496_o.jpg', '2019-12-24 21:02:35', 2),
 (57, 2, 51, 'text', '', '2019-12-23 10:48:57', 0),
-(58, 2, 51, 'a', 'Tuong-chi-de-song-ao-giua-thap-Eiffel-con-co-ca-nha-hang-va-bi-an-nhat-la-can-ho-khong-lo-nam-tren-dinh-9.jpg', '2019-12-23 10:51:36', 0),
+(58, 2, 51, 'a', 'Tuong-chi-de-song-ao-giua-thap-Eiffel-con-co-ca-nha-hang-va-bi-an-nhat-la-can-ho-khong-lo-nam-tren-dinh-9.jpg', '2019-12-23 17:49:42', 1),
 (56, 2, 51, 'okia', '', '2019-12-23 10:39:50', 0);
 
 -- --------------------------------------------------------
@@ -66,7 +103,6 @@ CREATE TABLE `follow` (
 --
 
 INSERT INTO `follow` (`user1Id`, `user2Id`, `createAt`) VALUES
-(2, 1, '2019-12-20 01:40:18'),
 (1, 2, '2019-12-23 17:09:07');
 
 -- --------------------------------------------------------
@@ -86,8 +122,10 @@ CREATE TABLE `friends` (
 --
 
 INSERT INTO `friends` (`user1Id`, `user2Id`, `createAt`) VALUES
-(2, 1, '2019-12-20 01:40:28'),
-(1, 2, '2019-12-20 01:41:08');
+(1, 2, '2019-12-23 23:59:23'),
+(2, 1, '2019-12-23 23:59:04'),
+(3, 1, '2019-12-25 21:41:58'),
+(1, 3, '2019-12-25 21:40:37');
 
 -- --------------------------------------------------------
 
@@ -126,7 +164,12 @@ INSERT INTO `likes` (`postId`, `userId`, `createdAt`, `type`) VALUES
 (53, 1, '2019-12-23 14:00:47', 0),
 (54, 1, '2019-12-23 10:57:53', 0),
 (54, 2, '2019-12-23 15:16:26', 0),
-(55, 1, '2019-12-23 15:18:44', 0);
+(55, 1, '2019-12-23 15:18:44', 0),
+(55, 2, '2019-12-23 17:45:51', 0),
+(58, 1, '2019-12-23 17:49:41', 1),
+(59, 1, '2019-12-23 17:58:33', 1),
+(59, 2, '2019-12-24 21:02:34', 1),
+(60, 1, '2019-12-23 17:57:53', 1);
 
 -- --------------------------------------------------------
 
@@ -146,10 +189,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `user_name`, `password`, `email`) VALUES
-(1, 'tranphu', '1e1016b0f0f3a66852b35ed05c2c3e5b', 'nguyentranphu1233@gmail.com'),
+(1, 'tranphu', 'bc2ca1373d6e9fa0a25551d9f6cddc47', 'nguyentranphu1233@gmail.com'),
 (2, 'quan', '8c198691d0e39b4d7ac090b390ce9ba9', 'nmquanvn@gmail.com'),
-(3, 'nhat', 'f222b283f4a23f9c7364e482418d722b', 'dxxx@gmail.com'),
-(9, '', 'd41d8cd98f00b204e9800998ecf8427e', '');
+(3, 'nhat', 'f222b283f4a23f9c7364e482418d722b', 'dxxx@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -231,7 +273,7 @@ INSERT INTO `post` (`id`, `uid`, `content`, `type`, `value`, `time`, `public`, `
 (52, 1, 'ssss', 'images', '', '2019-12-23 14:05:07', 1, 1, 0, 0),
 (53, 1, 'giờ mới biết luôn', 'images', '', '2019-12-23 14:00:47', 1, 1, 0, 0),
 (54, 1, 'hihi ', 'images', '', '2019-12-23 15:16:26', 1, 2, 0, 0),
-(55, 2, 'aaa', 'images', '', '2019-12-23 15:18:44', 1, 1, 0, 0);
+(55, 2, 'aaa', 'images', '', '2019-12-23 17:45:52', 1, 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -259,6 +301,14 @@ INSERT INTO `profile` (`id`, `user_ID`, `user_fullName`, `user_contact`, `user_i
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `unread_chat_messages` (`from`,`to`,`read`),
+  ADD KEY `update_chat_status` (`to`,`read`);
 
 --
 -- Chỉ mục cho bảng `comments`
@@ -321,6 +371,12 @@ ALTER TABLE `profile`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
@@ -330,7 +386,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(100) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(100) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT cho bảng `messages`
@@ -354,7 +410,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT cho bảng `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(100) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(100) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
