@@ -216,21 +216,20 @@ if (isset($_POST["display"]))
         </div>
         <div class="message-top">
 
-            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
-            <div id="message-menu3" class="message-menu-container">
+            <div class="message-menu" onclick="messageMenu(<?php echo $row['id'] ?>, 1)"></div>
+            <div id="message-menu<?php echo $row['id'] ?>" class="message-menu-container">
                 <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
-                    <div class="message-menu-row">Show in tab</div>
+                    
                 </a>
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
-                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+             
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
-                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
-                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 0)">Private</div>
 
             </div>
-            <div class="message-author" id="author-p-3">
+            <div class="message-author" id="author-p-<?php echo $row['id'] ?>">
                 <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
@@ -335,18 +334,17 @@ if (isset($_POST["display"]))
         </div>
         <div class="message-top">
 
-            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
+            <div class="message-menu" onclick="messageMenu(<?php echo $row['id'] ?>, 1)"></div>
             <div id="message-menu3" class="message-menu-container">
                 <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
-                    <div class="message-menu-row">Show in tab</div>
+                   
                 </a>
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
-                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+               
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
-                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
-                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 0)">Private</div>
 
             </div>
             <div class="message-author" id="author-p-3">
@@ -458,21 +456,20 @@ if (isset($_POST["display"]))
         </div>
         <div class="message-top">
 
-            <div class="message-menu" onclick="messageMenu(3, 1)"></div>
-            <div id="message-menu3" class="message-menu-container">
+            <div class="message-menu" onclick="messageMenu(<?php echo $row['id'] ?>, 1)"></div>
+            <div id="message-menu<?php echo $row['id'] ?>" class="message-menu-container">
                 <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
-                    <div class="message-menu-row">Show in tab</div>
+                    
                 </a>
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="edit_message(3)" id="edit_text3">Edit</div>
-                <div class="message-menu-row" onclick="deleteModal(3, 1)">Delete</div>
+                
                 <div class="message-menu-divider"></div>
-                <div class="message-menu-row" onclick="privacy(3, 1)">Public</div>
-                <div class="message-menu-row" onclick="privacy(3, 2)">Friends</div>
-                <div class="message-menu-row" onclick="privacy(3, 0)">Private</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 1)">Public</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 2)">Friends</div>
+                <div class="message-menu-row" onclick="privacy(<?php echo $row['id'] ?>, 0)">Private</div>
 
             </div>
-            <div class="message-author" id="author-p-3">
+            <div class="message-author" id="author-p-<?php echo $row['id'] ?>">
                 <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
@@ -951,12 +948,54 @@ function postChatImage(type) {
     
 }
 
+function privacy(id, value) {
+	// id = unique id of the message/comment
+	// value = value to set on the post
+	$('#privacy'+id).empty();
+	$('#message_loader'+id).html('<div class="preloader preloader-center"></div>');
+	$.ajax({
+		type: "POST",
+		url: "function.php",
+		data: "messagge="+id+"&valuee="+value, 
+		cache: false,
+		success: function(html) {
+			$('#message_loader'+id).empty();
+			$('#privacy'+id).html(html);
+			if(value == 0) {
+				$('#comment_box_'+id).hide('slow');
+			} else {
+				$('#comment_box_'+id).show('slow');
+			}
+		}
+	});
+}
+
 </script>
 <?php
     }
     exit();
 
 
+}
+if (isset($_POST["messagge"])) {
+    
+    $idpost = $_POST["messagge"];
+  
+    $c = $_POST["valuee"];
+    $sql1 = "UPDATE `post` SET `public` = $c WHERE id =$idpost";
+    mysqli_query($connect, $sql1);
+
+    ?>
+    <?php if($c == 1) {?>
+<div class="privacy-icons public-icon" title="Public"></div>
+    <?php }else{?>
+    <?php if($c ==2 ) {?>
+    <div class="privacy-icons friends-icon" title="Private"></div>
+    <?php } else{ ?>
+<div class="privacy-icons private-icon" title="Private"></div>
+    <?php }?>
+    <?php }?>
+    <?php
 }
 if (isset($_POST["passcux"])) {
     // lấy thông tin người dùng
