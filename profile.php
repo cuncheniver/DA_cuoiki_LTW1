@@ -208,9 +208,9 @@ function up(){
        </div>
       </li>
       <li>
-       <small class="text-muted"><a href="photo_profile_two.html">320 Posts <em class="fa fa-angle-right pull-right"></em></a> </small><br>
-       <small class="text-muted"><a href="photo_followers.html">2456 Followers <em class="fa fa-angle-right pull-right"></em></a> </small><br>
-       <small class="text-muted"><a href="photo_followers.html">456 Following <em class="fa fa-angle-right pull-right"></em></a> </small>
+       <small class="text-muted"><a href="photo_profile_two.html"><?php  $s = countPost($profile['id']); echo $s['post'] ; ?>Posts <em class="fa fa-angle-right pull-right"></em></a> </small><br>
+       <small class="text-muted"><a href="photo_followers.html"><?php  $s = countFollower($profile['id']); echo $s['fl'] ; ?> Followers <em class="fa fa-angle-right pull-right"></em></a> </small><br>
+       <small class="text-muted"><a href="photo_followers.html"><?php  $s = countFollowing($profile['id']); echo $s['fl'] ; ?> Following <em class="fa fa-angle-right pull-right"></em></a> </small>
          
       </li>                    
      </ul>
@@ -406,13 +406,15 @@ while($row2=mysqli_fetch_array($result2))
 
       </script>
 
-  <div class="col-lg-3">
+<div class="col-lg-3">
 <center><div class="suggestion-box full-width">
 <h2>Gợi ý kết bạn</h2>
 </div> 
 <div class="suggestion-box full-width">
     <div class="suggestions-list">
-      <?php $userId =$_SESSION['userId'];
+      <?php 
+    
+      
 
    
 
@@ -420,8 +422,10 @@ $sql = "SELECT * FROM login l join profile p on l.id = p.user_ID and l.id !=$use
 $result = mysqli_query($connect, $sql);
 while($row=mysqli_fetch_array($result))
 {
-
+  $relationship= findRelationship($currentUser['id'],$row['id']);
+  $isFriend = count($relationship)===2;
 ?>  
+<?php if(!$isFriend) {?>
         <div class="suggestion-body">
             <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
             <div class="name-box">
@@ -430,6 +434,7 @@ while($row=mysqli_fetch_array($result))
             </div>
             <span><i class="fa fa-plus"></i></span>
         </div>
+<?php }?>
 <?php }?>
       
     </div>

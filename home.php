@@ -314,12 +314,48 @@ while($row2=mysqli_fetch_array($result2))
   
       </script>
    
+   <div class="col-lg-3">
+<center><div class="suggestion-box full-width">
+<h2>Gợi ý kết bạn</h2>
+</div> 
+<div class="suggestion-box full-width">
+    <div class="suggestions-list">
+      <?php 
+    
+      
+
    
+
+$sql = "SELECT * FROM login l join profile p on l.id = p.user_ID and l.id !=$userId";
+$result = mysqli_query($connect, $sql);
+while($row=mysqli_fetch_array($result))
+{
+  $relationship= findRelationship($currentUser['id'],$row['id']);
+  $isFriend = count($relationship)===2;
+?>  
+<?php if(!$isFriend) {?>
+        <div class="suggestion-body">
+            <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
+            <div class="name-box">
+            <a href="friend.php?id=<?php print_r($row['user_ID']) ?>"> <h4><?php echo $row['user_fullName']?></h4></a>
+                <span>@<?php echo $row['user_name']?></span>
+            </div>
+            <span><i class="fa fa-plus"></i></span>
+        </div>
+<?php }?>
+<?php }?>
+      
+    </div>
+    
+    <!--suggestions-list end-->
+</div>
+
    </div>
    
   </div><!--/ row-->	
  </div><!--/ container -->
 </section><!--/ profile -->
+
 <?php 
 include 'bcfrien.php';
 

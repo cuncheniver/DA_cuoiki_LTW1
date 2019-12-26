@@ -1254,11 +1254,17 @@ if (isset($_POST["iNoti"]))
     $rs = mysqli_query($connect, $sq);
     while ($row = mysqli_fetch_array($rs))
     { ?>
+    <?php if($row['type']==1 && $row['to']==$userId ){
+          $profile1 = findProfile($row['from']);
+          
+           $fp= findUserByPost($row['parent']);
+        ?>
+    
         <a href="javascript:void(0);" class="dropdown-item notify-item">
     <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
-    <p class="notify-details">noti ví dụ nè má<small class="text-muted">1 min ago</small></p>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã comment bài viết <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
 </a>
-        
+    <?php }?>    
    <?php
     } ?>
        
