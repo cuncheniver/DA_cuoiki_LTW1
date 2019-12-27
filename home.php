@@ -2,6 +2,7 @@
 ob_start();
 require_once 'function.php';
 include 'layoutmain.php';
+error_reporting(0);
 if (!isset($_SESSION))
   {
     session_start();
@@ -287,6 +288,8 @@ while($row2=mysqli_fetch_array($result2))
       },
       success: function (d) {
        $("#comments-list"+id).html(d); 
+       console.log(id);
+     
       }
   });
 }   

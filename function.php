@@ -290,10 +290,10 @@ if (isset($_POST["display"]))
     <div class="message-replies">
         <div class="message-actions">
             <div class="message-actions-content" id="message-action<?php echo $row['id']; ?>"><a onclick="Dolike(<?php echo $row['id']; ?>,0)" id="doLike<?php echo $row['id']; ?>">like</a> - <a onclick="focus_form(3)">Comment</a> - <a onclick="share(3)">Share</a>
-            <div class="actions_btn comments_btn" id="ac<?php echo $row['id']; ?>"> 2</div>
+            <div class="actions_btn comments_btn" id="ac<?php echo $row['id']; ?>"> 0</div>
             
             <a onclick="likesModal(<?php echo $row['id']; ?>, 0)" title="View who liked" id="al<?php echo $row['id']; ?>">
-    <div class="actions_btn like_btn"> 1</div>
+    <div class="actions_btn like_btn"> 0</div>
             </a>
                 <div class="actions_btn loader" id="action-loader<?php echo $row['id']; ?>"></div>
             </div>
@@ -713,9 +713,9 @@ function displaycmt(id){
 			} else {
                 <?php $userId = $_SESSION['userId'];
 
-?>
+?>  
 
-                
+                console.log("a");
                 $('#doLike'+id).html(result.TrangThai);
 
                 if(result.count>0)
@@ -1606,7 +1606,7 @@ if (isset($_POST['idcmt']) )
                 move_uploaded_file($tmp, $newp);
                 $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
                 mysqli_query($connect, $sql1);
-
+                
             }
         }
         else
@@ -1618,7 +1618,7 @@ if (isset($_POST['idcmt']) )
             $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
             mysqli_query($connect, $sql1);
         }
-    
+      ?> <script>  DisplayLike(<?php echo  $id ?>,0); <?php 
 
 }
 

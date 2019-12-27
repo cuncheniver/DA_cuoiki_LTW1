@@ -2,6 +2,7 @@
 ob_start();
 require_once 'function.php';
 include 'layoutmain.php';
+error_reporting(0);
 if (!isset($_SESSION))
   {
     session_start();
