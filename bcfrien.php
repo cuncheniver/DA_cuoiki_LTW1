@@ -23,7 +23,7 @@
     <input type="file" name="chatimage" id="chatimage" style="display: none;" accept="image/*">
     <div class="bc-friends-container desktop" id="chat-window-friends-list" style="margin-top: 315px;">
         <div class="bc-friends-header" onclick="minimizeChatWindow('friends-list')" data-state="maximized">
-            <div class="bc-friends-username">Online Friends (<span id="friends-count">1</span>)</div>
+            <div class="bc-friends-username">Online Friends (<span id="friends-count"><?php  $s = countFrends($_SESSION['userId']); echo $s['fr'] ; ?></span>)</div>
             <div class="minimize_btn"></div><a href="http://localhost:8080/phpsocial//index.php?a=settings&amp;b=privacy" rel="loadpage" onclick="minimizeChatWindow('friends-list')">
                 
             </a>

@@ -390,8 +390,10 @@ while($row=mysqli_fetch_array($result))
   $relationship= findRelationship($currentUser['id'],$row['id']);
   $isFriend = count($relationship)===2;
 ?>  
-<?php if(!$isFriend) {?>
-        <div class="suggestion-body">
+<?php if($isFriend) {?>
+       
+<?php }else{?>
+  <div class="suggestion-body">
             <img class="img-responsive img-circle" src="upload/<?php print_r($row['user_image']) ?>" alt="Image">
             <div class="name-box">
             <a href="friend.php?id=<?php print_r($row['user_ID']) ?>"> <h4><?php echo $row['user_fullName']?></h4></a>

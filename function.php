@@ -1267,9 +1267,20 @@ if (isset($_POST["iNoti"]))
     
         <a href="javascript:void(0);" class="dropdown-item notify-item">
     <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
-    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã comment bài viết <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã like bài viết <br> <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
 </a>
-    <?php }?>    
+    <?php }?>  
+    <?php  if($row['type']==2 && $row['to']==$userId ){ 
+         $profile1 = findProfile($row['from']);
+          
+         $fp= findUserByPost($row['parent']);
+        
+        ?> 
+    <a href="javascript:void(0);" class="dropdown-item notify-item">
+    <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã comment bài viết <br> <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
+</a>
+    <?php }?> 
    <?php
     } ?>
        
@@ -1597,7 +1608,8 @@ if (isset($_POST['idcmt']) )
 
     $user_id = $_SESSION['userId'];
     $id = $_POST['idcmt'];
-    
+    $cmtId = findUserByPost($id);
+    $x = $cmtId['uid'];
     if(isset($_POST['comment']))
     {
         $text = $_POST['comment'];
@@ -1620,21 +1632,26 @@ if (isset($_POST['idcmt']) )
             }
             else
             {
-
+                
                 move_uploaded_file($tmp, $newp);
                 $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
                 mysqli_query($connect, $sql1);
-                
+                $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$id,0,2,0,now())";
+                mysqli_query($connect, $sql3);
             }
         }
         else
         {
 ?>
-            <script> console.log("ok")</script>
+            
             <?php
+            
             $vl = '';
             $sql1 = "INSERT INTO `comments`( `uid`, `postid`, `content`, `value`, `time`, `likes`) VALUES ($user_id,$id,'$text','$vl',now(),0)";
+            $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$id,0,2,0,now())";
+           
             mysqli_query($connect, $sql1);
+            mysqli_query($connect, $sql3);
         }
       ?> <script>  DisplayLike(<?php echo  $id ?>,0); <?php 
 
