@@ -29,7 +29,7 @@
             </a>
         </div>
         <div class="bc-friends-content scrollable" id="friends-list">
-            <div class="sidebar-users"><a onclick="openChatWindow1('3', 'quan', 'quan', 'http://localhost:8080/DA_cuoiki_LTW1', 'http://localhost:8080/themes/dolphin/images/icons/online.png')"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png" class="sidebar-status-icon"> <img src="http://localhost:8080/phpsocial//thumb.php?t=a&amp;w=25&amp;h=25&amp;src=default.png"> quan</a></div>
+            <div class="sidebar-users"><a onclick="openChatWindow1('3', 'quan', 'quan', 'http://localhost:8080/DA_cuoiki_LTW1', '')"><img src="" class="sidebar-status-icon"> <img src=""> quan</a></div>
         </div>
         <div class="c-w-input c-w-input-search"><input type="text" placeholder="Search in friends" id="search-window"></div>
     </div>

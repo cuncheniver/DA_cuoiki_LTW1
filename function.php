@@ -168,7 +168,7 @@ if (isset($_POST["displaycmt"]))
                 <span id="time-c-<?php echo $row['id'] ?>">
                     <div class="timeago" title="2019-12-18T20:13:28+01:00"><?php echo $row['time'] ?></div>
                 </span>
-                <a onclick="likesModal(<?php echo $row['id'] ?>, 1)" title="View who liked" id="ac<?php echo $row['id'] ?>">
+                <a onclick="likesModal(<?php echo $row['id'] ?>, 1)" title="View who liked" id="acc<?php echo $row['id'] ?>">
                     <div class="actions_btn like_btn"> </div>
                 </a>
                 <div class="actions_btn loader" id="action-c-loader<?php echo $row['id'] ?>"></div>
@@ -642,21 +642,21 @@ function displaycmt(id){
 <script>
  function Dolike(id,type){
     if(type == 1) {
-		
+        var trangthai = $('#doLikeC'+id).html();
 	} else if(type == 2) {
 		
-	} else {
-        console.log(id);
-	
+	} else{
+       
+        var trangthai = $('#doLike'+id).html();
 	
     }
-    var trangthai = $('#doLike'+id).html();
+   
     console.log(trangthai);
    
     $.ajax({
 		type: "POST",
 		url: "function.php",
-		data: "id="+id+"&type="+type+"&like="+trangthai, 
+		data: "iidd="+id+"&tyype="+type+"&liike="+trangthai, 
 		cache: false,
 		success: function(html) {
             if(type == 1) {
@@ -683,6 +683,7 @@ function displaycmt(id){
    }
    function DisplayLike(id,type)
    {
+       
     $.ajax({
 		type: "POST",
         url: "function.php",
@@ -691,6 +692,7 @@ function displaycmt(id){
         
 		
 		success: function(html) {
+            
             var result = $.parseJSON(html);
             if(type == 1) {
 				<?php $userId = $_SESSION['userId'];
@@ -701,9 +703,9 @@ function displaycmt(id){
                 $('#doLikeC'+id).html(result.TrangThai);
 
                 if(result.count>0)
-                {$('#ac'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
+                {$('#acc'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
                 else
-                $('#al'+id).html('');
+                $('#acc'+id).html('');
                 <?php ?>
                 
                
@@ -1435,46 +1437,61 @@ if (isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"])
     echo json_encode($member);
 
 }
-if (isset($_POST['id']) && isset($_POST['type']) && isset($_POST['like']))
+if (isset($_POST['liike']))
 {
-    $pid = $_POST['id'];
+    $pid = $_POST['iidd'];
     $user_id = $_SESSION['userId'];
-    $type = $_POST['type'];
+    $t = $_POST['tyype'];
     $k = $_POST['like'];
-     $upId = findUserByPost($pid);
-     $x = $upId['uid'];
+    $upId = findUserByPost($pid);
+    $x = $upId['uid'];
 
-   if($type==0)
-   {
-    if ($k == "like")
-    {   
-        
-        $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
-        $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid";
-        $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$pid,0,1,0,now())";
-        mysqli_query($connect, $sql1);
-        mysqli_query($connect, $sql2);
-        if($x !=$user_id)
-        {
-            mysqli_query($connect, $sql3);
-        }
-      
-    }
-    else
-    {
-        $sql1 = "DELETE FROM `likes` where postId =$pid  ";
-        $sql2 = "UPDATE `post` SET `likes` = likes-1 WHERE id = $pid";
-        mysqli_query($connect, $sql1);
-        mysqli_query($connect, $sql2);
-    }
-
+  if($type==0)
+  {
+   if ($k == "like")
+   {   
+       
+       $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+       $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid";
+       $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$pid,0,1,0,now())";
+       mysqli_query($connect, $sql1);
+       mysqli_query($connect, $sql2);
+       if($x !=$user_id)
+       {
+           mysqli_query($connect, $sql3);
+       }
+     
    }
-   else{
-    $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+   else
+   {
+       $sql1 = "DELETE FROM `likes` where postId =$pid  ";
+       $sql2 = "UPDATE `post` SET `likes` = likes-1 WHERE id = $pid";
+       mysqli_query($connect, $sql1);
+       mysqli_query($connect, $sql2);
+   }
+
+  }
+  else{
+   if ($k == "like")
+   {   
+   $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+   mysqli_query($connect, $sql1);
+   if($sql1)
+   {
     $sql2 = "UPDATE `comments` SET `likes` = likes+1 WHERE id = $pid";
-    mysqli_query($connect, $sql1);
+   
     mysqli_query($connect, $sql2);
    }
+   
+   }
+   else
+   {
+       $sql1 = "DELETE FROM `likes` where postId =$pid  ";
+       $sql2 = "UPDATE `comments` SET `likes` = likes-1 WHERE id = $pid";
+       mysqli_query($connect, $sql1);
+       mysqli_query($connect, $sql2);
+   }
+  }
     
 }
 
