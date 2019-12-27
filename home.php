@@ -76,7 +76,7 @@ if (!isset($_SESSION))
           </aside>				
         </div><!--/ col-lg-3-->
         
-        <div class="col-lg-6" style="background: #fff;">
+        <div class="col-lg-6"  style="background: #fff;margin-top:20px">
        <div class="message-container">
 	<form  name="f"  method="POST" enctype="multipart/form-data" id="fileUploadForm">
 		<div class="message-form-content">
@@ -245,9 +245,63 @@ while($row2=mysqli_fetch_array($result2))
    contentType: false,
    processData: false,
    success: function (returndata) {
-    
+        $('#post9999999999').html(0);
+        $('#queued-files').html(0);
        displaystt(<?php echo $_SESSION['userId']?>,<?php echo $_SESSION['userId']?>);
-       
+       <?php    
+  
+  $idd = $_SESSION['userId'];
+$sql0 = "select id from login";
+$result0 = mysqli_query($connect, $sql0);   
+  while($row0=mysqli_fetch_array($result0))
+{?>
+
+<?php 
+ $relationship= findRelationship($idd,$row0['id']);
+ $isFriend = count($relationship)===2;
+ ?>
+ $fr=0;
+  <?php if($isFriend) {?>
+      $fr =1;
+  <?php }?>
+ 
+  displaystt(<?php echo $row0['id']?>,<?php echo $idd?>,$fr);
+ 
+  <?php    $pID = $row0['id'];
+?>
+
+<?php
+
+$sql = "select * from post  where uid = '$pID' ORDER BY id DESC";
+$result = mysqli_query($connect, $sql);
+while($row=mysqli_fetch_array($result))
+{?>
+
+  DisplayLike(<?php echo $row['id']?>,0);
+    displaycmt(<?php echo $row['id']?>);
+     
+  <?php    $cmtID = $row['id'];
+?>
+    <?php
+
+$sql2 = "select * from comments  where postid = '$cmtID' ORDER BY id DESC";
+$result2 = mysqli_query($connect, $sql2);
+while($row2=mysqli_fetch_array($result2))
+{?>
+
+DisplayLike(<?php echo $row2['id']?>,1);
+  
+
+
+
+
+<?php } ?>
+
+
+
+ <?php } ?>
+ 
+ <?php } ?>
     
    }
  });

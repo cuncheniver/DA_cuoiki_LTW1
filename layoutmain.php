@@ -159,7 +159,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
      <header class="tr-header">
     
         <nav class="navbar navbar-default">
-            <div class="container-fluid">
+            <div class="container-fluid" style="background-color: lightblue;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -290,15 +290,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <script src="js/jquery.min.js"></script>
 <script src="plugins/slimscroll/jquery.slimscroll.js"></script>
 
-<script>
-$('#Slim,#Slim2').slimScroll({
-       height:"auto",
-       position: 'right',
-       railVisible: true,
-       alwaysVisible: true,
-       size:"8px",
-   });		
-</script>
+
 
 </footer>
 </body>

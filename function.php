@@ -149,11 +149,11 @@ if (isset($_POST["displaycmt"]))
         </div>
         
         <div class="message-reply-avatar" id="avatar-c-<?php echo $row['id'] ?>">
-            <a href="http://localhost/DA_cuoiki_LTW1/index.php?id=<?php print_r ?>" rel="loadpage"><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>"></a>
+            <a href="http://localhost/DA_cuoiki_LTW1/index.php?id=<?php  print_r($profile['user_ID'])?>" ><img onmouseover="profileCard(1, 2, 1, 0, 0)" onmouseout="profileCard(0, 0, 1, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>"></a>
         </div>
        
         <div class="message-reply-message">
-            <span class="message-reply-author" id="author-c-<?php echo $row['id'] ?>"><a href="http://localhost:8080/DA_cuoiki_LTW1/profile.php?id=<?php print_r($profile['user_ID']) ?>" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
+            <span class="message-reply-author" id="author-c-<?php echo $row['id'] ?>"><a href="http://localhost:8080/DA_cuoiki_LTW1/profile.php?id=<?php print_r($profile['user_ID']) ?>" ><?php print_r($profile['user_fullName']) ?></a></span>: <span id="comment_text2"><?php echo $row['content'] ?></span>
             <?php if ($row['value'] != '')
         {
 ?>
@@ -210,7 +210,7 @@ if (isset($_POST["display"]))
 <div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
-            <a href="" rel="loadpage">
+            <a href="" >
                 <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
             </a>
         </div>
@@ -230,10 +230,10 @@ if (isset($_POST["display"]))
 
             </div>
             <div class="message-author" id="author-p-<?php echo $row['id'] ?>">
-                <a href="http://localhost/DA_cuoiki_LTW1/index.php?a=profile=<?php print_r($profile['user_ID']) ?>" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
+                <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php print_r($profile['user_ID']) ?>" ><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
-                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                <span id="time-p-<?php echo $row['id'] ?>"><a >
                         <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
                     </a></span><span id="privacy<?php echo $row['id'] ?>">
                     <?php if ($row['public'] == 1)
@@ -328,15 +328,15 @@ if (isset($_POST["display"]))
             <div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
-            <a href="" rel="loadpage">
+            <a href="" >
                 <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
             </a>
         </div>
         <div class="message-top">
 
             <div class="message-menu" onclick="messageMenu(<?php echo $row['id'] ?>, 1)"></div>
-            <div id="message-menu3" class="message-menu-container">
-                <a href="http://localhost/DA_cuoiki_LTW1/index.php?a=post&amp;m=3" target="_blank">
+            <div id="message-menu<?php echo $row['id'] ?>" class="message-menu-container">
+                <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $row['id'] ?>" target="_blank">
                    
                 </a>
                 <div class="message-menu-divider"></div>
@@ -348,10 +348,10 @@ if (isset($_POST["display"]))
 
             </div>
             <div class="message-author" id="author-p-3">
-                <a href="http://localhost/DA_cuoiki_LTW1/index.php?a=profile&amp;u=<?php print_r($profile['user_ID']) ?>" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
+                <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php print_r($profile['user_ID']) ?>" ><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
-                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                <span id="time-p-<?php echo $row['id'] ?>"><a >
                         <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
                     </a></span><span id="privacy<?php echo $row['id'] ?>">
                     <?php if ($row['public'] == 1)
@@ -450,7 +450,7 @@ if (isset($_POST["display"]))
                 <div class="message-content">
     <div class="message-inner">
         <div class="message-avatar" id="avatar-p-3">
-            <a href="" rel="loadpage">
+            <a href="" >
                 <img onmouseover="profileCard(1, 3, 0, 0, 0);" onmouseout="profileCard(0, 0, 0, 1, 0);" onclick="profileCard(0, 0, 1, 1, 0);" src="upload/<?php print_r($profile['user_image']) ?>">
             </a>
         </div>
@@ -458,7 +458,7 @@ if (isset($_POST["display"]))
 
             <div class="message-menu" onclick="messageMenu(<?php echo $row['id'] ?>, 1)"></div>
             <div id="message-menu<?php echo $row['id'] ?>" class="message-menu-container">
-                <a href="http://localhost/phpsocial//index.php?a=post&amp;m=3" target="_blank">
+                <a href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id=<?php echo $row['id'] ?>" target="_blank">
                     
                 </a>
                 <div class="message-menu-divider"></div>
@@ -470,10 +470,10 @@ if (isset($_POST["display"]))
 
             </div>
             <div class="message-author" id="author-p-<?php echo $row['id'] ?>">
-                <a href="http://localhost/phpsocial//index.php?a=profile&amp;u=phu" rel="loadpage"><?php print_r($profile['user_fullName']) ?></a>
+                <a href="" ><?php print_r($profile['user_fullName']) ?></a>
             </div>
             <div class="message-time">
-                <span id="time-p-<?php echo $row['id'] ?>"><a rel="loadpage">
+                <span id="time-p-<?php echo $row['id'] ?>"><a >
                         <div class="timeago" title="2019-11-28T14:06:48+01:00"><?php echo $row['time'] ?></div>
                     </a></span><span id="privacy<?php echo $row['id'] ?>">
                     <?php if ($row['public'] == 1)
@@ -1181,10 +1181,10 @@ if (isset($_POST["idFr"]))
     ?>
    <div class="bc-friends-container bc-friends-user" id="chat-window-<?php echo $ifr ?>" onclick="disableTitleAlert(<?php echo $ifr ?>)" data-state="maximized">
     <div class="bc-friends-header" id="chat-header-<?php echo $ifr ?>" onclick="minimizeChatWindow(<?php echo $ifr ?>)">
-        <div class="c-w-status" id="online-status-<?php echo $ifr ?>"><img src="http://localhost:8080/phpsocial//themes/dolphin/images/icons/online.png" class="sidebar-status-icon"></div>
+        <div class="c-w-status" id="online-status-<?php echo $ifr ?>"><img src="" class="sidebar-status-icon"></div>
         <div class="bc-friends-username"><a href="friend.php?id=<?php print_r($prof['user_ID']) ?>"  onclick="minimizeChatWindow(<?php echo $ifr ?>)"><?php echo $prof['user_fullName'] ?></a></div><a onclick="closeChatWindow('<?php echo $ifr ?>')">
             <div class="delete_btn"></div>
-        </a><a href="http://localhost:8080/phpsocial//index.php?a=messages&amp;u=quan&amp;id=<?php echo $ifr ?>" rel="loadpage" onclick="minimizeChatWindow(<?php echo $ifr ?>)">
+        </a><a href="http://localhost:8080/phpsocial//index.php?a=messages&amp;u=quan&amp;id=<?php echo $ifr ?>"  onclick="minimizeChatWindow(<?php echo $ifr ?>)">
             
         </a>
     </div>

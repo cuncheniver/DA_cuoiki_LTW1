@@ -219,7 +219,7 @@ function up(){
     </aside>				
    </div><!--/ col-lg-3-->
    
-   <div class="col-lg-6" style="background: #fff;">
+   <div class="col-lg-6" style="background: #fff;margin-top:20px">
    <div class="message-container">
 	<form  name="f"  method="POST" enctype="multipart/form-data" id="fileUploadForm">
 		<div class="message-form-content">
@@ -404,6 +404,136 @@ while($row2=mysqli_fetch_array($result2))
 	}
 }
   
+function countNT(id)
+   {
+       
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "IC="+id, 
+        
+		
+		success: function(html) {
+			$('#CNT').html(html);
+		}
+	});
+   }
+   function loadNoti(id)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "iNoti="+id, 
+        
+		
+		success: function(html) {
+			$('#Slim').html(html);
+		}
+	});
+   }
+   function ListFr(id)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "idList="+id, 
+        
+		
+		success: function(html) {
+			$('#friends-list').html(html);
+		}
+	});
+   }
+   function openChatWindow1(id) {
+	var checkWindow = $('#chat-window-'+id).html();
+	if(!checkWindow) {
+        
+        
+        
+        $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "idFr="+id, 
+        
+		
+		success: function(html) {
+            $('.bc-container').append(html);
+
+            
+            var x= setInterval(function(){
+                LoadChat(id);
+                if($('#chat-container-'+id).length) {
+				$('#chat-container-'+id).scrollTop($('#chat-container-'+id+'.chat-container')[0].scrollHeight);
+			}
+			if($('#bc-friends-chat-'+id).length) {
+				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
+			}
+
+ 
+  },1000);
+		}
+	});
+	
+	}
+	
+}
+function LoadChat(id1)
+   {
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "IDchat1="+id1, 
+        
+		
+		success: function(html) {
+			$('#bc-friends-chat-'+id1).html(html);
+		}
+	});
+   }
+   function postChatt(id) {
+    console.log(id);
+
+	
+		var message = $('input#c-w-'+id).val();
+		$('#c-w-'+id).hide();
+		$('#c-w-p-'+id).show();
+
+	// Reset the chat input area
+	$('#c-w-'+id).val('');
+	$('.chat-user'+id).val('');
+	
+	
+	$.ajax({
+		type   : "POST",
+		url: "function.php",
+		data: 'messagee='+encodeURIComponent(message)+'&iid='+id,
+		cache: false,
+		success: function(html) {
+			
+		// Append the new chat to the div chat container
+        $('#bc-friends-chat-'+id).append(html);
+			$('#chat-container-'+id).append(html);
+			
+				$('#c-w-'+id).show();
+				$('#c-w-'+id).focus();
+				$('#c-w-p-'+id).hide();
+			
+                if($('#chat-container-'+id).length) {
+				$('#chat-container-'+id).scrollTop($('#chat-container-'+id+'.chat-container')[0].scrollHeight);
+			}
+			if($('#bc-friends-chat-'+id).length) {
+				$('#bc-friends-chat-'+id).scrollTop($('#bc-friends-chat-'+id+'.bc-friends-chat')[0].scrollHeight);
+			}
+		
+		
+		}
+	});
+}
 
       </script>
 

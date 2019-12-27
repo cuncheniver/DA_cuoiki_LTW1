@@ -1299,6 +1299,7 @@ overflow:auto;
 border-radius: 3px;
 width: 32px;
 height: 32px;
+overflow: hidden;
 }
 .message-replies-content {
 overflow: auto;
@@ -1701,7 +1702,7 @@ overflow: hidden;
 }
 .message-btn {
 float: right;
-padding: 6px 10px 0 0;
+
 }
 .button-active a, .plugin-button-active {
 display: block;

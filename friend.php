@@ -80,7 +80,7 @@ if (!isset($_SESSION))
 <input type="submit" name="action" class="btn btn-primary" value="gui yeu cau ket ban" >
 <?php else: ?>
 <?php if(!$isRequesting):?>
-<input type="submit" name="action" class="btn btn-primary" value="chap nhan ket ban" >
+<input type="submit" name="action" class="btn btn-success" value="chap nhan ket ban" >
 <?php endif; ?>
 <input type="submit" name="action" class="btn btn-primary" value="huy yeu cau ket ban" >
 <?php  endif;?> 
@@ -187,7 +187,7 @@ while($row2=mysqli_fetch_array($result2))
   
 
    var x= setInterval(function(){
-    
+    console.log(<?php echo $_SESSION['userId'] ?>);
     countNT(<?php echo $_SESSION['userId'] ?>);
     loadNoti(<?php echo $_SESSION['userId'] ?>); 
     ListFr(<?php echo $_SESSION['userId']?>);
@@ -232,7 +232,21 @@ while($row2=mysqli_fetch_array($result2))
 	}
 }
   
-
+function countNT(id)
+   {
+       
+    $.ajax({
+		type: "POST",
+        url: "function.php",
+        async: true,
+        data: "IC="+id, 
+        
+		
+		success: function(html) {
+			$('#CNT').html(html);
+		}
+	});
+   }
       </script>
     </div>
     <!--/ container -->
