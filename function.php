@@ -1137,6 +1137,7 @@ if (isset($_POST["IDchat1"]))
     
     <?php 
 }
+
 if (isset($_POST["messagee"]))
 {
     $userId = $_SESSION['userId'];
@@ -1147,13 +1148,16 @@ if (isset($_POST["messagee"]))
     $pro2 = findProfile($idt);
     $currentUser= findUserById($pro1['user_ID']); 
     $recept = findUserById($pro2['user_ID']); 
+    
+    $uu = $new['id'];
     $new2 = $new['id'] +1;
     
     $sql1 = "INSERT INTO `chat`( `from`, `to`, `message`, `type`, `value`, `read`, `time`) VALUES ($userId,$idt,'$test','','',0,now())";
     mysqli_query($connect, $sql1);
     $link = 'href="http://localhost:8080/DA_cuoiki_LTW1/friend.php?id='.$currentUser['id'].'"';
     sendEmail($recept['email'], 'Message', ' <a '.$link.'> '.$pro1['user_fullName'].' </a> gửi tin nhắn cho bạn nội dung : '.$test.'');
-                  
+    $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($userId,$idt,$uu,'$test',3,0,now())";
+    mysqli_query($connect, $sql3);             
     ?>
     <div class="message-reply-container user-one" data-chat-id="<?php echo $new2 ?>">
     <a onclick="deleteModal(<?php echo $new2 ?>, 2)" title="Delete">
@@ -1267,7 +1271,7 @@ if (isset($_POST["iNoti"]))
     
         <a href="javascript:void(0);" class="dropdown-item notify-item">
     <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
-    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã like bài viết <br> <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã like bài viết  <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
 </a>
     <?php }?>  
     <?php  if($row['type']==2 && $row['to']==$userId ){ 
@@ -1278,9 +1282,20 @@ if (isset($_POST["iNoti"]))
         ?> 
     <a href="javascript:void(0);" class="dropdown-item notify-item">
     <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
-    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã comment bài viết <br> <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã comment bài viết  <?php echo $fp['content'] ?> của bạn<small class="text-muted"><?php echo $row['time']?></small></p>
 </a>
     <?php }?> 
+    <?php  if($row['type']==3 && $row['to']==$userId ) {
+        $profile1 = findProfile($row['from']);
+          
+        $textt= $row['child'];
+        
+        ?>
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+    <div class="notify-icon bg-success"><i class="fa fa-comment"></i></div>
+    <p class="notify-details"><?php echo $profile1['user_fullName'] ?> đã gửi tin nhắn cho bạn :  <?php echo $textt  ?> <small class="text-muted"><?php echo $row['time']?></small></p>
+</a> 
+    <?php  }?>
    <?php
     } ?>
        
