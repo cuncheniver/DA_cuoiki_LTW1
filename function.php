@@ -712,28 +712,31 @@ function displaycmt(id){
                
 			} else if(type == 2) {
 				
-			} else {
-                <?php $userId = $_SESSION['userId'];
+			} else{
 
-?>  
+                if(type==0){
+      
 
-                console.log("a");
-                $('#doLike'+id).html(result.TrangThai);
+      console.log("a");
+      console.log(id);
+      console.log(result.TrangThai);
+      $('#doLike'+id).html(result.TrangThai);
 
-                if(result.count>0)
-                {$('#al'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
-                else
-                $('#al'+id).html('');
-                <?php ?>
-                
-                if(result.countCMT >0)
-                {
-                    $('#ac'+id).html(result.countCMT);
-                }
-                else
-                $('#ac'+id).html(0);
-				
-			}
+      if(result.count>0)
+      {$('#al'+id).html('<div class="actions_btn like_btn">'+result.count+'</div>');}
+      else
+      $('#al'+id).html('');
+      <?php ?>
+      
+      if(result.countCMT >0)
+      {
+          $('#ac'+id).html(result.countCMT);
+      }
+      else
+      $('#ac'+id).html(0);
+      
+  }
+            } 
 			
 		}
 	});
@@ -1292,9 +1295,7 @@ function findLikeP($postId, $userId)
 {
     global $db;
     $stmt = $db->prepare("SELECT count(*) as likee from likes WHERE postId =$postId and userId=$userId and type=0 ");
-    $stmt->execute(array(
-        $postId,
-        $userId
+    $stmt->execute(array($postId,$userId
     ));
     $posts = $stmt->fetch(PDO::FETCH_ASSOC);
     return $posts;
@@ -1396,9 +1397,9 @@ if (isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"])
     {
     $s = countLikePost($pid);
     $s2 = countCmtPost($pid);
-    $isLike = findLikeP($pid, $idUser);
+    $isLikee = findLikeP($pid, $idUser);
     $btTT = "";
-    if ($isLike['likee'] > 0)
+    if ($isLikee['likee'] > 0)
     {
         $btTT = "Unlike";
     }
@@ -1437,23 +1438,23 @@ if (isset($_POST['ID']) && isset($_POST['type']) && isset($_POST["displaylike"])
     echo json_encode($member);
 
 }
-if (isset($_POST['liike']))
+if (isset($_POST['iidd']) && isset($_POST['tyype']) && isset($_POST['liike']))
 {
-    $pid = $_POST['iidd'];
-    $user_id = $_SESSION['userId'];
+    $pid2 = $_POST['iidd'];
+    $user_id2 = $_SESSION['userId'];
     $t = $_POST['tyype'];
-    $k = $_POST['like'];
-    $upId = findUserByPost($pid);
+    $k = $_POST['liike'];
+    $upId = findUserByPost($pid2);
     $x = $upId['uid'];
 
-  if($type==0)
+    if($t==0)
   {
    if ($k == "like")
    {   
        
-       $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
-       $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid";
-       $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id,$x,$pid,0,1,0,now())";
+       $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid2,$user_id2,now(),$t)";
+       $sql2 = "UPDATE `post` SET `likes` = likes+1 WHERE id = $pid2";
+       $sql3 = "INSERT INTO `notifications`(`from`, `to`, `parent`, `child`, `type`, `read`, `time`) VALUES ($user_id2,$x,$pid2,0,1,0,now())";
        mysqli_query($connect, $sql1);
        mysqli_query($connect, $sql2);
        if($x !=$user_id)
@@ -1464,8 +1465,8 @@ if (isset($_POST['liike']))
    }
    else
    {
-       $sql1 = "DELETE FROM `likes` where postId =$pid  ";
-       $sql2 = "UPDATE `post` SET `likes` = likes-1 WHERE id = $pid";
+       $sql1 = "DELETE FROM `likes` where postId =$pid2 and type=0 ";
+       $sql2 = "UPDATE `post` SET `likes` = likes-1 WHERE id = $pid2";
        mysqli_query($connect, $sql1);
        mysqli_query($connect, $sql2);
    }
@@ -1474,11 +1475,11 @@ if (isset($_POST['liike']))
   else{
    if ($k == "like")
    {   
-   $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid,$user_id,now(),$type)";
+   $sql1 = "INSERT INTO `likes`(`postId`, `userId`, `createdAt`,`type`) VALUES ($pid2,$user_id2,now(),$t)";
    mysqli_query($connect, $sql1);
    if($sql1)
    {
-    $sql2 = "UPDATE `comments` SET `likes` = likes+1 WHERE id = $pid";
+    $sql2 = "UPDATE `comments` SET `likes` = likes+1 WHERE id = $pid2";
    
     mysqli_query($connect, $sql2);
    }
@@ -1486,8 +1487,8 @@ if (isset($_POST['liike']))
    }
    else
    {
-       $sql1 = "DELETE FROM `likes` where postId =$pid  ";
-       $sql2 = "UPDATE `comments` SET `likes` = likes-1 WHERE id = $pid";
+       $sql1 = "DELETE FROM `likes` where postId =$pid2 and type=1 ";
+       $sql2 = "UPDATE `comments` SET `likes` = likes-1 WHERE id = $pid2 ";
        mysqli_query($connect, $sql1);
        mysqli_query($connect, $sql2);
    }
